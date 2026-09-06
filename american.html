@@ -211,7 +211,6 @@
     
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#5b3df5"></rect><text x="100" y="128" font-family="monospace" font-size="76" font-weight="700" fill="#fffefb" text-anchor="middle">En</text></svg></template>
 
-    <div data-noprint="1" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.06em; color: var(--faint); margin-top: 12px;">{{ t.k2 }}</div>
 
 
 
@@ -236,6 +235,13 @@
     <sc-if value="{{ isToday }}" hint-placeholder-val="{{ true }}">
       <div data-stack="1" style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; margin-top: 32px;">
         <div>
+          <div role="button" onClick="{{ goTest }}" style="background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 18px 22px; margin-bottom: 30px; cursor: pointer; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center;">
+            <div style="min-width: 0;">
+              <div style="font-size: 17px; font-weight: 500; color: var(--ink); text-wrap: pretty;">{{ testCardTitle }}</div>
+              <div style="font-size: 15px; color: var(--faint); margin-top: 4px; text-wrap: pretty;">{{ testCardMeta }}</div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 16px; border-radius: 9px; background: var(--green); color: var(--panel); white-space: nowrap;">{{ testCardCta }}</div>
+          </div>
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 20px 22px; margin-bottom: 30px;">
             <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: baseline;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ planTitle }}</div>
@@ -256,13 +262,6 @@
             <sc-if value="{{ dayClosed }}" hint-placeholder-val="{{ false }}">
               <div style="font-size: 16px; color: var(--green); margin-top: 14px; text-wrap: pretty;">{{ dayClosedLabel }}</div>
             </sc-if>
-          </div>
-          <div role="button" onClick="{{ goTest }}" style="background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 18px 22px; margin-bottom: 30px; cursor: pointer; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center;">
-            <div style="min-width: 0;">
-              <div style="font-size: 17px; font-weight: 500; color: var(--ink); text-wrap: pretty;">{{ testCardTitle }}</div>
-              <div style="font-size: 15px; color: var(--faint); margin-top: 4px; text-wrap: pretty;">{{ testCardMeta }}</div>
-            </div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 16px; border-radius: 9px; background: var(--green); color: var(--panel); white-space: nowrap;">{{ testCardCta }}</div>
           </div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ t.k3 }}</div>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-top: 12px;">
@@ -375,7 +374,7 @@
         </div>
 
         <div data-detail="1">
-          <div data-mobonly="1" role="button" onClick="{{ backToList }}" data-tap="1" style="align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 13px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid); margin-bottom: 16px;">к списку этапов</div>
+          <div data-mobonly="1" role="button" onClick="{{ backToList }}" data-tap="1" style="align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 13px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid); margin-bottom: 16px;">{{ t.k119 }}</div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ stageLevel }}</div>
           <div style="font-size: 27px; font-weight: 700; margin-top: 8px; letter-spacing: -0.02em; text-wrap: pretty;">{{ stageTitle }}</div>
           <div style="font-size: 17px; color: var(--ink2); margin-top: 10px; max-width: 70ch; text-wrap: pretty;">{{ stagePractice }}</div>
@@ -417,7 +416,7 @@
                 <sc-if value="{{ tc.open }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ tc.hasInfo }}" hint-placeholder-val="{{ false }}">
                     <div style="margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px;">
-                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid);">разбор</div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid);">{{ t.k120 }}</div>
                       <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
                         <sc-for list="{{ tc.infoT }}" as="ip" hint-placeholder-count="2">
                           <div style="font-size: 16px; line-height: 1.55; color: var(--ink2); max-width: 74ch; text-wrap: pretty;">{{ ip.s }}</div>
@@ -428,12 +427,12 @@
                           <div style="background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;">
                             <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
                               <span data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--ink);">{{ ir.en }}</span>
-                              <div data-tap="1" role="button" onClick="{{ ir.say }}" title="послушать" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">звук</div>
+                              <div data-tap="1" role="button" onClick="{{ ir.say }}" title="{{ t.k121 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k122 }}</div>
                               <sc-if value="{{ ir.notInDeck }}" hint-placeholder-val="{{ true }}">
-                                <div data-tap="1" role="button" onClick="{{ ir.add }}" title="добавить в колоду" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">+ колода</div>
+                                <div data-tap="1" role="button" onClick="{{ ir.add }}" title="{{ t.k123 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k124 }}</div>
                               </sc-if>
                               <sc-if value="{{ ir.inDeck }}" hint-placeholder-val="{{ false }}">
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--green-line); border-radius: 8px; color: var(--green); background: var(--green-bg); white-space: nowrap;">в колоде</div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--green-line); border-radius: 8px; color: var(--green); background: var(--green-bg); white-space: nowrap;">{{ t.k125 }}</div>
                               </sc-if>
                             </div>
                             <div style="font-size: 15px; line-height: 1.5; color: var(--mid); margin-top: 4px; text-wrap: pretty;">{{ ir.ru }}</div>
@@ -576,12 +575,12 @@
         </div>
 
         <sc-if value="{{ dEmpty }}" hint-placeholder-val="{{ false }}">
-          <div style="margin-top: 14px; font-size: 16px; color: var(--faint); text-wrap: pretty;">В этой теме пока нет заданий такого типа. Выбери другую тему или другой режим.</div>
+          <div style="margin-top: 14px; font-size: 16px; color: var(--faint); text-wrap: pretty;">{{ t.k126 }}</div>
         </sc-if>
 
         <sc-if value="{{ dIsFix }}" hint-placeholder-val="{{ true }}">
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px; margin-top: 12px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">что здесь не так</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k127 }}</div>
             <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 23px; color: var(--ink); margin-top: 12px; text-wrap: pretty;">{{ drillBad }}</div>
             <sc-if value="{{ drillHidden }}" hint-placeholder-val="{{ true }}">
               <div role="button" onClick="{{ drillShow }}" style="display: inline-block; margin-top: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k30 }}</div>
@@ -591,8 +590,8 @@
                 <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 23px; color: var(--green); margin-top: 16px; text-wrap: pretty;">{{ drillGood }}</div>
                 <div style="font-size: 16px; color: var(--mid); margin-top: 14px; max-width: 70ch; text-wrap: pretty;">{{ drillWhy }}</div>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px;">
-                  <div role="button" onClick="{{ fixOk }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 999px; cursor: pointer; background: var(--green-bg); border: 1px solid var(--green-line); color: var(--green);">угадал</div>
-                  <div role="button" onClick="{{ fixNo }}" title="ошибка уйдёт в журнал и вернётся завтра" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">не угадал</div>
+                  <div role="button" onClick="{{ fixOk }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 999px; cursor: pointer; background: var(--green-bg); border: 1px solid var(--green-line); color: var(--green);">{{ t.k128 }}</div>
+                  <div role="button" onClick="{{ fixNo }}" title="{{ t.k129 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 999px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">{{ t.k130 }}</div>
                 </div>
               </div>
             </sc-if>
@@ -601,7 +600,7 @@
 
         <sc-if value="{{ dIsPick }}" hint-placeholder-val="{{ false }}">
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px; margin-top: 12px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">вставь пропущенное</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k131 }}</div>
             <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 23px; color: var(--ink); margin-top: 12px; text-wrap: pretty;">{{ pickSent }}</div>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px;">
               <sc-for list="{{ pickOpts }}" as="po" hint-placeholder-count="3">
@@ -620,14 +619,14 @@
 
         <sc-if value="{{ dIsOrder }}" hint-placeholder-val="{{ false }}">
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px; margin-top: 12px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">скажи это по-английски</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k132 }}</div>
             <div style="font-size: 21px; color: var(--ink); margin-top: 12px; text-wrap: pretty;">{{ ordRu }}</div>
             <div style="min-height: 52px; margin-top: 20px; padding-bottom: 14px; border-bottom: 2px dashed var(--line3); display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start;">
               <sc-for list="{{ ordBuilt }}" as="ob" hint-placeholder-count="0">
                 <div data-en="1" data-tap="1" role="button" onClick="{{ ob.go }}" style="{{ ob.st }}">{{ ob.w }}</div>
               </sc-for>
               <sc-if value="{{ ordEmpty }}" hint-placeholder-val="{{ true }}">
-                <div style="font-size: 15px; color: var(--faint);">нажимай на слова ниже — они встанут сюда по порядку</div>
+                <div style="font-size: 15px; color: var(--faint);">{{ t.k133 }}</div>
               </sc-if>
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;">
@@ -643,7 +642,7 @@
             </sc-if>
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px;">
               <div role="button" onClick="{{ ordAct }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ ordActLabel }}</div>
-              <div role="button" onClick="{{ ordClear }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">сбросить</div>
+              <div role="button" onClick="{{ ordClear }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k134 }}</div>
             </div>
           </div>
         </sc-if>
@@ -665,19 +664,19 @@
 
         <div data-stack="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px;">
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 22px 24px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">ты говоришь</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k135 }}</div>
             <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
               <sc-for list="{{ situSay }}" as="q" hint-placeholder-count="6">
                 <div>
                   <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 17px; color: var(--ink); text-wrap: pretty;">{{ q.en }}</div>
                   <div style="font-size: 15px; color: var(--faint); margin-top: 3px; text-wrap: pretty;">{{ q.ru }}</div>
                   <div style="display: flex; gap: 6px; margin-top: 7px;">
-                    <div data-tap="1" role="button" onClick="{{ q.say }}" title="послушать" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">звук</div>
+                    <div data-tap="1" role="button" onClick="{{ q.say }}" title="{{ t.k121 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k122 }}</div>
                     <sc-if value="{{ q.notInDeck }}" hint-placeholder-val="{{ true }}">
-                      <div data-tap="1" role="button" onClick="{{ q.add }}" title="добавить в колоду" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">+ колода</div>
+                      <div data-tap="1" role="button" onClick="{{ q.add }}" title="{{ t.k123 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k124 }}</div>
                     </sc-if>
                     <sc-if value="{{ q.inDeck }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">в колоде</div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">{{ t.k125 }}</div>
                     </sc-if>
                   </div>
                 </div>
@@ -685,19 +684,19 @@
             </div>
           </div>
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 22px 24px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">тебе скажут</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k136 }}</div>
             <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
               <sc-for list="{{ situHear }}" as="q" hint-placeholder-count="5">
                 <div>
                   <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 17px; color: var(--l1); text-wrap: pretty;">{{ q.en }}</div>
                   <div style="font-size: 15px; color: var(--faint); margin-top: 3px; text-wrap: pretty;">{{ q.ru }}</div>
                   <div style="display: flex; gap: 6px; margin-top: 7px;">
-                    <div data-tap="1" role="button" onClick="{{ q.say }}" title="послушать" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">звук</div>
+                    <div data-tap="1" role="button" onClick="{{ q.say }}" title="{{ t.k121 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k122 }}</div>
                     <sc-if value="{{ q.notInDeck }}" hint-placeholder-val="{{ true }}">
-                      <div data-tap="1" role="button" onClick="{{ q.add }}" title="добавить в колоду" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">+ колода</div>
+                      <div data-tap="1" role="button" onClick="{{ q.add }}" title="{{ t.k123 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k124 }}</div>
                     </sc-if>
                     <sc-if value="{{ q.inDeck }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">в колоде</div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">{{ t.k125 }}</div>
                     </sc-if>
                   </div>
                 </div>
@@ -708,7 +707,7 @@
 
         <div data-stack="1" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 22px 24px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">слова</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k163 }}</div>
             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
               <sc-for list="{{ situWords }}" as="w" hint-placeholder-count="8">
                 <div>
@@ -717,12 +716,12 @@
                     <div style="font-size: 15px; color: var(--faint);">{{ w.ru }}</div>
                   </div>
                   <div style="display: flex; gap: 6px; margin-top: 7px;">
-                    <div data-tap="1" role="button" onClick="{{ w.say }}" title="послушать" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">звук</div>
+                    <div data-tap="1" role="button" onClick="{{ w.say }}" title="{{ t.k121 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k122 }}</div>
                     <sc-if value="{{ w.notInDeck }}" hint-placeholder-val="{{ true }}">
-                      <div data-tap="1" role="button" onClick="{{ w.add }}" title="добавить в колоду" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">+ колода</div>
+                      <div data-tap="1" role="button" onClick="{{ w.add }}" title="{{ t.k123 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--line3); cursor: pointer; color: var(--mid);">{{ t.k124 }}</div>
                     </sc-if>
                     <sc-if value="{{ w.inDeck }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">в колоде</div>
+                      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border-radius: 8px; white-space: nowrap; border: 1px solid var(--green-line); color: var(--green); background: var(--green-bg);">{{ t.k125 }}</div>
                     </sc-if>
                   </div>
                 </div>
@@ -731,7 +730,7 @@
             <div role="button" onClick="{{ situAdd }}" style="display: inline-block; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 15px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ situAddLabel }}</div>
           </div>
           <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 22px 24px;">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">подводные камни</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k137 }}</div>
             <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
               <sc-for list="{{ situTips }}" as="tp" hint-placeholder-count="3">
                 <div style="font-size: 16px; color: var(--mid); text-wrap: pretty;">{{ tp.s }}</div>
@@ -739,6 +738,85 @@
             </div>
           </div>
         </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSongs }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: 28px; max-width: min(1040px, 100%);">
+        <sc-if value="{{ sgPick }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="font-size: 16px; color: var(--mid); max-width: 74ch; text-wrap: pretty;">{{ t.k168 }}</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; margin-top: 22px;">
+              <sc-for list="{{ sgList }}" as="sg" hint-placeholder-count="10">
+                <div data-tap="1" role="button" onClick="{{ sg.go }}" style="{{ sg.cardSt }}">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid);">{{ sg.a }}</div>
+                  <div data-en="1" style="font-size: 19px; font-weight: 500; margin-top: 6px; text-wrap: pretty;">{{ sg.t }}</div>
+                  <div style="font-size: 15px; color: var(--faint); margin-top: 8px; text-wrap: pretty;">{{ sg.n }}</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px;">
+                    <sc-for list="{{ sg.tags }}" as="tg" hint-placeholder-count="2">
+                      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); border: 1px solid var(--green-line); border-radius: 999px; padding: 4px 9px;">{{ tg.s }}</span>
+                    </sc-for>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); padding: 4px 0;">{{ sg.meta }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 20px; margin-top: 22px; max-width: 460px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ t.k170 }}</div>
+              <input value="{{ sgA }}" onInput="{{ onSgA }}" placeholder="{{ t.k171 }}" style="width: 100%; box-sizing: border-box; margin-top: 12px; font-size: 15px; padding: 10px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none;" />
+              <input value="{{ sgT }}" onInput="{{ onSgT }}" placeholder="{{ t.k172 }}" style="width: 100%; box-sizing: border-box; margin-top: 8px; font-size: 15px; padding: 10px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none;" />
+              <div data-tap="1" role="button" onClick="{{ sgAddOwn }}" style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 11px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k24 }}</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sgOpenView }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div data-tap="1" role="button" onClick="{{ sgBack }}" style="display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 13px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k178 }}</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-top: 20px;">{{ sgArtist }}</div>
+            <div data-en="1" style="font-size: 31px; font-weight: 700; letter-spacing: -0.02em; margin-top: 6px; text-wrap: pretty;">{{ sgTitle }}</div>
+            <div style="font-size: 16px; color: var(--mid); margin-top: 10px; max-width: 70ch; text-wrap: pretty;">{{ sgNote }}</div>
+            <sc-if value="{{ sgHasTags }}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 12px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k179 }}</span>
+                <sc-for list="{{ sgTags }}" as="tg2" hint-placeholder-count="2">
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); border: 1px solid var(--green-line); border-radius: 999px; padding: 4px 9px;">{{ tg2.s }}</span>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sgEmpty }}" hint-placeholder-val="{{ true }}">
+              <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 20px 22px; margin-top: 22px;">
+                <textarea value="{{ sgRaw }}" onInput="{{ onSgRaw }}" placeholder="{{ t.k173 }}" style="width: 100%; box-sizing: border-box; min-height: 220px; font-size: 15px; line-height: 1.6; padding: 12px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none; resize: vertical;"></textarea>
+                <div data-tap="1" role="button" onClick="{{ sgSplit }}" style="display: inline-block; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k174 }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ sgHasLines }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 22px;">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid);">{{ sgCount }}</div>
+                  <div data-tap="1" role="button" onClick="{{ sgHideGo }}" style="{{ sgHideSt }}">{{ sgHideLabel }}</div>
+                  <div data-tap="1" role="button" onClick="{{ sgRedo }}" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; cursor: pointer; border: 1px solid var(--line3); color: var(--faint);">{{ t.k175 }}</div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 18px;">
+                  <sc-for list="{{ sgRows }}" as="ln" hint-placeholder-count="12">
+                    <div style="{{ ln.rowSt }}">
+                      <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline;">
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--faint); flex: 0 0 auto;">{{ ln.n }}</span>
+                        <span data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 17px; line-height: 1.5; color: var(--ink); flex: 1 1 240px; text-wrap: pretty;">{{ ln.en }}</span>
+                        <div data-tap="1" role="button" onClick="{{ ln.say }}" title="{{ t.k121 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k122 }}</div>
+                        <div data-tap="1" role="button" onClick="{{ ln.deck }}" title="{{ t.k123 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 9px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k124 }}</div>
+                      </div>
+                      <input value="{{ ln.tr }}" onInput="{{ ln.onTr }}" placeholder="{{ t.k176 }}" style="{{ ln.trSt }}" style-focus="filter: none;" />
+                      <input value="{{ ln.nb }}" onInput="{{ ln.onNb }}" placeholder="{{ t.k177 }}" style="width: 100%; box-sizing: border-box; margin-top: 6px; font-size: 14px; padding: 8px 10px; background: transparent; color: var(--mid); border: 1px dashed var(--line3); border-radius: 8px; outline: none;" />
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
       </div>
     </sc-if>
 
@@ -772,7 +850,7 @@
                   </sc-for>
                 </div>
               </sc-if>
-              <div style="font-size: 16px; color: var(--faint); margin-top: 16px; max-width: 68ch; text-wrap: pretty;">Не гугли и не угадывай наугад: смысл теста — найти дыры, а не набрать балл. Каждый промах уходит в журнал ошибок с разбором и вернётся на повторение.</div>
+              <div style="font-size: 16px; color: var(--faint); margin-top: 16px; max-width: 68ch; text-wrap: pretty;">{{ t.k138 }}</div>
               <sc-if value="{{ tCanStart }}" hint-placeholder-val="{{ true }}">
                 <div role="button" onClick="{{ testStart }}" style="display: inline-block; margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 18px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ testStartLabel }}</div>
               </sc-if>
@@ -792,6 +870,7 @@
             <div style="height: 6px; background: var(--sunk); border-radius: 999px; overflow: hidden; margin-top: 10px;">
               <div style="{{ testBarSt }}"></div>
             </div>
+            <div style="font-size: 14px; color: var(--faint); margin-top: 10px; max-width: 68ch; text-wrap: pretty;">{{ t.k158 }}</div>
             <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 16px;">
               <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ testTask }}</div>
               <sc-if value="{{ testIsGap }}" hint-placeholder-val="{{ true }}">
@@ -819,7 +898,7 @@
                     </sc-for>
                   </div>
                   <sc-if value="{{ testHasBuilt }}" hint-placeholder-val="{{ false }}">
-                    <div role="button" onClick="{{ testOrdReset }}" style="display: inline-block; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); cursor: pointer;">сбросить</div>
+                    <div role="button" onClick="{{ testOrdReset }}" style="display: inline-block; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); cursor: pointer;">{{ t.k134 }}</div>
                   </sc-if>
                 </div>
               </sc-if>
@@ -845,7 +924,7 @@
 
             <sc-if value="{{ resHasLevels }}" hint-placeholder-val="{{ true }}">
               <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 14px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">по блокам</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k139 }}</div>
                 <div style="display: flex; flex-direction: column; gap: 13px; margin-top: 16px;">
                   <sc-for list="{{ resLevels }}" as="rl" hint-placeholder-count="3">
                     <div style="display: grid; grid-template-columns: 42px 1fr 60px 104px; gap: 12px; align-items: center;">
@@ -862,7 +941,7 @@
             </sc-if>
 
             <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 14px;">
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">на что смотреть в первую очередь</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k140 }}</div>
               <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
                 <sc-for list="{{ resWeak }}" as="rw" hint-placeholder-count="3">
                   <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: baseline;">
@@ -870,18 +949,18 @@
                       <div style="font-size: 18px; color: var(--ink);">{{ rw.name }}</div>
                       <div style="font-size: 15px; color: var(--faint); margin-top: 3px;">{{ rw.meta }}</div>
                     </div>
-                    <div role="button" onClick="{{ rw.go }}" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid); white-space: nowrap;">в тренажёр</div>
+                    <div role="button" onClick="{{ rw.go }}" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k141 }}</div>
                   </div>
                 </sc-for>
               </div>
               <sc-if value="{{ resNoWeak }}" hint-placeholder-val="{{ false }}">
-                <div style="font-size: 16px; color: var(--green); margin-top: 14px; text-wrap: pretty;">Ровных дыр по темам нет — бери следующий уровень целиком, а не отдельные пробелы.</div>
+                <div style="font-size: 16px; color: var(--green); margin-top: 14px; text-wrap: pretty;">{{ t.k142 }}</div>
               </sc-if>
             </div>
 
             <sc-if value="{{ resHasRoad }}" hint-placeholder-val="{{ true }}">
               <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 14px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">что открыть в роадмапе</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k143 }}</div>
                 <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
                   <sc-for list="{{ resRoad }}" as="rr" hint-placeholder-count="3">
                     <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: baseline;">
@@ -889,7 +968,7 @@
                         <div style="font-size: 18px; color: var(--ink); text-wrap: pretty;">{{ rr.name }}</div>
                         <div style="font-size: 15px; color: var(--faint); margin-top: 3px; text-wrap: pretty;">{{ rr.meta }}</div>
                       </div>
-                      <div role="button" onClick="{{ rr.go }}" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid); white-space: nowrap;">открыть тему</div>
+                      <div role="button" onClick="{{ rr.go }}" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid); white-space: nowrap;">{{ t.k144 }}</div>
                     </div>
                   </sc-for>
                 </div>
@@ -898,7 +977,7 @@
 
             <sc-if value="{{ resHasMiss }}" hint-placeholder-val="{{ true }}">
               <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 14px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">разбор промахов</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k145 }}</div>
                 <div style="font-size: 15px; color: var(--faint); margin-top: 8px; text-wrap: pretty;">{{ resMissCount }}</div>
                 <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px;">
                   <sc-for list="{{ resMiss }}" as="rm" hint-placeholder-count="3">
@@ -916,7 +995,7 @@
 
             <sc-if value="{{ resHasHist }}" hint-placeholder-val="{{ false }}">
               <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 26px 28px; margin-top: 14px;">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">прошлые прогоны</div>
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k146 }}</div>
                 <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px;">
                   <sc-for list="{{ resHist }}" as="rh" hint-placeholder-count="2">
                     <div style="background: var(--panel2); border: 1px solid var(--line3); border-radius: 10px; padding: 11px 15px;">
@@ -929,10 +1008,23 @@
             </sc-if>
 
             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
-              <div role="button" onClick="{{ testStart }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">пройти заново</div>
-              <div role="button" onClick="{{ goErrors }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">журнал ошибок</div>
-              <div role="button" onClick="{{ goMap }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">карта слоёв</div>
-              <div role="button" onClick="{{ goDrills }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">в тренажёр</div>
+              <div role="button" onClick="{{ testStart }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k147 }}</div>
+              <div role="button" onClick="{{ goErrors }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k148 }}</div>
+              <div role="button" onClick="{{ goMap }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border: 1px solid var(--line3); border-radius: 9px; cursor: pointer; color: var(--mid);">{{ t.k149 }}</div>
+              <div role="button" onClick="{{ goDrills }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k141 }}</div>
+            </div>
+
+            <div style="margin-top: 36px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ t.k159 }}</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 12px;">
+                <sc-for list="{{ tModes }}" as="tm2" hint-placeholder-count="6">
+                  <div data-tap="1" role="button" onClick="{{ tm2.go }}" style="{{ tm2.st }}">
+                    <div style="font-size: 17px; font-weight: 500; color: var(--ink); text-wrap: pretty;">{{ tm2.name }}</div>
+                    <div style="font-size: 15px; color: var(--faint); margin-top: 5px; text-wrap: pretty;">{{ tm2.desc }}</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-top: 10px;">{{ tm2.meta }}</div>
+                  </div>
+                </sc-for>
+              </div>
             </div>
           </div>
         </sc-if>
@@ -1075,7 +1167,7 @@
                       <div data-tap="1" role="button" onClick="{{ wg.go }}" style="{{ wg.st }}">{{ wg.label }}</div>
                     </sc-for>
                   </div>
-                  <div data-tap="1" role="button" onClick="{{ dropWord }}" style="display: inline-flex; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border-radius: 9px; cursor: pointer; color: var(--faint);">убрать из колоды</div>
+                  <div data-tap="1" role="button" onClick="{{ dropWord }}" style="display: inline-flex; align-items: center; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 12px; border-radius: 9px; cursor: pointer; color: var(--faint);">{{ t.k150 }}</div>
                 </div>
               </sc-if>
             </div>
@@ -1107,7 +1199,7 @@
                 <span data-en="1" style="font-size: 16px; font-weight: 500;">{{ rw.w }}</span>
                 <span style="font-size: 15px; color: var(--mid); flex: 1 1 auto;">{{ rw.t }}</span>
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--faint);">{{ rw.meta }}</span>
-                <div data-tap="1" role="button" onClick="{{ rw.del }}" title="убрать из колоды" style="flex: 0 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 6px 10px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--faint);">убрать</div>
+                <div data-tap="1" role="button" onClick="{{ rw.del }}" title="{{ t.k150 }}" style="flex: 0 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 6px 10px; border: 1px solid var(--line3); border-radius: 8px; cursor: pointer; color: var(--faint);">{{ t.k23 }}</div>
               </div>
             </sc-for>
           </div>
@@ -1133,8 +1225,8 @@
 
 <sc-if value="{{ isPairs }}" hint-placeholder-val="{{ false }}">
       <div style="margin-top: 32px; max-width: 900px;">
-        <div style="font-size: 17px; color: var(--mid); max-width: 74ch; text-wrap: pretty;">Слова, которые в русском одно, а в английском два разных. Здесь не перевод, а правило выбора: по какому признаку носитель берёт одно, а не другое.</div>
-        <input value="{{ pq }}" onInput="{{ onPq }}" placeholder="поиск по паре: cost, say, since…" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; padding: 11px 13px; width: 280px; max-width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; margin-top: 20px;" />
+        <div style="font-size: 17px; color: var(--mid); max-width: 74ch; text-wrap: pretty;">{{ t.k152 }}</div>
+        <input value="{{ pq }}" onInput="{{ onPq }}" placeholder="{{ t.k153 }}" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; padding: 11px 13px; width: 280px; max-width: 100%; background: var(--panel); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; margin-top: 20px;" />
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 18px;">
           <sc-for list="{{ pairList }}" as="p" hint-placeholder-count="6">
             <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 20px 22px;">
@@ -1153,7 +1245,7 @@
           </sc-for>
         </div>
         <sc-if value="{{ pairsEmpty }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size: 16px; color: var(--faint); margin-top: 16px;">Ничего не нашлось. Попробуй другое слово.</div>
+          <div style="font-size: 16px; color: var(--faint); margin-top: 16px;">{{ t.k154 }}</div>
         </sc-if>
       </div>
     </sc-if>
@@ -1209,20 +1301,6 @@
         </div>
 
         <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ hoursTitle }}</div>
-          <div style="display: flex; align-items: flex-end; gap: 6px; height: 78px; margin-top: 16px;">
-            <sc-for list="{{ hoursBars }}" as="hb" hint-placeholder-count="12">
-              <div title="{{ hb.title }}" style="{{ hb.st }}"></div>
-            </sc-for>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;">
-            <sc-for list="{{ hourBtns }}" as="hbt" hint-placeholder-count="4">
-              <div role="button" onClick="{{ hbt.go }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 13px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid);">{{ hbt.label }}</div>
-            </sc-for>
-          </div>
-        </div>
-
-        <div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ layersTitle }}</div>
           <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
             <sc-for list="{{ layerStats }}" as="ls2" hint-placeholder-count="6">
@@ -1258,49 +1336,78 @@
     </sc-if>
 
     <sc-if value="{{ isErrors }}" hint-placeholder-val="{{ false }}">
-      <div style="margin-top: 32px; max-width: 820px;">
+      <div style="margin-top: 32px; max-width: 860px;">
         <div style="font-size: 16px; color: var(--mid); max-width: 74ch; text-wrap: pretty;">{{ t.k89 }}</div>
+
         <sc-if value="{{ hasErrDue }}" hint-placeholder-val="{{ false }}">
-          <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 24px 26px; margin-top: 20px; border-color: var(--terra-line);">
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); color: var(--terra);">на повторение сегодня · {{ errDueN }}</div>
-            <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 21px; color: var(--ink); margin-top: 12px; text-wrap: pretty;">{{ errSaid }}</div>
-            <sc-if value="{{ errHidden }}" hint-placeholder-val="{{ true }}">
-              <div role="button" onClick="{{ errReveal }}" style="display: inline-block; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">как правильно</div>
-            </sc-if>
-            <sc-if value="{{ errShown }}" hint-placeholder-val="{{ false }}">
-              <div>
-                <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 21px; color: var(--green); margin-top: 14px; text-wrap: pretty;">{{ errRight }}</div>
-                <div style="font-size: 16px; color: var(--mid); margin-top: 10px; max-width: 68ch; text-wrap: pretty;">{{ errWhy }}</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-                  <div role="button" onClick="{{ errKnown }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; background: var(--green-bg); border: 1px solid var(--green-line); color: var(--green);">помню</div>
-                  <div role="button" onClick="{{ errAgain }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">ещё раз завтра</div>
+          <div style="background: var(--panel); border: 1px solid var(--terra-line); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 24px 26px; margin-top: 20px;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra);">{{ errDueTitle }}</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;">
+              <sc-for list="{{ errDueCats }}" as="ec" hint-placeholder-count="3">
+                <div data-tap="1" role="button" onClick="{{ ec.go }}" style="{{ ec.st }}">{{ ec.label }}</div>
+              </sc-for>
+            </div>
+            <div style="border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint);">{{ errCurCat }}</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 14px;">{{ t.k165 }}</div>
+              <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: var(--ink); margin-top: 5px; text-wrap: pretty;">{{ errSaid }}</div>
+              <sc-if value="{{ errHidden }}" hint-placeholder-val="{{ true }}">
+                <div data-tap="1" role="button" onClick="{{ errReveal }}" style="display: inline-block; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">{{ t.k155 }}</div>
+              </sc-if>
+              <sc-if value="{{ errShown }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 16px;">{{ t.k166 }}</div>
+                  <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: var(--green); margin-top: 5px; text-wrap: pretty;">{{ errRight }}</div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 16px;">{{ t.k167 }}</div>
+                  <div style="font-size: 16px; color: var(--mid); margin-top: 5px; max-width: 68ch; text-wrap: pretty;">{{ errWhy }}</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px;">
+                    <div data-tap="1" role="button" onClick="{{ errKnown }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; background: var(--green-bg); border: 1px solid var(--green-line); color: var(--green);">{{ t.k156 }}</div>
+                    <div data-tap="1" role="button" onClick="{{ errAgain }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-radius: 9px; cursor: pointer; border: 1px solid var(--line3); color: var(--mid);">{{ t.k157 }}</div>
+                  </div>
                 </div>
-              </div>
-            </sc-if>
+              </sc-if>
+            </div>
+            <div data-tap="1" role="button" onClick="{{ errSeeAll }}" style="display: inline-block; margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 999px; cursor: pointer; color: var(--mid);">{{ errSeeAllLabel }}</div>
           </div>
         </sc-if>
+
         <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 20px; margin-top: 20px;">
           <input value="{{ eSaid }}" onInput="{{ onESaid }}" placeholder="{{ t.k115 }}" style="width: 100%; box-sizing: border-box; font-size: 15px; padding: 10px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none;" />
           <input value="{{ eRight }}" onInput="{{ onERight }}" placeholder="{{ t.k116 }}" style="width: 100%; box-sizing: border-box; margin-top: 8px; font-size: 15px; padding: 10px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none;" />
           <input value="{{ eWhy }}" onInput="{{ onEWhy }}" placeholder="{{ t.k117 }}" style="width: 100%; box-sizing: border-box; margin-top: 8px; font-size: 15px; padding: 10px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 9px; outline: none;" />
-          <div role="button" onClick="{{ addErr }}" style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 11px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k90 }}</div>
+          <div data-tap="1" role="button" onClick="{{ addErr }}" style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 11px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k90 }}</div>
         </div>
+
         <sc-if value="{{ noErrs }}" hint-placeholder-val="{{ false }}">
           <div style="font-size: 16px; color: var(--ink2); margin-top: 20px; max-width: 70ch; text-wrap: pretty;">{{ errHint }}</div>
         </sc-if>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-top: 32px;">{{ t.k91 }} {{ errCount }}</div>
+
+        <div data-errlist="1" style="height: 1px; margin-top: 34px;"></div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ t.k160 }}</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+          <sc-for list="{{ errCats }}" as="ea" hint-placeholder-count="4">
+            <div data-tap="1" role="button" onClick="{{ ea.go }}" style="{{ ea.st }}">{{ ea.label }}</div>
+          </sc-for>
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); margin-top: 22px;">{{ errListTitle }}</div>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
           <sc-for list="{{ errList }}" as="er" hint-placeholder-count="3">
             <div style="background: var(--panel); border: 1px solid var(--line2); border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 16px 18px;">
-              <div style="display: flex; justify-content: space-between; gap: 12px;">
-                <span data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--terra);">{{ er.said }}</span>
+              <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--l1);">{{ er.cat }}</span>
                 <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--faint);">{{ er.date }}</span>
               </div>
-              <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--green); margin-top: 6px;">{{ er.right }}</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 12px;">{{ t.k165 }}</div>
+              <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--terra); margin-top: 3px; text-wrap: pretty;">{{ er.said }}</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 10px;">{{ t.k166 }}</div>
+              <div data-en="1" style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: var(--green); margin-top: 3px; text-wrap: pretty;">{{ er.right }}</div>
               <sc-if value="{{ er.hasWhy }}" hint-placeholder-val="{{ true }}">
-                <div style="font-size: 15px; color: var(--mid); margin-top: 8px; text-wrap: pretty;">{{ er.why }}</div>
+                <div>
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 10px;">{{ t.k167 }}</div>
+                  <div style="font-size: 15px; color: var(--mid); margin-top: 3px; text-wrap: pretty;">{{ er.why }}</div>
+                </div>
               </sc-if>
-              <div role="button" onClick="{{ er.del }}" style="display: inline-block; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); cursor: pointer;">{{ t.k23 }}</div>
+              <div data-tap="1" role="button" onClick="{{ er.del }}" style="display: inline-block; margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); cursor: pointer;">{{ t.k23 }}</div>
             </div>
           </sc-for>
         </div>
@@ -1323,6 +1430,10 @@
           <div role="button" onClick="{{ doImport }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 14px; background: var(--invert-bg); color: var(--invert-fg); border-radius: 9px; cursor: pointer;">{{ t.k94 }}</div>
           <div role="button" onClick="{{ doReset }}" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 14px; border: 1px solid var(--terra-line); color: var(--terra); border-radius: 9px; cursor: pointer;">{{ t.k95 }}</div>
         </div>
+
+        <div style="height: 1px; background: var(--line); margin: 28px 0;"></div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid);">{{ t.k164 }}</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.04em; color: var(--faint); margin-top: 10px; line-height: 1.8; max-width: 62ch; text-wrap: pretty;">{{ t.k2 }}</div>
       </div>
     </sc-if>
 
@@ -3501,7 +3612,7 @@ const TEST = [
   { lvl: "B1", t: "слова", k: "nat", o: ["I have a big experience.", "I have a lot of experience."], a: 1, w: "experience в этом смысле неисчисляемое." },
   { lvl: "B1", t: "предлоги", k: "err", s: "I'm married with a doctor.", a: 2, fix: "to", w: "married to." },
   { lvl: "B1", t: "слова", k: "err", s: "She said me the truth.", a: 1, fix: "told", w: "tell кому-то; say — без адресата." },
-  { lvl: "B1", t: "слова", k: "err", s: "He explained me the rules.", a: 2, fix: "to me", w: "explain to somebody." },
+  { lvl: "B1", t: "слова", k: "err", s: "She learned me to drive.", a: 1, fix: "taught", w: "learn — учишься сам; учить кого-то — teach." },
   { lvl: "B1", t: "времена", k: "ord", o: ["Do", "you", "know", "where", "he", "lives"], a: 0, w: "Во вложенном вопросе порядок прямой." },
   { lvl: "B2", t: "времена", k: "gap", s: "By the time we arrived, the film ___.", o: ["started", "had started", "was starting"], a: 1, w: "Раньше другого прошедшего — Past Perfect." },
   { lvl: "B2", t: "времена", k: "gap", s: "If I ___ known, I would have called.", o: ["have", "had", "would have"], a: 1, w: "Третье условное: if + Past Perfect." },
@@ -3564,7 +3675,19 @@ const TEST = [
 
 const LS = "en-roadmap-us-v1";
 const DAY = 86400000;
-const TABS = [["today", "на сегодня"], ["learn", "учёба"], ["map", "карта слоёв"], ["review", "повторение"], ["words", "слова"], ["drills", "тренажёр"], ["situ", "ситуации"], ["ref", "справочник"], ["progress", "прогресс"], ["errors", "журнал ошибок"]];
+const TABS = [["today", "на сегодня"], ["learn", "учёба"], ["map", "карта слоёв"], ["review", "повторение"], ["words", "слова"], ["drills", "тренажёр"], ["situ", "ситуации"], ["ref", "справочник"], ["progress", "прогресс"], ["errors", "журнал ошибок"], ["songs", "песни"], ["test", "тесты"]];
+const SONGS = [
+  { id: "us1", a: "Eminem", t: "Lose Yourself", y: "2002", n: "Плотный рэп на пределе скорости: слипание слов слышно лучше, чем в любом учебнике.", tags: ["произношение", "сленг"] },
+  { id: "us2", a: "Eminem", t: "Stan", y: "2000", n: "История в четырёх письмах: прошедшие времена и речь фаната как она есть.", tags: ["грамматика", "сленг"] },
+  { id: "us3", a: "Kendrick Lamar", t: "DNA.", y: "2017", n: "Афроамериканский разговорный: то, что в учебниках не пишут вообще.", tags: ["сленг", "культура"] },
+  { id: "us4", a: "Red Hot Chili Peppers", t: "Californication", y: "1999", n: "Метафоры про Калифорнию и поп-культуру: почти каждая строка — отсылка.", tags: ["идиомы", "культура"] },
+  { id: "us5", a: "Nina Simone", t: "Ain't Got No, I Got Life", y: "1968", n: "Ain't и got вместо have: как отрицание звучит в живой речи.", tags: ["грамматика", "слова"] },
+  { id: "us6", a: "Bill Withers", t: "Ain't No Sunshine", y: "1971", n: "Двойное отрицание и предельно простая лексика — с этой песни легко начать.", tags: ["грамматика"] },
+  { id: "us7", a: "Tracy Chapman", t: "Fast Car", y: "1988", n: "Чистая дикция и целая история: условные и планы на будущее.", tags: ["грамматика", "слова"] },
+  { id: "us8", a: "Lauryn Hill", t: "Doo Wop (That Thing)", y: "1998", n: "Уличный сленг конца девяностых и прямая речь на скорости.", tags: ["сленг", "культура"] },
+  { id: "us9", a: "Johnny Cash", t: "Hurt", y: "2002", n: "Медленно и разборчиво: хорошая песня для первого разбора вслух.", tags: ["произношение"] },
+  { id: "us10", a: "Simon & Garfunkel", t: "The Sound of Silence", y: "1964", n: "Книжная лексика в песне: образы, инверсии, длинные фразы.", tags: ["слова", "идиомы"] }
+];
 const SPLANG = "en-US";
 const SPDIAL = "American";
 const CHARS = [
@@ -3805,7 +3928,33 @@ const ROADKW = {
   "фразовые глаголы": ["фразов", "глагол"]
 };
 
-const I18N = ["американский английский · путь до свободной речи","Карта уровней и слоёв","сокращения: / — поиск · ← → — этапы · t сегодня · l учёба · m карта · r повторение · w слова · d тренажёр · i ситуации · g справочник · p прогресс · e журнал","Следующее по каждому слою","Прогресс по слоям","Не понял","разобрался","лист на неделю","Уровень по слоям · своя оценка","Нажатие переключает A1 → C1. Это самооценка, она не связана с отметками «выучено» — расхождение как раз и показывает, где вы себе не верите.","Сегодня","тем к повторению","начать повторение","Тем закрыто","Уровень по прогрессу","Время за темами","Заметка на сегодня","записать","Веха уровня","Считается сделанным, когда","+30 мин","материал ↗","Свои материалы","убрать","добавить","Заметка","Каждая дорожка — свой слой. Слои идут параллельно: видно, что грамматика ушла вперёд, а слух отстал.","На сегодня повторений нет. Следующее —","Поедет первым","Срок ещё не наступил, но эти темы вспоминаются с трудом или уже забывались. Их стоит повторить досрочно.","показать разбор","следующее","старт","пауза","другое задание","Готовность","печать","назад","Лист на неделю","этап","повторить","слова на повтор","Стартовый уровень","Срок","Часов в неделю","осталось на сегодня:","озвучить","показать перевод","На сегодня слов нет. Добавьте новые справа — они попадут в очередь сразу.","В колоде","Новое слово","Всего слов","В долгой памяти","Слушание и чтение считаются часами, а не темами: на C1 выходят те, у кого их накопилось много. Отмечайте по факту, в конце дня.","Слушания всего","Чтения всего","Последние 12 недель","Главная метрика говорения — минуты, произнесённые вслух другому человеку. Записывайте каждый разговор и то, что не смогли сказать: этот список и есть план следующей темы.","Всего наговорено","За месяц","Разговоров","записать разговор","не смог:","Живой разговорный: то, что не пишут в учебниках, но слышно в первую минуту разговора. Помеченное «грубовато» — только со своими. Любую строку можно отправить в колоду слов и услышать вслух.","грубовато","послушать","в колоду","Собеседник держит характер и говорит на американском разговорном, на русский не переходит. Можно писать, можно говорить голосом. В конце — разбор ваших фраз: ошибки уходят в журнал одним нажатием.","Собеседник сейчас недоступен: страница открыта вне среды, где работает ИИ. Остальные разделы работают как обычно.","С кем говорим","…думает","отправить","разбери мои ошибки","Перетащите свои фото в рамки — они сохранятся. Выберите сцену, опишите её по-английски в 5–7 предложениях, собеседник разберёт описание и покажет, как сказал бы носитель.","Кто-то плывёт в озере","описать","Девушка пьёт кофе у окна","Ночной рынок с едой","Мужчина опаздывает в аэропорту","Двое чинят велосипед","Семья готовит ужин","Задание","проверить описание","Разбор не пришёл — попробуйте ещё раз через минуту.","Разбор","уровень:","в журнал","Так сказал бы носитель","Как описал бы носитель","Свои ошибки в речи — то, что поправил собеседник или что вы поймали сами. Записанная ошибка перестаёт повторяться, ненаписанная живёт годами.","записать ошибку","Записано:","Отчёт текстом","Прогресс, повторения и заметки хранятся в браузере. Экспорт — текстом, его можно сохранить в файл и вернуть на другом устройстве.","загрузить из текста","сбросить всё","поиск по темам","что делал и что не пошло","название","ссылка","что осталось непонятным, свои примеры","пишите здесь, как на экзамене — без словаря и правок по ходу","поиск по терминам","слово или фраза","перевод или пример","с кем: преподаватель, обмен, коллега","что не смог сказать","поиск по сленгу","ответьте по-английски · Enter отправит","фото: кто-то плывёт в озере","фото: девушка пьёт кофе у окна","фото: ночной рынок с едой","фото: мужчина опаздывает в аэропорту","фото: двое чинят велосипед","фото: семья готовит ужин","как сказал: I have 25 years","как правильно: I am 25","почему: возраст через be, а не have","ошибки из разбора сами уходят в «мои ошибки»"];
+const ECATS = [["tense", "времена"], ["verb", "глаголы"], ["prep", "предлоги"], ["art", "артикли"], ["word", "слова"], ["other", "другое"]];
+const ECAT_NAME = {};
+ECATS.forEach(c => { ECAT_NAME[c[0]] = c[1]; });
+const ECAT_RX = [["prep", /предлог/i], ["art", /артикл/i], ["tense", /времена|время|времён|tense|perfect|continu/i], ["word", /слова|словар|лексик|коллокац|идиом|сленг|фразов|разговорн|точност|регистр/i], ["verb", /глагол|модальн|инфинитив/i]];
+const ECAT_OF = (s) => {
+  let x = String(s || "");
+  const m = x.match(/\[[^\]]*·\s*([^·\]]+?)\s*·[^\]]*\]/);
+  if (m) x = m[1];
+  for (let i = 0; i < ECAT_RX.length; i++) if (ECAT_RX[i][1].test(x)) return ECAT_RX[i][0];
+  return "other";
+};
+const SECT = [
+  ["сленг", "ref", "slang", "живой разговорный: сленг, идиомы, грубые фразы", "сленг slang идиом разговорн груб мат жарг"],
+  ["пары слов", "ref", "pairs", "русское одно — английских два: правило выбора", "пары слов синоним разниц say tell cost"],
+  ["глоссарий", "ref", "gloss", "термины грамматики простыми словами", "глоссарий термин определени грамматик"],
+  ["памятки", "ref", "sheets", "таблицы времён и предлогов для печати", "памятк таблиц шпаргалк печат"],
+  ["песни", "songs", "", "разбор песен по строкам: перевод и заметки", "песни песня музык текст lyrics слова песен перевод"],
+  ["ситуации", "situ", "", "готовые фразы: отель, аэропорт, кафе", "ситуац фраз отель аэропорт кафе врач магазин"],
+  ["тренажёр", "drills", "", "задания: найди ошибку, вставь слово, собери фразу", "тренажёр упражнен задани практик"],
+  ["тесты", "test", "", "уровень, грамматика, лексика, идиомы", "тест уровень проверк экзамен"],
+  ["журнал ошибок", "errors", "", "свои ошибки с разбором и повторением", "ошибк журнал разбор"],
+  ["слова", "words", "", "колода слов и повторение по интервалам", "слов колод карточк словар"],
+  ["повторение", "review", "", "темы к повторению по расписанию", "повторен интервал расписан"],
+  ["прогресс", "progress", "", "статистика: темы, слова, ошибки", "прогресс статистик цифр"],
+  ["карта слоёв", "map", "", "все слои и этапы одним экраном", "карта слои этапы обзор"]
+];
+const I18N = ["американский английский · путь до свободной речи","Карта уровней и слоёв","сокращения: / — поиск · ← → — этапы · t сегодня · l учёба · m карта · r повторение · w слова · d тренажёр · i ситуации · g справочник · p прогресс · e журнал · s песни","Следующее по каждому слою","Прогресс по слоям","Не понял","разобрался","лист на неделю","Уровень по слоям · своя оценка","Нажатие переключает A1 → C1. Это самооценка, она не связана с отметками «выучено» — расхождение как раз и показывает, где вы себе не верите.","Сегодня","тем к повторению","начать повторение","Тем закрыто","Уровень по прогрессу","Время за темами","Заметка на сегодня","записать","Веха уровня","Считается сделанным, когда","+30 мин","материал ↗","Свои материалы","убрать","добавить","Заметка","Каждая дорожка — свой слой. Слои идут параллельно: видно, что грамматика ушла вперёд, а слух отстал.","На сегодня повторений нет. Следующее —","Поедет первым","Срок ещё не наступил, но эти темы вспоминаются с трудом или уже забывались. Их стоит повторить досрочно.","показать разбор","следующее","старт","пауза","другое задание","Готовность","печать","назад","Лист на неделю","этап","повторить","слова на повтор","Стартовый уровень","Срок","Часов в неделю","осталось на сегодня:","озвучить","показать перевод","На сегодня слов нет. Добавьте новые справа — они попадут в очередь сразу.","В колоде","Новое слово","Всего слов","В долгой памяти","Слушание и чтение считаются часами, а не темами: на C1 выходят те, у кого их накопилось много. Отмечайте по факту, в конце дня.","Слушания всего","Чтения всего","Последние 12 недель","Главная метрика говорения — минуты, произнесённые вслух другому человеку. Записывайте каждый разговор и то, что не смогли сказать: этот список и есть план следующей темы.","Всего наговорено","За месяц","Разговоров","записать разговор","не смог:","Живой разговорный: то, что не пишут в учебниках, но слышно в первую минуту разговора. Помеченное «грубовато» — только со своими. Любую строку можно отправить в колоду слов и услышать вслух.","грубовато","послушать","в колоду","Собеседник держит характер и говорит на американском разговорном, на русский не переходит. Можно писать, можно говорить голосом. В конце — разбор ваших фраз: ошибки уходят в журнал одним нажатием.","Собеседник сейчас недоступен: страница открыта вне среды, где работает ИИ. Остальные разделы работают как обычно.","С кем говорим","…думает","отправить","разбери мои ошибки","Перетащите свои фото в рамки — они сохранятся. Выберите сцену, опишите её по-английски в 5–7 предложениях, собеседник разберёт описание и покажет, как сказал бы носитель.","Кто-то плывёт в озере","описать","Девушка пьёт кофе у окна","Ночной рынок с едой","Мужчина опаздывает в аэропорту","Двое чинят велосипед","Семья готовит ужин","Задание","проверить описание","Разбор не пришёл — попробуйте ещё раз через минуту.","Разбор","уровень:","в журнал","Так сказал бы носитель","Как описал бы носитель","Свои ошибки в речи — то, что поправил собеседник или что вы поймали сами. Записанная ошибка перестаёт повторяться, ненаписанная живёт годами.","записать ошибку","Записано:","Отчёт текстом","Прогресс, повторения и заметки хранятся в браузере. Экспорт — текстом, его можно сохранить в файл и вернуть на другом устройстве.","загрузить из текста","сбросить всё","поиск по темам","что делал и что не пошло","название","ссылка","что осталось непонятным, свои примеры","пишите здесь, как на экзамене — без словаря и правок по ходу","поиск по терминам","слово или фраза","перевод или пример","с кем: преподаватель, обмен, коллега","что не смог сказать","поиск по сленгу","ответьте по-английски · Enter отправит","фото: кто-то плывёт в озере","фото: девушка пьёт кофе у окна","фото: ночной рынок с едой","фото: мужчина опаздывает в аэропорту","фото: двое чинят велосипед","фото: семья готовит ужин","как сказал: I have 25 years","как правильно: I am 25","почему: возраст через be, а не have","ошибки из разбора сами уходят в «мои ошибки»","к списку этапов","разбор","послушать","звук","добавить в колоду","+ колода","в колоде","В этой теме пока нет заданий такого типа. Выбери другую тему или другой режим.","что здесь не так","угадал","ошибка уйдёт в журнал и вернётся завтра","не угадал","вставь пропущенное","скажи это по-английски","нажимай на слова ниже — они встанут сюда по порядку","сбросить","ты говоришь","тебе скажут","подводные камни","Не гугли и не угадывай наугад: смысл теста — найти дыры, а не набрать балл. Каждый промах уходит в журнал ошибок с разбором и вернётся на повторение.","по блокам","на что смотреть в первую очередь","в тренажёр","Ровных дыр по темам нет — бери следующий уровень целиком, а не отдельные пробелы.","что открыть в роадмапе","открыть тему","разбор промахов","прошлые прогоны","пройти заново","журнал ошибок","карта слоёв","убрать из колоды","убрать","Слова, которые в русском одно, а в английском два разных. Здесь не перевод, а правило выбора: по какому признаку носитель берёт одно, а не другое.","поиск по паре: cost, say, since…","Ничего не нашлось. Попробуй другое слово.","как правильно","помню","надо повторить","не гугли и не угадывай — смысл в том, чтобы найти дыры, а не набрать балл","другие тесты","ошибки по темам","посмотреть все ошибки","все ошибки","слова","горячие клавиши","сказал","правильно","почему","Текст песни вставляешь сам — приложение разобьёт его на строки и даст под каждой место для перевода и заметки. Сами тексты нигде не хранятся: копируешь откуда угодно, разбор остаётся у тебя в браузере.","открыть","своя песня","исполнитель","название","вставь текст песни — одна строка песни на строку","разбить на строки","вставить другой текст","перевод строки","заметка: сленг, идиома, грамматика","к списку песен","что слушать"];
 const CEFR6 = ["A1", "A2", "B1", "B2", "C1"];
 
 const WEEKS = (s) => {
@@ -3818,10 +3967,12 @@ const WEEKS = (s) => {
   return n * 4.3;
 };
 
+let LDICT = null;
+const GL = (s) => (LDICT && LDICT[s]) || s;
 const fmt = (min) => {
-  if (!min) return "0 ч";
+  if (!min) return "0 " + GL("ч");
   const h = Math.floor(min / 60);
-  return h ? h + " ч " + (min % 60 ? (min % 60) + " м" : "") : min + " м";
+  return h ? h + " " + GL("ч") + " " + (min % 60 ? (min % 60) + " " + GL("м") : "") : min + " " + GL("м");
 };
 const dstr = (t) => new Date(t).toISOString().slice(0, 10);
 
@@ -3830,13 +3981,14 @@ class Component extends DCLogic {
     words: [], wIn: "", wTr: "", wShow: false, hours: {}, errs: [], eSaid: "", eRight: "", eWhy: "", lvl: {},
     stuck: {}, dIx: 0, dShow: false, dMode: "fix", dTopic: "все", dSel: -1, dBuilt: [], dOk: 0, dTot: 0, dStr: 0, gq: "", copied: false, sheet: 0, slq: "", slCat: "все", lang: "ru",
     mats: {}, matN: "", matU: "", notes: {}, talks: [], tMin: 30, tWho: "", tGap: "", drl: {}, test: null, tRes: null, tMode: "gen", tLen: 20, tPer: 8, tMiss: {}, tQ: null, tAns: [], tBld: [], tHist: [],
+    sg: {}, sgOwn: [], sgId: "", sgRaw: "", sgHide: 0, sgA: "", sgT: "",
     spChar: CHARS[0].id, spMode: "chat", spLvl: "B1", spSlang: 1, spVoice: 1, spMsgs: [], spIn: "", spBusy: 0, spRec: 0, spNoMic: 0, spFail: 0, spStart: 0, spPic: 0, spDesc: "", spFb: null };
 
   componentDidMount() {
     let st = {};
     try { st = JSON.parse(localStorage.getItem(LS)) || {}; } catch (e) { st = {}; }
     const patch = {};
-    ["done", "rev", "tt", "hours", "lvl", "stuck", "mats", "notes", "drl", "test", "tRes", "tHist", "tMiss", "tMode", "tLen", "tPer"].forEach(k => { if (st[k]) patch[k] = st[k]; });
+    ["done", "rev", "tt", "hours", "lvl", "stuck", "mats", "notes", "drl", "test", "tRes", "tHist", "tMiss", "tMode", "tLen", "tPer", "sg", "sgOwn"].forEach(k => { if (st[k]) patch[k] = st[k]; });
     if (st.talks) patch.talks = st.talks;
     if (st.spChar) patch.spChar = st.spChar;
     if (st.spLvl) patch.spLvl = st.spLvl;
@@ -3875,10 +4027,18 @@ class Component extends DCLogic {
         if (e.key === "ArrowRight" || e.key === "j") { e.preventDefault(); this.go("learn", Math.min(DATA.length - 1, this.state.s + 1)); return; }
         if (e.key === "ArrowLeft" || e.key === "k") { e.preventDefault(); this.go("learn", Math.max(0, this.state.s - 1)); return; }
       }
-      const map = { t: "today", l: "learn", m: "map", r: "review", w: "words", d: "drills", i: "situ", g: "ref", p: "progress", e: "errors" };
+      const map = { t: "today", l: "learn", m: "map", r: "review", w: "words", d: "drills", i: "situ", g: "ref", p: "progress", e: "errors", s: "songs" };
       if (map[e.key]) { this.go(map[e.key]); }
     };
     window.addEventListener("keydown", this.keys);
+
+    this.onHash = () => {
+      if (this.hashOwn && this.hashOwn === location.hash) { this.hashOwn = null; return; }
+      this.hashOwn = null;
+      this.applyHash();
+    };
+    window.addEventListener("popstate", this.onHash);
+    window.addEventListener("hashchange", this.onHash);
 
     const h = location.hash.replace("#", "");
     if (h) {
@@ -3889,7 +4049,11 @@ class Component extends DCLogic {
         this.setState(nx);
       }
     } else if (st.last && (TABS.some(t => t[0] === st.last.view) || st.last.view === "data")) {
-      this.setState({ view: st.last.view, s: Math.min(DATA.length - 1, Math.max(0, st.last.s || 0)) });
+      const lv = st.last.view, ls = Math.min(DATA.length - 1, Math.max(0, st.last.s || 0));
+      this.setState({ view: lv, s: ls });
+      try { this.hashOwn = "#" + lv + (lv === "learn" ? "/" + ls : ""); history.replaceState(null, "", this.hashOwn); } catch (e) {}
+    } else {
+      try { this.hashOwn = "#today"; history.replaceState(null, "", "#today"); } catch (e) {}
     }
   }
   componentWillUnmount() {
@@ -3897,11 +4061,13 @@ class Component extends DCLogic {
     window.removeEventListener("pointerdown", this.touch);
     window.removeEventListener("keydown", this.touch);
     window.removeEventListener("keydown", this.keys);
+    window.removeEventListener("popstate", this.onHash);
+    window.removeEventListener("hashchange", this.onHash);
   }
 
   save() {
     const s = this.state;
-    try { localStorage.setItem(LS, JSON.stringify({ done: s.done, rev: s.rev, tt: s.tt, jr: s.jr, dark: s.dark, th: s.th, lang: s.lang, ref: s.ref, dayKey: s.dayKey, dayDone: s.dayDone, spChar: s.spChar, spLvl: s.spLvl, spSlang: s.spSlang, spVoice: s.spVoice, words: s.words, hours: s.hours, errs: s.errs, lvl: s.lvl, stuck: s.stuck, mats: s.mats, notes: s.notes, drl: s.drl, test: s.test, tRes: s.tRes, tHist: s.tHist, tMiss: s.tMiss, tMode: s.tMode, tLen: s.tLen, tPer: s.tPer, last: { view: s.view, s: s.s } })); } catch (e) {}
+    try { localStorage.setItem(LS, JSON.stringify({ done: s.done, rev: s.rev, tt: s.tt, jr: s.jr, dark: s.dark, th: s.th, lang: s.lang, ref: s.ref, dayKey: s.dayKey, dayDone: s.dayDone, spChar: s.spChar, spLvl: s.spLvl, spSlang: s.spSlang, spVoice: s.spVoice, words: s.words, hours: s.hours, errs: s.errs, lvl: s.lvl, stuck: s.stuck, mats: s.mats, notes: s.notes, drl: s.drl, test: s.test, tRes: s.tRes, tHist: s.tHist, tMiss: s.tMiss, tMode: s.tMode, tLen: s.tLen, tPer: s.tPer, sg: s.sg, sgOwn: s.sgOwn, last: { view: s.view, s: s.s } })); } catch (e) {}
   }
   set(patch) { this.setState(patch, () => this.save()); }
   go(view, s) {
@@ -3909,7 +4075,22 @@ class Component extends DCLogic {
     if (s !== undefined) nx.s = s;
     if (view === "weeksheet") { this.setState(nx); return; }
     this.setState(nx, () => { this.save(); this.jump(s !== undefined ? "[data-detail]" : "[data-anchor]"); });
-    try { history.replaceState(null, "", "#" + view + (s !== undefined ? "/" + s : "")); } catch (e) {}
+    const h = "#" + view + (s !== undefined ? "/" + s : "");
+    try {
+      if (location.hash !== h) {
+        this.hashOwn = h;
+        history.pushState(null, "", h);
+      }
+    } catch (e) {}
+  }
+  applyHash() {
+    const h = location.hash.replace("#", "");
+    const p = h ? h.split("/") : ["today"];
+    if (!(TABS.some(x => x[0] === p[0]) || p[0] === "data")) return;
+    const nx = { view: p[0], q: "" };
+    if (p[1] !== undefined) nx.s = Math.min(DATA.length - 1, Math.max(0, +p[1] || 0));
+    if (nx.view === this.state.view && (nx.s === undefined || nx.s === this.state.s)) return;
+    this.setState(nx, () => this.save());
   }
   jump(sel) {
     setTimeout(() => {
@@ -4006,10 +4187,10 @@ class Component extends DCLogic {
     } catch (e) {}
   }
   aiL() { const lg = this.state.lang || "ru"; return lg === "dz" ? "Algerian Darija written in Arabic script" : lg === "en" ? "English" : "Russian"; }
-  pushErr(s, r, n) {
+  pushErr(s, r, n, c) {
     if (!s) return;
     if ((this.state.errs || []).some(e => e.s === s)) return;
-    this.set({ errs: [{ s: s, r: r || "", n: n || "", date: new Date().toISOString() }].concat(this.state.errs) });
+    this.set({ errs: [{ s: s, r: r || "", n: n || "", c: c || ECAT_OF(n), date: new Date().toISOString() }].concat(this.state.errs) });
   }
   soakFb(fb) {
     const have = (this.state.errs || []).map(e => e.s);
@@ -4138,6 +4319,39 @@ class Component extends DCLogic {
     this.set({ tt: Object.assign({}, this.state.tt, { [k]: (this.state.tt[k] || 0) + min }) });
   }
 
+  sgSet(k, i, v) {
+    const id = this.state.sgId;
+    if (!id) return;
+    const sg = Object.assign({}, this.state.sg || {});
+    const cur = Object.assign({ lines: [], tr: {}, nb: {} }, sg[id] || {});
+    cur[k] = Object.assign({}, cur[k] || {}, { [i]: v });
+    sg[id] = cur;
+    this.set({ sg: sg });
+  }
+  sgSplit() {
+    const id = this.state.sgId;
+    if (!id) return;
+    const lines = String(this.state.sgRaw || "").split("\n").map(s => s.trim()).filter(Boolean);
+    if (!lines.length) return;
+    const sg = Object.assign({}, this.state.sg || {});
+    const old = sg[id] || {};
+    sg[id] = { lines: lines, tr: old.tr || {}, nb: old.nb || {} };
+    this.set({ sg: sg, sgRaw: "" });
+  }
+  sgRedo() {
+    const id = this.state.sgId;
+    if (!id) return;
+    const sg = Object.assign({}, this.state.sg || {});
+    const old = sg[id] || {};
+    this.set({ sgRaw: (old.lines || []).join("\n"), sg: Object.assign({}, sg, { [id]: { lines: [], tr: old.tr || {}, nb: old.nb || {} } }) });
+  }
+  sgAddOwn() {
+    const a = String(this.state.sgA || "").trim();
+    const t = String(this.state.sgT || "").trim();
+    if (!t && !a) return;
+    const id = "own" + Date.now();
+    this.set({ sgOwn: (this.state.sgOwn || []).concat([{ id: id, a: a, t: t || a }]), sgA: "", sgT: "", sgId: id });
+  }
   pushWord(w, t) {
     if (!w) return;
     if ((this.state.words || []).some(x => x.w === w)) return;
@@ -4193,6 +4407,15 @@ class Component extends DCLogic {
     const now = Date.now();
     return (this.state.errs || []).filter(e => (e.due || 0) <= now);
   }
+  errCat(e) { return (e && e.c && ECAT_NAME[e.c]) ? e.c : ECAT_OF(e && e.n); }
+  errWord(n) {
+    if (this.dict()) return this.L("ошибок");
+    const a = n % 100, b = n % 10;
+    if (a > 10 && a < 20) return "ошибок";
+    if (b === 1) return "ошибка";
+    if (b >= 2 && b <= 4) return "ошибки";
+    return "ошибок";
+  }
   gradeErr(said, ok) {
     const errs = (this.state.errs || []).map(e => {
       if (e.s !== said) return e;
@@ -4223,8 +4446,9 @@ class Component extends DCLogic {
 
   dict() {
     const lg = this.state.lang || "ru";
-    if (lg === "ru" || typeof window === "undefined") return null;
-    return (lg === "dz" ? window.DZ : lg === "en" ? window.EN : null) || null;
+    if (lg === "ru" || typeof window === "undefined") { LDICT = null; return null; }
+    LDICT = (lg === "dz" ? window.DZ : lg === "en" ? window.EN : null) || null;
+    return LDICT;
   }
   L(s) {
     const d = this.dict();
@@ -4283,7 +4507,7 @@ class Component extends DCLogic {
       const dn = d.topics.filter(t => st.done[t.k]).length;
       const on = i === st.s;
       return {
-        num: d.num, title: d.title,
+        num: d.num, title: this.L(d.title),
         meta: this.L(d.level) + " · " + this.L(d.time) + " · " + dn + "/" + d.topics.length,
         st: "padding: 12px 14px; border-radius: 9px; cursor: pointer; user-select: none; border: 1px solid " + (on ? "var(--invert-bg)" : "var(--line2)") + "; background: " + (on ? "var(--panel)" : "transparent") + ";",
         go: () => this.go("learn", i)
@@ -4294,7 +4518,7 @@ class Component extends DCLogic {
       const dn = !!st.done[t.k];
       const open = st.open === t.k;
       return {
-        layer: this.L(t.layer), name: t.name, desc: t.desc, crit: t.crit, link: t.link, open: open,
+        layer: this.L(t.layer), name: this.L(t.name), desc: this.L(t.desc), crit: this.L(t.crit), link: t.link, open: open,
         hasInfo: !!INFO[t.name],
         infoT: ((INFO[t.name] || {}).t || []).map(s => ({ s: this.L(s) })),
         infoRows: ((INFO[t.name] || {}).rows || []).map(r => { const single = !/,|—|\/|→|=/.test(r[0]); return ({
@@ -4390,12 +4614,21 @@ class Component extends DCLogic {
         if (rec) sum += (rec.l || 0) + (rec.r || 0);
       }
       const h = Math.min(64, Math.round(sum / 60 * 8));
-      return { title: Math.round(sum / 60) + " ч за неделю", st: "width: 22px; height: " + Math.max(2, h) + "px; background: var(--grad); border-radius: 5px 5px 2px 2px;" };
+      return { title: Math.round(sum / 60) + " " + this.L("ч за неделю"), st: "width: 22px; height: " + Math.max(2, h) + "px; background: var(--grad); border-radius: 5px 5px 2px 2px;" };
     });
 
     const drlAll = Object.keys(st.drl || {}).reduce((a, k) => ({ ok: a.ok + st.drl[k].ok, n: a.n + st.drl[k].n }), { ok: 0, n: 0 });
     const drlToday = (st.drl || {})[dstr(Date.now())] || { ok: 0, n: 0 };
-    const errDueList = this.errDue();
+    const eCat = st.eCat || "все";
+    const errDueAll = this.errDue();
+    const errDueList = eCat === "все" ? errDueAll : errDueAll.filter(e => this.errCat(e) === eCat);
+    const errListAll = eCat === "все" ? (st.errs || []) : (st.errs || []).filter(e => this.errCat(e) === eCat);
+    const errCatChips = (arr) => {
+      const cnt = {};
+      arr.forEach(e => { const c = this.errCat(e); cnt[c] = (cnt[c] || 0) + 1; });
+      const mk = (id, label, n) => ({ label: label + " · " + n, st: chipSt(eCat === id), go: () => this.set({ eCat: id, eIx: 0, eShow: false }) });
+      return [mk("все", this.L("все"), arr.length)].concat(ECATS.filter(c => cnt[c[0]]).map(c => mk(c[0], this.L(c[1]), cnt[c[0]])));
+    };
     const errCur = errDueList[(st.eIx || 0) % (errDueList.length || 1)] || null;
     const refTab = st.ref || "sheets";
     const wLearned = st.words.filter(x => (x.int || 0) >= 21).length;
@@ -4405,6 +4638,11 @@ class Component extends DCLogic {
     const risk = this.riskList();
 const pq = (st.pq || "").trim().toLowerCase();
     const pairList = PAIRS.filter(p => !pq || (p.a + " " + p.b + " " + p.w).toLowerCase().indexOf(pq) >= 0);
+    const sgAll = SONGS.concat((st.sgOwn || []).map(o => ({ id: o.id, a: o.a, t: o.t, y: "", n: "", tags: [], own: 1 })));
+    const sgOf = (id) => ((st.sg || {})[id] || {});
+    const sgCur = st.sgId ? (sgAll.filter(x => x.id === st.sgId)[0] || null) : null;
+    const sgDone = sgCur ? sgOf(sgCur.id) : {};
+    const sgLines = sgDone.lines || [];
     const situId = st.situ || "hotel";
     const situ = SITU.filter(x => x.id === situId)[0] || SITU[0];
     const situInDeck = situ.words.filter(w => st.words.some(x => x.w === w[0])).length;
@@ -4500,7 +4738,7 @@ const pq = (st.pq || "").trim().toLowerCase();
     const tGrade = (ok, said, right) => {
       const q = tCur; if (!q || !tQ || !tSlot) return;
       const why = q.w ? this.L(q.w) : "";
-      if (!ok) this.pushErr(said, right, (why ? why + " " : "") + "[" + this.L("тест") + " · " + this.L(q.sub || q.t) + " · " + q.lvl + "]");
+      if (!ok) this.pushErr(said, right, (why ? why + " " : "") + "[" + this.L("тест") + " · " + this.L(q.sub || q.t) + " · " + q.lvl + "]", ECAT_OF(q.sub || q.t));
       const mk = tSlot.b + ":" + tSlot.i;
       const miss = Object.assign({}, tMiss);
       if (!ok) miss[mk] = (miss[mk] || 0) + 1;
@@ -4617,10 +4855,19 @@ const pq = (st.pq || "").trim().toLowerCase();
     const gq = st.gq.trim().toLowerCase();
     const sheet = SHEETS[st.sheet] || SHEETS[0];
 
-    const found = !q ? [] : KEYS.filter(t => (t.name + " " + t.desc + " " + t.crit + " " + t.layer).toLowerCase().includes(q)).slice(0, 24).map(t => {
+    const foundSect = !q ? [] : SECT.filter(x => (x[0] + " " + x[3] + " " + x[4]).toLowerCase().includes(q)).map(x => ({
+      num: "→", name: this.L(x[0]), layer: this.L("раздел"), desc: this.L(x[3]),
+      go: () => { const p = { q: "" }; if (x[2]) p.ref = x[2]; if (x[2] === "slang") p.slq = ""; this.setState(p, () => this.go(x[1])); }
+    }));
+    const foundSlang = !q ? [] : SLANG.filter(s => (s.p + " " + s.ru + " " + s.ex + " " + s.catRu).toLowerCase().includes(q)).slice(0, 8).map(s => ({
+      num: "·", name: s.p, layer: this.L(s.catRu), desc: s.ru,
+      go: () => { this.setState({ ref: "slang", slCat: "все", slq: q, q: "" }, () => this.go("ref")); }
+    }));
+    const foundTopics = !q ? [] : KEYS.filter(t => (t.name + " " + t.desc + " " + t.crit + " " + t.layer).toLowerCase().includes(q)).slice(0, 24).map(t => {
       const si = DATA.findIndex(d => d.num === t.snum);
       return { num: t.snum, name: t.name, layer: t.layer, desc: t.desc, go: () => { this.setState({ open: t.k, q: "" }); this.go("learn", si); } };
     });
+    const found = foundSect.concat(foundSlang, foundTopics);
 
     const dayDefs = [
       { id: "rev", name: this.L("Повторение по расписанию"), meta: due.length ? this.L("к повторению:") + " " + due.length : this.L("на сегодня пусто"), go: () => this.go("review") },
@@ -4628,7 +4875,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       { id: "lrn", name: this.L("Одна тема из учёбы"), meta: this.L("этап") + " " + stage.num + " · " + this.L(stage.title), go: () => this.go("learn", st.s) },
       { id: "drl", name: this.L("Тренажёр: 5 заданий"), meta: drlToday.n ? this.L("сегодня уже") + " " + drlToday.n : this.L("ошибки, выбор, порядок слов"), go: () => this.go("drills") }
     ];
-    if (errDueList.length) dayDefs.push({ id: "err", name: this.L("Разбор своих ошибок"), meta: this.L("на повторение:") + " " + errDueList.length, go: () => this.go("errors") });
+    if (errDueAll.length) dayDefs.push({ id: "err", name: this.L("Разбор своих ошибок"), meta: this.L("на повторение:") + " " + errDueAll.length + " " + this.errWord(errDueAll.length), go: () => this.go("errors") });
     const dayTasks = dayDefs.map(d => {
       const on = !!dd[d.id];
       return {
@@ -4662,16 +4909,10 @@ const pq = (st.pq || "").trim().toLowerCase();
       progStats: [
         { label: this.L("этапы"), v: doneN + " / " + KEYS.length, sub: this.L("тем закрыто") },
         { label: this.L("уровень"), v: cefr, sub: this.L("оценка по закрытым темам") },
-        { label: this.L("часы"), v: fmt(hL + hR), sub: this.L("слушал и читал всего") },
         { label: this.L("слова"), v: st.words.length, sub: wLearned + " " + this.L("в долгой памяти") },
         { label: this.L("свои ошибки"), v: st.errs.length, sub: this.L("записано в журнал") },
         { label: this.L("тренажёр"), v: drlAll.n, sub: drlAll.n ? this.L("верно") + " " + Math.round((drlAll.ok / drlAll.n) * 100) + "%" : this.L("ещё не начинал") }
       ],
-      hoursTitle: this.L("часы за 12 недель"),
-      hourBtns: [["l", 15], ["r", 15], ["l", 30], ["r", 30]].map(([kind, min]) => ({
-        label: "+" + min + " " + this.L(kind === "l" ? "слушал" : "читал"),
-        go: () => this.addHours(kind, min)
-      })),
       layersTitle: this.L("прогресс по слоям"),
       weakTitle: this.L("слабые места"),
       progWeak: progWeak,
@@ -4710,7 +4951,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       headKicker: this.L("американский") + (tGen ? " · " + tRes.lvl.toLowerCase() : " " + this.L("английский")),
       groupLearn: this.L("учить"), groupPract: this.L("практика"), heroTitle: this.L("Английский по шагам"),
       tabsMain: [["today", "на сегодня"]].map(([id, label]) => ({ label: this.L(label), st: tabSt(id) + " text-decoration: none; display: inline-block;", href: "#" + id, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.go(id); } })),
-      tabsLearn: [["learn", "учёба"], ["map", "карта слоёв"], ["ref", "справочник"], ["situ", "ситуации"]].map(([id, label]) => ({ label: this.L(label), st: tabSt(id) + " text-decoration: none; display: inline-block;", href: "#" + id, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.go(id); } })),
+      tabsLearn: [["learn", "учёба"], ["map", "карта слоёв"], ["ref", "справочник"], ["situ", "ситуации"], ["songs", "песни"]].map(([id, label]) => ({ label: this.L(label), st: tabSt(id) + " text-decoration: none; display: inline-block;", href: "#" + id, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.go(id); } })),
       tabsPract: [["test", "тесты"], ["drills", "тренажёр"], ["review", "повторение"], ["words", "слова"], ["errors", "журнал ошибок"], ["progress", "прогресс"]].map(([id, label]) => ({ label: this.L(label), st: tabSt(id) + " text-decoration: none; display: inline-block;", href: "#" + id, go: (e) => { if (e && e.preventDefault) e.preventDefault(); this.go(id); } })),
       tabsHidden: [],
       goData: () => this.go("data"),
@@ -4843,6 +5084,47 @@ const pq = (st.pq || "").trim().toLowerCase();
       }),
       hasRisk: risk.length > 0,
 
+      isSongs: st.view === "songs" && !q,
+      sgPick: !sgCur, sgOpenView: !!sgCur,
+      sgList: sgAll.map(x => ({
+        a: x.a, t: x.t, n: this.L(x.n || ""),
+        tags: (x.tags || []).map(g => ({ s: this.L(g) })),
+        meta: x.y || ((sgOf(x.id).lines || []).length ? (sgOf(x.id).lines || []).length + " " + this.L("строк") : this.L("своя песня")),
+        cardSt: "background: var(--panel); border: 1px solid " + ((sgOf(x.id).lines || []).length ? "var(--green-line)" : "var(--line2)") + "; border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(40,25,90,0.35); padding: 18px 20px; cursor: pointer;",
+        go: () => this.set({ sgId: x.id, sgRaw: "" })
+      })),
+      sgA: st.sgA || "", sgT: st.sgT || "",
+      onSgA: (e) => this.setState({ sgA: e.target.value }),
+      onSgT: (e) => this.setState({ sgT: e.target.value }),
+      sgAddOwn: () => this.sgAddOwn(),
+      sgBack: () => this.set({ sgId: "", sgRaw: "" }),
+      sgArtist: sgCur ? sgCur.a : "",
+      sgTitle: sgCur ? sgCur.t : "",
+      sgNote: sgCur ? this.L(sgCur.n || "") : "",
+      sgTags: sgCur ? (sgCur.tags || []).map(g => ({ s: this.L(g) })) : [],
+      sgHasTags: !!(sgCur && (sgCur.tags || []).length),
+      sgRaw: st.sgRaw || "",
+      onSgRaw: (e) => this.setState({ sgRaw: e.target.value }),
+      sgSplit: () => this.sgSplit(),
+      sgRedo: () => this.sgRedo(),
+      sgEmpty: !!sgCur && !sgLines.length,
+      sgHasLines: !!sgCur && sgLines.length > 0,
+      sgCount: this.L("переведено") + " " + sgLines.filter((_, i) => (sgDone.tr || {})[i]).length + " " + this.L("из") + " " + sgLines.length,
+      sgHideGo: () => this.set({ sgHide: st.sgHide ? 0 : 1 }),
+      sgHideSt: chipSt(!!st.sgHide),
+      sgHideLabel: this.L(st.sgHide ? "показать переводы" : "проверить себя"),
+      sgRows: sgLines.map((s, i) => ({
+        n: i + 1, en: s,
+        tr: (sgDone.tr || {})[i] || "",
+        nb: (sgDone.nb || {})[i] || "",
+        rowSt: "background: var(--panel); border: 1px solid " + ((sgDone.tr || {})[i] ? "var(--green-line)" : "var(--line2)") + "; border-radius: 12px; padding: 14px 16px;",
+        trSt: "width: 100%; box-sizing: border-box; margin-top: 10px; font-size: 15px; padding: 9px 11px; background: var(--panel2); color: var(--ink); border: 1px solid var(--line3); border-radius: 8px; outline: none;" + (st.sgHide ? " filter: blur(5px);" : ""),
+        onTr: (e) => this.sgSet("tr", i, e.target.value),
+        onNb: (e) => this.sgSet("nb", i, e.target.value),
+        say: () => this.say(s),
+        deck: () => this.pushWord(s, (sgDone.tr || {})[i] || "")
+      })),
+
       isSitu: st.view === "situ" && !q,
       isTest: st.view === "test" && !q,
       isPairs: st.view === "ref" && refTab === "pairs" && !q,
@@ -4900,7 +5182,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       tCanStart: tPoolN > 0,
       tNoQs: tPoolN === 0,
       tNoQsText: this.L("Промахов пока нет — этот тест наполняется сам, когда ты ошибаешься в других тестах."),
-      testNotRunning: !tRun,
+      testNotRunning: !tRun && !tRes,
       testIntro: !tRun && !tRes,
       testRunning: tRun && !!tCur,
       testResult: !tRun && !!tRes,
@@ -5043,8 +5325,8 @@ const pq = (st.pq || "").trim().toLowerCase();
       goWeek: () => this.go("weeksheet"),
       backFromWeek: () => this.go("today"),
       weekStages: DATA.slice(st.s, st.s + 3).map(d => ({
-        num: d.num, title: d.title, level: d.level, practice: d.practice,
-        topics: d.topics.map(t => ({ name: t.name, layer: t.layer, crit: t.crit }))
+        num: d.num, title: this.L(d.title), level: d.level, practice: this.L(d.practice),
+        topics: d.topics.map(t => ({ name: this.L(t.name), layer: this.L(t.layer), crit: this.L(t.crit) }))
       })),
       weekDue: due.slice(0, 12).map(t => ({ name: t.name, meta: t.snum + " · " + t.layer })),
       weekWords: wDue.slice(0, 20).map(x => ({ w: x.w, t: x.t || "" })),
@@ -5089,6 +5371,13 @@ const pq = (st.pq || "").trim().toLowerCase();
       onEWhy: (e) => this.setState({ eWhy: e.target.value }),
       hasErrDue: errDueList.length > 0,
       errDueN: errDueList.length,
+      errDueTitle: this.L("на повторение сегодня") + " · " + errDueList.length + " " + this.errWord(errDueList.length),
+      errDueCats: errCatChips(errDueAll),
+      errCats: errCatChips(st.errs || []),
+      errCurCat: errCur ? this.L(ECAT_NAME[this.errCat(errCur)] || "другое") : "",
+      errSeeAll: () => this.jump("[data-errlist]"),
+      errSeeAllLabel: this.L("посмотреть все ошибки"),
+      errListTitle: (eCat === "все" ? this.L("все ошибки") : this.L(ECAT_NAME[eCat] || "другое")) + " · " + errListAll.length,
       errSaid: errCur ? errCur.s : "",
       errRight: errCur ? (errCur.r || "—") : "",
       errWhy: errCur ? (errCur.n || "") : "",
@@ -5098,11 +5387,12 @@ const pq = (st.pq || "").trim().toLowerCase();
       errKnown: () => { if (errCur) this.gradeErr(errCur.s, true); },
       errAgain: () => { if (errCur) this.gradeErr(errCur.s, false); },
       addErr: () => this.addErr(),
-      errList: st.errs.slice(0, 60).map((x, i) => ({
+      errList: errListAll.slice(0, 60).map((x) => ({
         said: x.s, right: x.r || "—", why: x.n || "",
         hasWhy: !!x.n,
-        date: x.date.slice(0, 10),
-        del: () => this.delErr(i)
+        cat: this.L(ECAT_NAME[this.errCat(x)] || "другое"),
+        date: (x.date || "").slice(0, 10),
+        del: () => this.delErr((st.errs || []).indexOf(x))
       })),
       errCount: st.errs.length,
 
@@ -5114,7 +5404,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       })),
 
       nextUp: nextUp, layerStats: layerStats,
-      dueCount: due.length, doneTotal: doneN + " из " + KEYS.length, cefr: cefr, totalTime: fmt(Math.round(totalMin)),
+      dueCount: due.length, doneTotal: doneN + " " + this.L("из") + " " + KEYS.length, cefr: cefr, totalTime: fmt(Math.round(totalMin)),
       goReview: () => this.go("review"),
       note: st.note,
       onNote: (e) => this.setState({ note: e.target.value }),
@@ -5129,7 +5419,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       onMatU: (e) => this.setState({ matU: e.target.value }),
       layerFilters: ["все"].concat(LAYERS).map(l => ({ label: this.L(l), st: chipSt(st.filter === l), go: () => this.setState({ filter: l }) })),
       stageRows: stageRows,
-      stageTitle: stage.title, stageLevel: this.L("этап") + " " + stage.num + " · " + this.L(stage.level), stagePractice: stage.practice,
+      stageTitle: this.L(stage.title), stageLevel: this.L("этап") + " " + stage.num + " · " + this.L(stage.level), stagePractice: this.L(stage.practice),
       stageTime: this.L("на этап:") + " " + this.L(stage.time),
       hasMile: !!MILES[stage.num], mile: MILES[stage.num] || "",
       topicCards: topicCards,
@@ -5137,7 +5427,7 @@ const pq = (st.pq || "").trim().toLowerCase();
       lanes: lanes,
 
       hasDue: !!rev0, noDue: !rev0,
-      revName: rev0 ? rev0.name : "", revCrit: rev0 ? rev0.crit : "",
+      revName: rev0 ? this.L(rev0.name) : "", revCrit: rev0 ? this.L(rev0.crit) : "",
       revMeta: rev0 ? this.L("этап") + " " + rev0.snum + " · " + this.L(rev0.layer) + " · " + this.L("осталось") + " " + due.length : "",
       grades: grades,
       nextRev: upcoming ? dstr(upcoming) : this.L("ничего не отмечено"),
@@ -5158,15 +5448,15 @@ const pq = (st.pq || "").trim().toLowerCase();
         who: t.who || "без пары", gap: t.gap, hasGap: !!t.gap
       })),
 
-      dump: st.dump || JSON.stringify({ done: st.done, rev: st.rev, tt: st.tt, jr: st.jr, words: st.words, hours: st.hours, errs: st.errs, lvl: st.lvl, stuck: st.stuck, mats: st.mats, notes: st.notes, talks: st.talks }),
+      dump: st.dump || JSON.stringify({ done: st.done, rev: st.rev, tt: st.tt, jr: st.jr, words: st.words, hours: st.hours, errs: st.errs, lvl: st.lvl, stuck: st.stuck, mats: st.mats, notes: st.notes, talks: st.talks, sg: st.sg, sgOwn: st.sgOwn }),
       onDump: (e) => this.setState({ dump: e.target.value }),
       doImport: () => {
         try {
           const o = JSON.parse(st.dump);
-          this.set({ done: o.done || {}, rev: o.rev || {}, tt: o.tt || {}, jr: o.jr || [], words: o.words || [], hours: o.hours || {}, errs: o.errs || [], lvl: o.lvl || {}, stuck: o.stuck || {}, mats: o.mats || {}, notes: o.notes || {}, talks: o.talks || [], dump: "" });
+          this.set({ done: o.done || {}, rev: o.rev || {}, tt: o.tt || {}, jr: o.jr || [], words: o.words || [], hours: o.hours || {}, errs: o.errs || [], lvl: o.lvl || {}, stuck: o.stuck || {}, mats: o.mats || {}, notes: o.notes || {}, talks: o.talks || [], sg: o.sg || {}, sgOwn: o.sgOwn || [], dump: "" });
         } catch (e) {}
       },
-      doReset: () => this.set({ done: {}, rev: {}, tt: {}, jr: [], words: [], hours: {}, errs: [], lvl: {}, stuck: {}, chk: {}, mats: {}, notes: {}, talks: [], dump: "" })
+      doReset: () => this.set({ done: {}, rev: {}, tt: {}, jr: [], words: [], hours: {}, errs: [], lvl: {}, stuck: {}, chk: {}, mats: {}, notes: {}, talks: [], sg: {}, sgOwn: [], dump: "" })
     };
   }
 }
