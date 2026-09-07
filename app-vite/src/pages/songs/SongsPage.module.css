@@ -1,0 +1,18 @@
+.wrap { display: flex; flex-direction: column; gap: 14px; }
+
+.steps { font-size: 15px; margin: 8px 0 0; padding-left: 22px; display: grid; gap: 8px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+
+.title { font-family: var(--sans); font-size: 21px; font-weight: 600; margin: 4px 0 8px; }
+.why { font-size: 14px; color: var(--ink2); margin: 0; text-wrap: pretty; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+
+.links {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}

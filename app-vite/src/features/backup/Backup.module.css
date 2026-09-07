@@ -1,0 +1,4 @@
+.hint { font-size: 14px; color: var(--mid); margin: 6px 0 14px; text-wrap: pretty; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; }
+.file { display: none; }
+.note { font-size: 14px; color: var(--green-ink); margin: 12px 0 0; }

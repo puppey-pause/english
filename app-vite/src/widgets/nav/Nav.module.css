@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.rule {
+  width: 1px;
+  align-self: stretch;
+  background: var(--line2);
+}
+
+@media (max-width: 900px) {
+  .rule { display: none; }
+}
