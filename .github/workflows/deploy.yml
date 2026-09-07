@@ -1,8 +1,5 @@
 name: Deploy to GitHub Pages
 
-# GitHub only reads workflows from the repository root, so the build steps
-# step into app-vite/ instead of living there.
-
 on:
   push:
     branches: [main]
@@ -32,9 +29,7 @@ jobs:
           cache: npm
           cache-dependency-path: app-vite/package-lock.json
       - run: npm ci
-      - run: npm run build
-        env:
-          VITE_BASE: /english/
+      - run: npm run build:pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
