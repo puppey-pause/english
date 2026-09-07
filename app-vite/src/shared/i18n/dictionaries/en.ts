@@ -1057,7 +1057,7 @@ export const en: Record<string, string> = {
   "Спонтанные бытовые ситуации": "Unplanned everyday situations",
   "Речь без подготовки и без права на паузу.": "Speech with no preparation and no right to pause.",
   "решаешь бытовую проблему по телефону": "you sort out an everyday problem over the phone",
-  "путь": "path"
+  "путь": "path",
   "выбери тему": "pick a topic",
   "Один заход — одна конструкция. Возьми тему и пройди её до конца.": "One sitting, one structure. Take a topic and finish it.",
   "заданий": "tasks",
