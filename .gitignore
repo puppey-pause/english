@@ -1,0 +1,13 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+uploads/
+support.js
+react.min.js
+react-dom.min.js
+image-slot.js
+i18n-en.js
+i18n-dz.js
+*.dc.html
