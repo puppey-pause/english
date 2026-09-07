@@ -1066,7 +1066,5 @@ export const en: Record<string, string> = {
   "не знал": "didn't know",
   "заход закончен": "session done",
   "пройти ещё раз": "run it again",
-  "верно": "right",
   "В этой теме заданий такого типа нет.": "No tasks of this kind in this topic.",
-  "все темы": "all topics",
 };
