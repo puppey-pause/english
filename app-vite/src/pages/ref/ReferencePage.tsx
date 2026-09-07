@@ -69,8 +69,8 @@ export const ReferencePage = () => {
                   <h3 className={styles.cardName}>{t(card.n)}</h3>
                   <p className={styles.use}>{t(card.use)}</p>
                   <div className={styles.examples}>
-                    {card.ex.map((ex) => (
-                      <div key={ex} className={styles.example}>
+                    {card.ex.map((ex, i) => (
+                      <div key={`${i}-${ex}`} className={styles.example}>
                         <span>{ex}</span>
                         <button type="button" className={styles.speak} onClick={() => speak(ex)}>
                           {t("звук")}
@@ -91,8 +91,8 @@ export const ReferencePage = () => {
               <div className={styles.table}>
                 {current.rows.map((row, i) => (
                   <div key={i} className={styles.tableRow}>
-                    {row.map((cell) => (
-                      <span key={cell} className={styles.cell}>
+                    {row.map((cell, j) => (
+                      <span key={`${j}-${cell}`} className={styles.cell}>
                         {cell}
                       </span>
                     ))}
@@ -140,8 +140,8 @@ export const ReferencePage = () => {
               </div>
               <p className={styles.use}>{t(p.w)}</p>
               <div className={styles.examples}>
-                {p.e.map((ex) => (
-                  <div key={ex} className={styles.example}>
+                {p.e.map((ex, i) => (
+                  <div key={`${i}-${ex}`} className={styles.example}>
                     <span>{ex}</span>
                     <button type="button" className={styles.speak} onClick={() => speak(ex)}>
                       {t("звук")}

@@ -12,7 +12,6 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.kicker}>{t("американский английский · путь до свободной речи")}</div>
       <h1 className={styles.title}>{t("Английский по шагам")}</h1>
       <div className={styles.tools}>
         <Input

@@ -41,8 +41,8 @@ export const SituationsPage = () => {
           <Label section>{t(block.label)}</Label>
           <Card flat>
             <div className={styles.lines}>
-              {situation[block.key].map(([en, ru]) => (
-                <div key={en} className={styles.line}>
+              {situation[block.key].map(([en, ru], i) => (
+                <div key={`${i}-${en}`} className={styles.line}>
                   <div className={styles.en}>
                     <span>{en}</span>
                     <button type="button" className={styles.speak} onClick={() => speak(en)}>

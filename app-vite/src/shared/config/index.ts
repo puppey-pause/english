@@ -17,7 +17,27 @@ export const LAYER_COLOR: Record<Layer, string> = {
 export const LEVELS: Level[] = ["A1", "A2", "B1", "B2", "C1", "путь"];
 export const CEFR6 = ["A1", "A2", "B1", "B2", "C1"] as const;
 
-export const DRILL_TOPICS = ["все", "времена", "глаголы", "предлоги", "артикли", "слова"] as const;
+/** Грамматические темы тренажёра: один заход — одна конструкция. */
+export const GRAMMAR_TOPICS = [
+  "Present Simple",
+  "Present Continuous",
+  "Present Perfect",
+  "Past Simple",
+  "Past Continuous",
+  "Future и will",
+  "Условные и wish",
+  "Модальные глаголы",
+  "Инфинитив и -ing",
+  "Артикли",
+  "Предлоги",
+  "Исчисляемое и неисчисляемое",
+  "Вопросы и порядок слов",
+  "Степени сравнения",
+  "Прилагательные и наречия",
+  "Косвенная речь",
+  "Be и связки",
+  "Похожие слова",
+] as const;
 
 export type ViewId =
   | "today" | "learn" | "map" | "review" | "words" | "drills"

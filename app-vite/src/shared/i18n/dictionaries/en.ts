@@ -1058,4 +1058,15 @@ export const en: Record<string, string> = {
   "Речь без подготовки и без права на паузу.": "Speech with no preparation and no right to pause.",
   "решаешь бытовую проблему по телефону": "you sort out an everyday problem over the phone",
   "путь": "path"
+  "выбери тему": "pick a topic",
+  "Один заход — одна конструкция. Возьми тему и пройди её до конца.": "One sitting, one structure. Take a topic and finish it.",
+  "заданий": "tasks",
+  "сменить тему": "change topic",
+  "знал": "knew it",
+  "не знал": "didn't know",
+  "заход закончен": "session done",
+  "пройти ещё раз": "run it again",
+  "верно": "right",
+  "В этой теме заданий такого типа нет.": "No tasks of this kind in this topic.",
+  "все темы": "all topics",
 };

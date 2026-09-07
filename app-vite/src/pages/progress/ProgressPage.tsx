@@ -105,7 +105,7 @@ export const ProgressPage = () => {
               <span className={styles.bar}>
                 <span
                   className={styles.barFill}
-                  style={{ width: `${(x.done / x.all) * 100}%`, background: LAYER_COLOR[x.layer] }}
+                  style={{ width: `${(x.done / Math.max(x.all, 1)) * 100}%`, background: LAYER_COLOR[x.layer] }}
                 />
               </span>
               <span className={styles.barNum}>{`${x.done}/${x.all}`}</span>

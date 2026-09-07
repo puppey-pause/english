@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useAppStore } from "@/app/store";
 import { useT } from "@/shared/i18n/useT";
 import { DRILLS, ORDERS, PICKS } from "@/shared/data/drills";
-import { DRILL_TOPICS } from "@/shared/config";
+import { GRAMMAR_TOPICS } from "@/shared/config";
 import { shuffle } from "@/shared/lib/random";
 import { speak } from "@/shared/lib/speech";
 import { Button, Card, Chip, Input, Label, PageHead } from "@/shared/ui";
@@ -16,33 +16,48 @@ const MODES: { id: Mode; label: string; lead: string }[] = [
   { id: "ord", label: "собери фразу", lead: "Собери английскую фразу по русской подсказке." },
 ];
 
+/** сколько заданий каждого типа лежит в теме */
+const COUNTS = GRAMMAR_TOPICS.map((topic) => ({
+  topic,
+  err: DRILLS.filter((d) => d.gt === topic).length,
+  gap: PICKS.filter((d) => d.gt === topic).length,
+  ord: ORDERS.filter((d) => d.gt === topic).length,
+})).map((x) => ({ ...x, total: x.err + x.gap + x.ord }));
+
 export const DrillsPage = () => {
   const t = useT();
   const addMistake = useAppStore((s) => s.addMistake);
 
+  const [topic, setTopic] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("err");
-  const [topic, setTopic] = useState<string>("все");
   const [step, setStep] = useState(0);
   const [answer, setAnswer] = useState<string | number | null>(null);
   const [typed, setTyped] = useState("");
   const [score, setScore] = useState({ right: 0, total: 0 });
 
-  const errPool = useMemo(
-    () => shuffle(DRILLS.filter((d) => topic === "все" || d.t === topic)),
-    [topic]
-  );
-  const gapPool = useMemo(
-    () => shuffle(PICKS.filter((d) => topic === "все" || d.t === topic)),
-    [topic]
-  );
-  const ordPool = useMemo(() => shuffle(ORDERS), []);
+  const errPool = useMemo(() => shuffle(DRILLS.filter((d) => d.gt === topic)), [topic]);
+  const gapPool = useMemo(() => shuffle(PICKS.filter((d) => d.gt === topic)), [topic]);
+  const ordPool = useMemo(() => shuffle(ORDERS.filter((d) => d.gt === topic)), [topic]);
 
-  const reset = (next: Partial<{ mode: Mode; topic: string }>) => {
-    if (next.mode) setMode(next.mode);
-    if (next.topic) setTopic(next.topic);
+  const available = MODES.filter((m) =>
+    m.id === "err" ? errPool.length : m.id === "gap" ? gapPool.length : ordPool.length
+  );
+  const active: Mode = available.some((m) => m.id === mode) ? mode : (available[0]?.id ?? "err");
+  const pool = active === "err" ? errPool : active === "gap" ? gapPool : ordPool;
+
+  const err = errPool[step];
+  const gap = gapPool[step];
+  const ord = ordPool[step];
+  const scrambled = useMemo(() => (ord ? shuffle(ord.s.split(" ")) : []), [ord]);
+  const finished = topic !== null && step >= pool.length;
+
+  const start = (next: string | null, nextMode?: Mode) => {
+    setTopic(next);
+    if (nextMode) setMode(nextMode);
     setStep(0);
     setAnswer(null);
     setTyped("");
+    setScore({ right: 0, total: 0 });
   };
 
   const advance = () => {
@@ -51,63 +66,82 @@ export const DrillsPage = () => {
     setTyped("");
   };
 
-  const err = errPool[step % Math.max(errPool.length, 1)];
-  const gap = gapPool[step % Math.max(gapPool.length, 1)];
-  const ord = ordPool[step % Math.max(ordPool.length, 1)];
-  const scrambled = useMemo(() => (ord ? shuffle(ord.s.split(" ")) : []), [ord]);
-
   const record = (correct: boolean, said: string, right: string, why: string) => {
     setScore((s) => ({ right: s.right + (correct ? 1 : 0), total: s.total + 1 }));
     if (!correct) addMistake(said, right, why);
   };
 
+  if (topic === null) {
+    return (
+      <div className={styles.wrap}>
+        <PageHead
+          title={t("тренажёр")}
+          lead={t("Один заход — одна конструкция. Возьми тему и пройди её до конца.")}
+        />
+        <Label section>{t("выбери тему")}</Label>
+        <div className={styles.topics}>
+          {COUNTS.filter((x) => x.total).map((x) => (
+            <button key={x.topic} type="button" className={styles.topicCard} onClick={() => start(x.topic)}>
+              <span className={styles.topicName}>{t(x.topic)}</span>
+              <span className={styles.topicCount}>{`${x.total} ${t("заданий")}`}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.wrap}>
       <PageHead
-        title={t("тренажёр")}
-        lead={t(MODES.find((m) => m.id === mode)?.lead ?? "")}
+        title={t(topic)}
+        lead={t(MODES.find((m) => m.id === active)?.lead ?? "")}
         aside={<span className={styles.score}>{`${score.right} / ${score.total}`}</span>}
       />
 
+      <div className={styles.topBar}>
+        <Button onClick={() => start(null)}>{`← ${t("сменить тему")}`}</Button>
+        <span className={styles.progress}>{`${Math.min(step + 1, pool.length)} / ${pool.length}`}</span>
+      </div>
+
       <div className={styles.filters}>
-        {MODES.map((m) => (
-          <Chip key={m.id} label={t(m.label)} active={mode === m.id} onClick={() => reset({ mode: m.id })} />
+        {available.map((m) => (
+          <Chip
+            key={m.id}
+            label={t(m.label)}
+            active={active === m.id}
+            onClick={() => start(topic, m.id)}
+          />
         ))}
       </div>
 
-      {mode !== "ord" ? (
-        <div className={styles.filters}>
-          {DRILL_TOPICS.map((x) => (
-            <Chip key={x} label={t(x)} active={topic === x} onClick={() => reset({ topic: x })} />
-          ))}
-        </div>
+      {!pool.length ? (
+        <Card flat>
+          <p className={styles.why}>{t("В этой теме заданий такого типа нет.")}</p>
+        </Card>
       ) : null}
 
-      {mode === "err" && err ? (
+      {finished ? (
         <Card tone="accent">
-          <Label>{`${t(err.t)} · ${t("найди ошибку")}`}</Label>
+          <Label>{t("заход закончен")}</Label>
+          <div className={styles.result}>{`${score.right} / ${score.total} ${t("верно")}`}</div>
+          <div className={styles.actions}>
+            <Button variant="primary" onClick={() => start(topic, active)}>
+              {t("пройти ещё раз")}
+            </Button>
+            <Button onClick={() => start(null)}>{t("сменить тему")}</Button>
+          </div>
+        </Card>
+      ) : null}
+
+      {!finished && active === "err" && err ? (
+        <Card tone="accent">
+          <Label>{`${t(err.gt)} · ${t("найди ошибку")}`}</Label>
           <div className={styles.sentence}>{err.b}</div>
           {answer === null ? (
-            <div className={styles.actions}>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  setAnswer("shown");
-                  record(false, err.b, err.g, err.w);
-                }}
-              >
-                {t("показать правильный вариант")}
-              </Button>
-              <Button
-                variant="positive"
-                onClick={() => {
-                  setAnswer("knew");
-                  record(true, err.b, err.g, err.w);
-                }}
-              >
-                {t("я знал")}
-              </Button>
-            </div>
+            <Button variant="primary" onClick={() => setAnswer("shown")}>
+              {t("показать правильный вариант")}
+            </Button>
           ) : (
             <>
               <div className={styles.good}>
@@ -117,17 +151,34 @@ export const DrillsPage = () => {
                 </button>
               </div>
               <p className={styles.why}>{t(err.w)}</p>
-              <Button variant="primary" onClick={advance}>
-                {t("дальше")}
-              </Button>
+              <div className={styles.actions}>
+                <Button
+                  variant="positive"
+                  onClick={() => {
+                    record(true, err.b, err.g, err.w);
+                    advance();
+                  }}
+                >
+                  {t("знал")}
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    record(false, err.b, err.g, err.w);
+                    advance();
+                  }}
+                >
+                  {t("не знал")}
+                </Button>
+              </div>
             </>
           )}
         </Card>
       ) : null}
 
-      {mode === "gap" && gap ? (
+      {!finished && active === "gap" && gap ? (
         <Card tone="accent">
-          <Label>{`${t(gap.t)} · ${t("вставь слово")}`}</Label>
+          <Label>{`${t(gap.gt)} · ${t("вставь слово")}`}</Label>
           <div className={styles.sentence}>{gap.s}</div>
           <div className={styles.options}>
             {gap.o.map((option, i) => {
@@ -135,7 +186,7 @@ export const DrillsPage = () => {
               const correct = i === gap.a;
               return (
                 <button
-                  key={option}
+                  key={`${i}-${option}`}
                   type="button"
                   disabled={picked}
                   onClick={() => {
@@ -166,9 +217,9 @@ export const DrillsPage = () => {
         </Card>
       ) : null}
 
-      {mode === "ord" && ord ? (
+      {!finished && active === "ord" && ord ? (
         <Card tone="accent">
-          <Label>{t("собери фразу")}</Label>
+          <Label>{`${t(ord.gt)} · ${t("собери фразу")}`}</Label>
           <div className={styles.sentence}>{t(ord.ru)}</div>
           <div className={styles.chips}>
             {scrambled.map((w, i) => (
@@ -182,11 +233,7 @@ export const DrillsPage = () => {
               </button>
             ))}
           </div>
-          <Input
-            value={typed}
-            placeholder={t("твоя фраза")}
-            onChange={(e) => setTyped(e.target.value)}
-          />
+          <Input value={typed} placeholder={t("твоя фраза")} onChange={(e) => setTyped(e.target.value)} />
           {answer === null ? (
             <div className={styles.actions}>
               <Button

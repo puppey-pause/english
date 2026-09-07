@@ -1,7 +1,6 @@
 import type { StateCreator } from "zustand";
 import type { AppState, DeckSlice } from "../types";
 import { nextDue } from "@/shared/lib/srs";
-import { DAY } from "@/shared/config";
 
 export const createDeckSlice: StateCreator<AppState, [], [], DeckSlice> = (set) => ({
   words: [],
@@ -11,7 +10,7 @@ export const createDeckSlice: StateCreator<AppState, [], [], DeckSlice> = (set) 
       const word = w.trim();
       if (!word || s.words.some((x) => x.w === word)) return s;
       return {
-        words: [{ w: word, t: t.trim(), box: 0, due: Date.now() + DAY, added: Date.now() }, ...s.words],
+        words: [{ w: word, t: t.trim(), box: 0, due: Date.now(), added: Date.now() }, ...s.words],
       };
     }),
 

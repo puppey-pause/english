@@ -27,7 +27,7 @@ export const ReviewPage = () => {
   const due = tracked.filter((tp) => isDue(rev[tp.k]));
   const later = tracked
     .filter((tp) => !isDue(rev[tp.k]))
-    .sort((a, b) => (rev[a.k] ?? 0) - (rev[b.k] ?? 0))
+    .sort((a, b) => (rev[a.k] ?? Infinity) - (rev[b.k] ?? Infinity))
     .slice(0, 12);
 
   return (

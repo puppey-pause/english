@@ -76,11 +76,11 @@ export type TestItem =
   | { lvl: string; t: string; k: "ord"; o: string[]; a: number; w: string };
 
 /** "найди ошибку": b — wrong sentence, g — good one, w — why */
-export interface DrillMistake { t: string; b: string; g: string; w: string }
+export interface DrillMistake { t: string; gt: string; b: string; g: string; w: string }
 /** "вставь слово" */
-export interface DrillPick { t: string; s: string; o: string[]; a: number; w: string }
+export interface DrillPick { t: string; gt: string; s: string; o: string[]; a: number; w: string }
 /** "собери фразу" */
-export interface DrillOrder { ru: string; s: string }
+export interface DrillOrder { gt: string; ru: string; s: string }
 
 export interface GlossItem { t: string; d: string }
 /** two english words one russian word maps to */
