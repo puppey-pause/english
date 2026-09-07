@@ -1,0 +1,16 @@
+.row { display: flex; gap: 6px; }
+
+.button {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 9px 12px;
+  min-height: 40px;
+  border: 1px solid var(--line3);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--mid);
+  cursor: pointer;
+}
+
+.active { background: var(--invert-bg); border-color: var(--invert-bg); color: var(--invert-fg); }

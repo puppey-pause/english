@@ -1,0 +1,43 @@
+@import "./tokens.css";
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  transition: background-color 0.35s ease;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/** English samples inside russian copy keep their own direction. */
+[data-en] { direction: ltr; unicode-bidi: isolate; }
+
+a { color: var(--green); text-decoration: none; }
+a:hover { color: var(--green-ink); text-decoration: underline; }
+
+input,
+textarea,
+select {
+  font-family: var(--mono);
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
+p { margin: 0; text-wrap: pretty; }
+
+@keyframes pop { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes flow { from { background-position: 0% 50%; } to { background-position: 220% 50%; } }
+
+@media print {
+  [data-noprint] { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+}

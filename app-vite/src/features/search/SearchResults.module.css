@@ -1,0 +1,14 @@
+.wrap { display: flex; flex-direction: column; gap: 10px; max-width: 860px; }
+
+.row { display: flex; gap: 14px; align-items: baseline; }
+
+.num {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--faint);
+  flex: 0 0 auto;
+}
+
+.name { font-size: 18px; font-weight: 500; }
+.desc { font-size: 15px; color: var(--faint); margin-top: 4px; }
+.empty { font-size: 16px; color: var(--mid); }
