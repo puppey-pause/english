@@ -3,25 +3,28 @@ import { useT } from "@/shared/i18n/useT";
 import { SPEECH_RATES } from "@/shared/config";
 import styles from "./SpeechSwitch.module.css";
 
-/** Темп у кнопок «звук»: системный голос по умолчанию тараторит. */
+/**
+ * Темп у кнопок «звук». Одна кнопка вместо трёх: в шапке и так тесно,
+ * а переключают темп редко — по клику идёт следующий из трёх.
+ */
 export const SpeechSwitch = () => {
   const t = useT();
   const rate = useAppStore((s) => s.rate);
   const setRate = useAppStore((s) => s.setRate);
 
+  const i = Math.max(0, SPEECH_RATES.findIndex((r) => r.value === rate));
+  const current = SPEECH_RATES[i];
+  const next = SPEECH_RATES[(i + 1) % SPEECH_RATES.length];
+
   return (
-    <div className={styles.row} role="group" aria-label={t("темп озвучки")}>
-      {SPEECH_RATES.map((r) => (
-        <button
-          key={r.value}
-          type="button"
-          title={t("темп озвучки")}
-          className={[styles.button, rate === r.value && styles.active].filter(Boolean).join(" ")}
-          onClick={() => setRate(r.value)}
-        >
-          {t(r.label)}
-        </button>
-      ))}
-    </div>
+    <button
+      type="button"
+      className={styles.button}
+      title={`${t("темп озвучки")}: ${t(current.label)}`}
+      aria-label={`${t("темп озвучки")}: ${t(current.label)}`}
+      onClick={() => setRate(next.value)}
+    >
+      {current.tag}
+    </button>
   );
 };

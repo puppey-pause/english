@@ -65,9 +65,9 @@ export const DRILL_DAYS: Record<string, number> = {
 };
 
 export const SPEECH_RATES = [
-  { value: 0.65, label: "медленно" },
-  { value: 0.8, label: "спокойно" },
-  { value: 0.95, label: "обычно" },
+  { value: 0.65, tag: "×0.65", label: "медленно" },
+  { value: 0.8, tag: "×0.8", label: "спокойно" },
+  { value: 0.95, tag: "×1", label: "обычно" },
 ] as const;
 
 export type ViewId =
