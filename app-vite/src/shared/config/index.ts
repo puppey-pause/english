@@ -41,7 +41,7 @@ export const GRAMMAR_TOPICS = [
 
 export type ViewId =
   | "today" | "learn" | "map" | "review" | "words" | "drills"
-  | "situ" | "ref" | "progress" | "errors" | "test"
+  | "situ" | "ref" | "reading" | "progress" | "errors" | "test"
   | "journal" | "data";
 
 export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "practice" | "track" }[] = [
@@ -50,6 +50,7 @@ export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "pract
   { id: "map", label: "карта слоёв", group: "learn" },
   { id: "ref", label: "справочник", group: "learn" },
   { id: "situ", label: "ситуации", group: "learn" },
+  { id: "reading", label: "чтение", group: "learn" },
   { id: "review", label: "повторение", group: "practice" },
   { id: "words", label: "слова", group: "practice" },
   { id: "drills", label: "тренажёр", group: "practice" },
@@ -60,5 +61,5 @@ export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "pract
 
 export const HOTKEYS: Record<string, ViewId> = {
   t: "today", l: "learn", m: "map", r: "review", w: "words",
-  d: "drills", i: "situ", g: "ref", p: "progress", e: "errors",
+  d: "drills", i: "situ", g: "ref", c: "reading", p: "progress", e: "errors",
 };

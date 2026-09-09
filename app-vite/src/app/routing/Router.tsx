@@ -4,6 +4,7 @@ import { LearnPage } from "@/pages/learn";
 import { MapPage } from "@/pages/map";
 import { ReferencePage } from "@/pages/ref";
 import { SituationsPage } from "@/pages/situ";
+import { ReadingPage } from "@/pages/reading";
 import { ReviewPage } from "@/pages/review";
 import { WordsPage } from "@/pages/words";
 import { DrillsPage } from "@/pages/drills";
@@ -23,6 +24,8 @@ export const Router = () => {
       return <ReferencePage />;
     case "situ":
       return <SituationsPage />;
+    case "reading":
+      return <ReadingPage />;
     case "review":
       return <ReviewPage />;
     case "words":
