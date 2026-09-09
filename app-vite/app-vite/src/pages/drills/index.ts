@@ -1,1 +1,0 @@
-export { DrillsPage } from "./DrillsPage";

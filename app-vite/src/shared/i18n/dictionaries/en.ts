@@ -11,6 +11,8 @@ export const en: Record<string, string> = {
   "минут на разминку": "minutes to warm up",
   "фраза дня": "phrase of the day",
   "Этапы идут по порядку: сначала разбор темы, потом задание этапа.": "Stages run in order: read the topic first, then do the stage task.",
+  "Внутри темы шаги идут от разбора к свободной речи, а задание этапа собирает все темы вместе — уже без опоры.":
+    "Inside a topic the steps run from the explanation to free speech, and the stage task pulls all the topics together — with no support left.",
   "задание этапа": "stage task",
   "рубеж": "milestone",
   "главное": "the one thing",
@@ -1552,4 +1554,60 @@ export const en: Record<string, string> = {
   "скрыть ответы": "hide answers",
   "твой ответ на задание": "your answer to the task",
   "осталось шагов:": "steps left:",
+  "шаги идут по нарастающей: сначала только смотришь и слушаешь, в конце говоришь и пишешь сам":
+    "the steps build up: first you only look and listen, at the end you speak and write on your own",
+  "вход": "input",
+  "по образцу": "guided",
+  "своё": "your own",
+  "без опоры": "unsupported",
+  "только смотришь и слушаешь — ошибиться нельзя": "you only look and listen — you cannot get it wrong",
+  "каркас дан, верный ответ один": "the frame is given, there is one right answer",
+  "каркас чужой, содержание твоё": "the frame is given, the content is yours",
+  "и содержание, и форма твои": "both the content and the wording are yours",
+  "Прочитай разбор и в каждом примере найди глазами саму конструкцию: что в ней меняется, а что стоит намертво.":
+    "Read the explanation and spot the structure itself in every example: what changes in it and what stays fixed.",
+  "Тренажёр, режим «найди ошибку» по этой теме. Здесь верный ответ один, промахи сами уйдут в журнал.":
+    "Open the trainer in \u201cfind the mistake\u201d mode on this topic. There is one right answer here, and misses go to the log by themselves.",
+  "Пять своих предложений строго по формуле из разбора — про свой день, не абстрактные. В заметку внизу.":
+    "Five sentences of your own, strictly on the formula from the explanation — about your own day, not abstract ones. Put them in the note below.",
+  "Расскажи вслух минуту на любую тему так, чтобы конструкция попалась хотя бы трижды. В разбор не подглядывай.":
+    "Talk out loud for a minute on any subject so that the structure comes up at least three times. Do not peek at the explanation.",
+  "Прочитай слова не списком, а в примерах: смотри, с какими соседями каждое стоит.":
+    "Read the words in the examples rather than as a list: see which neighbours each one keeps.",
+  "Занеси слова в колоду в разделе «слова»: поле «новое слово» — само слово, рядом свой перевод.":
+    "Add the words to the deck in the \u201cwords\u201d section: the \u201cnew word\u201d field takes the word itself, your translation goes beside it.",
+  "К каждому слову своя фраза про себя, в поле перевода. Слово в одиночку в речи не всплывает — всплывает фраза.":
+    "Write your own phrase about yourself for every word, in the translation field. A word on its own never surfaces in speech — a phrase does.",
+  "Повтори колоду сегодня, а через три дня расскажи вслух короткую историю, куда влезут хотя бы пять слов из неё.":
+    "Review the deck today, and in three days tell a short story out loud that fits at least five of its words.",
+  "Нажми «звук» на каждом примере и просто слушай, пока не повторяя. Лови, где голос ускоряется и где слова слипаются.":
+    "Press \u201csound\u201d on every example and just listen, without repeating yet. Catch where the voice speeds up and where words run together.",
+  "Включи ещё раз на ×0.8 и повторяй сразу за голосом, попадая в темп и ударения.":
+    "Play it again at \u00d70.8 and repeat right after the voice, matching the tempo and the stresses.",
+  "Короткое видео или подкаст по теме: первый раз без текста, второй — с текстом. Выпиши три места, где на слух вышло не то, что написано.":
+    "A short video or podcast on the topic: first without the transcript, then with it. Write down three places where what you heard was not what was written.",
+  "Прослушай тот же кусок ещё раз и перескажи вслух своими словами, не заглядывая в текст.":
+    "Listen to the same passage once more and retell it out loud in your own words, without looking at the text.",
+  "Прослушай примеры со «звуком» и отметь, где ударение и где пауза: с них речь и звучит живой.":
+    "Listen to the examples with \u201csound\u201d and mark where the stress and the pauses fall: that is what makes speech sound alive.",
+  "Собери минуту своей речи по теме и проговори её три раза подряд, каждый раз чуть иначе.":
+    "Put together a minute of your own on the topic and say it three times in a row, slightly differently each time.",
+  "Проговори минуту без подготовки на другую тему. Места, где сбился, выпиши в заметку и прогони отдельно.":
+    "Speak for a minute on a different subject with no preparation. Write the spots where you stumbled into the note and drill just those.",
+  "Прочитай разбор насквозь, не застревая на незнакомом: сначала общий смысл.":
+    "Read the explanation straight through without getting stuck on the unfamiliar: the general sense first.",
+  "Второй проход: отметь в разборе все места с изучаемой конструкцией и сверься с примерами.":
+    "Second pass: mark every place in the explanation with the structure you are learning and check yourself against the examples.",
+  "Найди те же конструкции в любом английском тексте снаружи и выпиши три живых примера — свои, не из разбора.":
+    "Find the same structures in any English text outside and write out three live examples — your own, not from the explanation.",
+  "Перескажи абзац вслух своими словами, в текст не заглядывая.":
+    "Retell a paragraph out loud in your own words, without looking at the text.",
+  "Прочитай разбор и смотри на формулы, а не на отдельные слова: что в них подставляется, что стоит намертво.":
+    "Read the explanation and look at the formulas rather than at single words: what slots into them and what stays fixed.",
+  "Перепиши два примера, заменив только подставляемые части. Каркас не трогай.":
+    "Rewrite two examples, changing only the slot-in parts. Leave the frame alone.",
+  "Свой текст по образцу на пять-семь предложений.":
+    "A text of your own on the same pattern, five to seven sentences.",
+  "Через день перечитай и поправь сам — свежим взглядом ошибки видно. Потом напиши второй текст на другую тему, уже без образца.":
+    "Reread it a day later and fix it yourself — mistakes show to a fresh eye. Then write a second text on another subject, this time with no model.",
 };

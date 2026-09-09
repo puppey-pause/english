@@ -24,7 +24,7 @@ export const LearnPage = () => {
     <div className={styles.wrap}>
       <PageHead
         title={t("учёба")}
-        lead={t("Этапы идут по порядку: сначала разбор темы, потом задание этапа.")}
+        lead={t("Внутри темы шаги идут от разбора к свободной речи, а задание этапа собирает все темы вместе — уже без опоры.")}
         aside={
           <>
             <Button onClick={() => setView("learn", index - 1)} disabled={index === 0}>

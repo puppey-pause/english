@@ -1,9 +1,0 @@
-export const G = "https://owl.purdue.edu/owl/general_writing/grammar/index.html";
-export const V = "https://www.merriam-webster.com/";
-export const L = "https://learningenglish.voanews.com/";
-export const LA = "https://www.esl-lab.com/";
-export const R = "https://apnews.com/";
-export const Y = "https://youglish.com/";
-export const A = "https://apps.ankiweb.net/";
-export const W = "https://writeandimprove.com/";
-export const E = "https://www.ets.org/toefl.html";

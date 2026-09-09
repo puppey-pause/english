@@ -2,7 +2,7 @@ import { useAppStore } from "@/app/store";
 import { useT } from "@/shared/i18n/useT";
 import type { Topic } from "@/entities/stage";
 import { INFO } from "@/shared/data/topicInfo";
-import { STEPS } from "@/shared/data/steps";
+import { STEPS, PHASES } from "@/shared/data/steps";
 import { speak } from "@/shared/lib/speech";
 import { Button, Label, Textarea } from "@/shared/ui";
 import styles from "./LearnPage.module.css";
@@ -54,6 +54,7 @@ export const TopicDetail = ({ topic }: { topic: Topic }) => {
       {steps.length ? (
         <div className={styles.steps}>
           <Label section>{`${t("что сделать")} · ${checked}/${steps.length}`}</Label>
+          <p className={styles.ladder}>{t("шаги идут по нарастающей: сначала только смотришь и слушаешь, в конце говоришь и пишешь сам")}</p>
           <div className={styles.list}>
             {steps.map((step, i) => {
               const key = `${topic.k}#${i}`;
@@ -61,7 +62,10 @@ export const TopicDetail = ({ topic }: { topic: Topic }) => {
               return (
                 <label key={i} className={[styles.step, on && styles.stepOn].filter(Boolean).join(" ")}>
                   <input type="checkbox" checked={on} onChange={() => toggleStep(key)} />
-                  <span>{t(step)}</span>
+                  <span className={styles.stepBody}>
+                    <span className={styles.phase} title={t(PHASES[step.p])}>{t(step.p)}</span>
+                    <span>{t(step.t)}</span>
+                  </span>
                 </label>
               );
             })}
