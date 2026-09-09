@@ -11,12 +11,16 @@ export const TopicDetail = ({ topic }: { topic: Topic }) => {
   const t = useT();
   const done = useAppStore((s) => s.done);
   const notes = useAppStore((s) => s.notes);
+  const stepsDone = useAppStore((s) => s.steps);
+  const toggleStep = useAppStore((s) => s.toggleStep);
   const toggleDone = useAppStore((s) => s.toggleDone);
   const setNote = useAppStore((s) => s.setNote);
 
   const info = INFO[topic.name];
   const steps = STEPS[topic.layer] ?? [];
   const isDone = Boolean(done[topic.k]);
+  const checked = steps.filter((_, i) => stepsDone[`${topic.k}#${i}`]).length;
+  const ready = checked === steps.length;
 
   return (
     <div className={styles.detail}>
@@ -49,12 +53,19 @@ export const TopicDetail = ({ topic }: { topic: Topic }) => {
 
       {steps.length ? (
         <div className={styles.steps}>
-          <Label section>{t("что сделать")}</Label>
-          <ol className={styles.list}>
-            {steps.map((step, i) => (
-              <li key={i}>{t(step)}</li>
-            ))}
-          </ol>
+          <Label section>{`${t("что сделать")} · ${checked}/${steps.length}`}</Label>
+          <div className={styles.list}>
+            {steps.map((step, i) => {
+              const key = `${topic.k}#${i}`;
+              const on = Boolean(stepsDone[key]);
+              return (
+                <label key={i} className={[styles.step, on && styles.stepOn].filter(Boolean).join(" ")}>
+                  <input type="checkbox" checked={on} onChange={() => toggleStep(key)} />
+                  <span>{t(step)}</span>
+                </label>
+              );
+            })}
+          </div>
         </div>
       ) : null}
 
@@ -72,9 +83,16 @@ export const TopicDetail = ({ topic }: { topic: Topic }) => {
       />
 
       <div className={styles.detailActions}>
-        <Button variant={isDone ? "positive" : "primary"} onClick={() => toggleDone(topic.k)}>
+        <Button
+          variant={isDone ? "positive" : "primary"}
+          disabled={!isDone && !ready}
+          onClick={() => toggleDone(topic.k)}
+        >
           {t(isDone ? "тема пройдена" : "отметить пройденной")}
         </Button>
+        {!isDone && !ready ? (
+          <span className={styles.gate}>{`${t("осталось шагов:")} ${steps.length - checked}`}</span>
+        ) : null}
         {topic.link ? (
           <a className={styles.link} href={topic.link} target="_blank" rel="noreferrer">
             {t("источник")}

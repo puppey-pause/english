@@ -10,8 +10,10 @@ export type ReadingText = {
   body: string[];
   /** Слово — короткое значение по-русски. */
   gloss: [string, string][];
-  /** Вопросы на понимание — по-английски, отвечать вслух. */
-  q: string[];
+  /** Вопросы до чтения — разогнать мысль до текста. */
+  pre: string[];
+  /** Вопрос и образец ответа для самопроверки. */
+  q: [string, string][];
   /** Что сделать после чтения. */
   after: string;
 };
@@ -27,7 +29,10 @@ export const READING: ReadingText[] = [
       "In the evening she takes the same bus home. Sam is not there. Another driver works at night, and nobody says good morning.",
     ],
     gloss: [["driver", "водитель"], ["face", "лицо"], ["nurse", "медсестра"], ["half past seven", "полвосьмого"], ["nobody", "никто"]],
-    q: ["What time does Marta start work?", "Why does she like the window seat?", "Who works on the bus at night?"],
+    pre: ["What time do you usually leave home?", "Do you talk to people you see every day but do not know?"],
+    q: [["What time does Marta start work?", "At half past seven — she starts at 7:30 and finishes at four."],
+      ["Why does the bus feel unfriendly in the evening?", "A different driver works at night and nobody greets anyone."],
+      ["What does Sam know about the passengers?", "Their faces, but not their names."]],
     after: "Перескажи текст вслух в третьем лице — следи за -s: she takes, he knows.",
   },
   {
@@ -40,7 +45,10 @@ export const READING: ReadingText[] = [
       "Peter says the cat has no name. He says a cat like this does not need a name.",
     ],
     gloss: [["garden", "сад"], ["bench", "скамейка"], ["grass", "трава"], ["afraid", "боящийся"], ["next door", "по соседству"]],
-    q: ["What is in the garden?", "Where does the cat live?", "Does the cat have a name?"],
+    pre: ["Is there a garden or a yard near your home?", "Do animals in your street belong to anyone?"],
+    q: [["What is in the garden?", "Two trees, one bench and a lot of grass."],
+      ["Where does the cat live?", "Next door, with an old man called Peter."],
+      ["Does the cat have a name?", "No — Peter says a cat like this does not need one."]],
     after: "Опиши свою комнату шестью предложениями: три с there is, три с there are.",
   },
   {
@@ -53,7 +61,10 @@ export const READING: ReadingText[] = [
       "I go there almost every day. I always buy the same things: bread and two apples. Ana knows this, and sometimes the bread is already on the counter when I come in.",
     ],
     gloss: [["corner", "угол"], ["fridge", "холодильник"], ["counter", "прилавок"], ["instead", "вместо"], ["almost", "почти"]],
-    q: ["When does the shop close?", "How much is a bottle of water?", "What does the narrator buy every day?"],
+    pre: ["What is the nearest shop to your home?", "Do you buy the same things every time?"],
+    q: [["When does the shop close?", "At ten at night; it opens at eight in the morning."],
+      ["How much is a bottle of water?", "One euro twenty."],
+      ["Why is the bread sometimes already on the counter?", "Ana knows the narrator buys the same things every day."]],
     after: "Прочитай вслух все числа и цены из текста, не глядя на цифры второй раз.",
   },
 
@@ -68,7 +79,10 @@ export const READING: ReadingText[] = [
       "We walked up the stairs together. She lives on the ninth floor. Now we say hello every time we meet, which we never did before.",
     ],
     gloss: [["lift", "лифт"], ["press", "нажать"], ["go out (light)", "погаснуть"], ["calm", "спокойный"], ["engineer", "мастер, техник"], ["stairs", "лестница"]],
-    q: ["How long did they wait?", "What calmed the dog down?", "What changed between the two neighbours?"],
+    pre: ["Have you ever been stuck somewhere — a lift, a train, a queue?", "What do people do when they have to wait together?"],
+    q: [["How long did they wait?", "Fifty minutes, although the voice promised twenty."],
+      ["What calmed the dog down?", "The woman talking to it quietly in a language the narrator did not understand."],
+      ["What changed between the two neighbours?", "They now say hello every time they meet, which they never did before."]],
     after: "Выпиши из текста все глаголы в прошедшем и раздели их на правильные и неправильные.",
   },
   {
@@ -82,7 +96,10 @@ export const READING: ReadingText[] = [
       "The most surprising thing was the price. Three cities in three days cost less than one week at the sea.",
     ],
     gloss: [["on foot", "пешком"], ["square", "площадь"], ["in the middle", "посередине"], ["surprising", "неожиданный"], ["cost", "стоить"]],
-    q: ["Which city was the easiest to walk?", "Why did they sleep badly in Madrid?", "What surprised the narrator most?"],
+    pre: ["Which do you prefer: a big loud city or a small quiet one?", "What makes a trip feel expensive?"],
+    q: [["Which city was the easiest to walk?", "Porto — everything interesting was within twenty minutes on foot."],
+      ["Why did they sleep badly in Madrid?", "Their hotel was next to a square where people were still talking at three in the morning."],
+      ["What surprised the narrator most?", "The price — three cities in three days cost less than a week at the sea."]],
     after: "Сравни три места, где ты был, пятью предложениями — по одному с -er, -est, more, as … as и than.",
   },
   {
@@ -96,7 +113,10 @@ export const READING: ReadingText[] = [
       "He said he saw them fall and waited ten minutes. I said thank you four times. He said once was enough.",
     ],
     gloss: [["carry", "нести"], ["ring", "звонить"], ["ground", "земля"], ["pocket", "карман"], ["hold", "держать"], ["enough", "достаточно"]],
-    q: ["What was the narrator doing when the phone rang?", "Where did the keys turn up?", "How long did the man wait?"],
+    pre: ["Have you ever lost your keys?", "What do you usually do while talking on the phone?"],
+    q: [["What was the narrator doing when the phone rang?", "Carrying two bags of shopping."],
+      ["Where did the keys turn up?", "A man at the bus stop had them — he saw them fall."],
+      ["How long did the man wait?", "Ten minutes."]],
     after: "Расскажи свою историю с прерванным действием: was doing … when … happened.",
   },
 
@@ -112,7 +132,10 @@ export const READING: ReadingText[] = [
       "The university has offered to digitise the notebooks. He agreed, on one condition: the box stays under the bed.",
     ],
     gloss: [["retire", "выйти на пенсию"], ["dawn", "рассвет"], ["record", "запись данных"], ["suspect", "подозревать"], ["species", "вид (животных)"], ["condition", "условие"]],
-    q: ["Why did nobody notice his work for years?", "What did the numbers prove?", "How does Kenneth describe his own motive?"],
+    pre: ["Do you have a habit you have kept for years?", "Who collects data that nobody asks for?"],
+    q: [["Why did nobody notice his work for years?", "He was not a scientist and kept the notebooks in a box under his bed; no one had asked for such records."],
+      ["What did the numbers prove?", "That one common species almost disappeared from the area, and did so quickly, between 2011 and 2014."],
+      ["How does Kenneth describe his own motive?", "Not as science — he counts because Saturday morning has to be something."]],
     after: "Найди в тексте четыре формы Present Perfect и объясни, почему там не Past Simple.",
   },
   {
@@ -126,7 +149,10 @@ export const READING: ReadingText[] = [
       "So the question is not how to make people read. It is whether the instructions deserve to be read. A page that answers one real question in six lines will be read by everyone, every time.",
     ],
     gloss: [["device", "устройство"], ["laziness", "лень"], ["backwards", "в обратном порядке"], ["punishment", "наказание"], ["guess", "догадываться"], ["deserve", "заслуживать"]],
-    q: ["When do people actually read instructions?", "What does the author mean by 'written backwards'?", "Do you agree with the second reason?"],
+    pre: ["When did you last read instructions for something?", "What makes a page of text feel unpleasant to read?"],
+    q: [["When do people actually read instructions?", "Only after something has gone wrong."],
+      ["What does the author mean by written backwards?", "Starting from the trouble the reader has, rather than from a description of the parts."],
+      ["What is the second reason people avoid manuals?", "Bad translation and small print make reading them feel like a punishment, so guessing becomes a habit."]],
     after: "Выпиши пять связок из текста и построй с ними свой абзац на любую тему.",
   },
   {
@@ -140,7 +166,10 @@ export const READING: ReadingText[] = [
       "They offered her the job the same evening. She asked for a day to think, and the manager said that was reasonable.",
     ],
     gloss: [["receptionist", "администратор"], ["apologise", "извиняться"], ["expect", "ожидать"], ["prepare", "готовить"], ["reasonable", "разумный"]],
-    q: ["How long did Dana wait, and why?", "What answer surprised the manager?", "Would you have waited?"],
+    pre: ["What would you do if an interview started 40 minutes late?", "What answer do you prepare before an interview?"],
+    q: [["How long did Dana wait, and why?", "Forty minutes; the room was not free and nobody explained further."],
+      ["What answer surprised the manager?", "That she would change nothing in her first month, because a month is too short to understand anything."],
+      ["What did she do when they offered her the job?", "She asked for a day to think, and the manager agreed it was reasonable."]],
     after: "Перескажи диалог в косвенной речи: he said that…, she asked whether…",
   },
 
@@ -155,7 +184,10 @@ export const READING: ReadingText[] = [
       "The interesting question now is not whether free was a mistake, but whether anything else can compete with it. Paid alternatives exist and remain small. Until enough people treat a subscription as ordinary rather than an insult, the arithmetic will not change.",
     ],
     gloss: [["reverse", "поменять местами"], ["legible", "читаемый, понятный"], ["accumulation", "накопление"], ["conflict", "вступать в противоречие"], ["arithmetic", "арифметика, простой расчёт"], ["subscription", "подписка"]],
-    q: ["What does the author mean by 'reversed'?", "Which counterargument does the author accept?", "What condition would change the situation?"],
+    pre: ["Which free services would you pay for if you had to?", "What does a company get from a user who pays nothing?"],
+    q: [["What does the author mean by reversed?", "The user stopped being the customer and became the thing being sold."],
+      ["Which counterargument does the author accept?", "That free tools reached people who could never have paid for them."],
+      ["What condition would change the situation?", "Enough people treating a subscription as ordinary rather than an insult."]],
     after: "Напиши абзац на 120 слов с обратной позицией — с одним честным контрдоводом.",
   },
   {
@@ -169,7 +201,10 @@ export const READING: ReadingText[] = [
       "The mistake was the claim, not the room. A layout cannot manufacture collaboration; it can only make certain behaviours slightly more or slightly less expensive. Teams that talked before still talk. Teams that did not now have nowhere to hide, which is a different problem entirely.",
     ],
     gloss: [["cure", "лекарство, средство"], ["measurement", "измерение"], ["postpone", "откладывать"], ["approval", "согласование"], ["indefensible", "не поддающийся защите"], ["overhear", "случайно услышать"]],
-    q: ["Why did conversation decrease?", "What kind of work fills an open office?", "What does the author concede?"],
+    pre: ["Where do you work best — alone or among people?", "What does an office layout actually change?"],
+    q: [["Why did conversation decrease?", "In a room where forty people can hear you, a short question becomes a performance, so people write instead."],
+      ["What kind of work fills an open office?", "Work that survives interruption: replies, approvals and meetings."],
+      ["What does the author concede?", "Open offices are cheaper, less lonely for newcomers, and some teams do run on overheard information."]],
     after: "Найди в тексте три оговорки автора и назови, что каждая из них уступает.",
   },
   {
@@ -183,7 +218,10 @@ export const READING: ReadingText[] = [
       "A third draft, if you have time, mostly consists of putting back three or four things you cut too enthusiastically.",
     ],
     gloss: [["draft", "черновик"], ["proud of", "гордящийся"], ["removal", "удаление"], ["bearable", "терпимый"], ["hesitate", "запинаться, колебаться"], ["enthusiastically", "с энтузиазмом"]],
-    q: ["Why is a second draft not just tidying up?", "Why does editing feel worse than writing?", "What test does the author recommend?"],
+    pre: ["Do you reread what you write, or send it straight away?", "Which is harder for you: starting or cutting?"],
+    q: [["Why is a second draft not just tidying up?", "It means deciding what the piece is about — cutting favourite paragraphs and moving the real argument."],
+      ["Why does editing feel worse than writing?", "Writing adds, editing removes, and removal is felt as loss even when the result is better."],
+      ["What test does the author recommend?", "Read it aloud: every sentence where your voice hesitates is undecided."]],
     after: "Выпиши шесть коллокаций из текста (глагол + существительное) и употреби каждую в своей фразе.",
   },
 
@@ -198,7 +236,10 @@ export const READING: ReadingText[] = [
       "What might replace it is unglamorous. Not a better metric, but a tolerance for periods that cannot be evaluated while they are happening, and a longer horizon over which they can.",
     ],
     gloss: [["virtue", "добродетель"], ["invoke", "апеллировать, призывать"], ["incoherent", "бессвязный, несостоятельный"], ["audit", "проверка, ревизия"], ["internalise", "усвоить как своё"], ["unglamorous", "непривлекательный, невыигрышный"]],
-    q: ["What does the author mean by 'the feeling of the metric'?", "Which counterargument is granted, and how far?", "What is proposed instead?"],
+    pre: ["What does a productive day mean to you?", "Can thinking be measured the way output is measured?"],
+    q: [["What does the author mean by the feeling of the metric?", "The sense of being audited — that a day must justify itself — survives even when the measurement itself has stopped making sense."],
+      ["Which counterargument is granted, and how far?", "That measurement reveals broken processes and that vague appeals to craft have covered laziness — granted fully, but the objection is narrower."],
+      ["What is proposed instead?", "Not a better metric, but tolerance for periods that cannot be judged while they happen, and a longer horizon."]],
     after: "Найди инверсию в первой фразе и перепиши три своих нейтральных предложения с эмфазой.",
   },
   {
@@ -212,7 +253,10 @@ export const READING: ReadingText[] = [
       "None of which argues for maps that show everything. A map that shows everything is the territory, and the territory is precisely what one consults a map in order to avoid.",
     ],
     gloss: [["omit", "опускать, не включать"], ["encode", "закладывать, зашифровывать"], ["survey", "съёмка местности, обследование"], ["displacement", "смещение"], ["deliberate", "намеренный"], ["consult", "обращаться к (источнику)"]],
-    q: ["Why is omission never neutral?", "Which of the three terms do readers notice, and why?", "What is the problem with digital maps?"],
+    pre: ["Which map do you use most, and what does it hide?", "Can a map be wrong and useful at the same time?"],
+    q: [["Why is omission never neutral?", "Every choice about what to leave out encodes a judgement about the reader, and those judgements outlive their authors."],
+      ["Which of the three terms do readers notice, and why?", "Displacement — the small lie that moves a road — because it visibly contradicts the ground."],
+      ["What is the problem with digital maps?", "They select invisibly and differently for each user, with no earlier edition to compare against."]],
     after: "Подбери по три близких синонима к omit, deliberate и judgement и объясни разницу между ними.",
   },
   {
@@ -226,7 +270,10 @@ export const READING: ReadingText[] = [
       "The practical skill, then, is not avoiding hedges but reading them. Ask what the sentence would look like with an agent restored and a tense fixed. If the answer is we have not hired enough staff since March, you have learned something the notice was designed not to say.",
     ],
     gloss: [["revealingly", "красноречиво, выдавая себя"], ["recruit", "вовлекать, вербовать"], ["hedging", "смягчение утверждения"], ["overstatement", "преувеличение"], ["commitment", "обязательство"], ["pin down", "припереть к стенке, вынудить к конкретике"]],
-    q: ["What work does the pronoun 'we' do in the notice?", "When is hedging legitimate?", "What test does the author propose?"],
+    pre: ["What do official apologies usually avoid saying?", "When do you soften your own wording?"],
+    q: [["What work does the pronoun we do in the notice?", "It quietly enrols the reader in the institution's difficulty, so nobody is left to blame."],
+      ["When is hedging legitimate?", "When the evidence genuinely does not support a stronger claim — as in academic prose."],
+      ["What test does the author propose?", "Rewrite the sentence with an agent restored and a tense fixed, and see what it then admits."]],
     after: "Возьми любое официальное объявление и перепиши его с восстановленным подлежащим и точным временем.",
   },
 ];

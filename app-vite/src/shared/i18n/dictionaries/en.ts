@@ -1534,4 +1534,22 @@ export const en: Record<string, string> = {
   "Напиши свой текст по образцу на пять-семь предложений.": "Write your own five-to-seven-sentence text on the same pattern.",
   "Перечитай его через день и поправь — свежим взглядом ошибки видно.": "Reread it a day later and fix it — fresh eyes see the mistakes.",
   "тексты по уровням A1–C1 со словами и вопросами": "texts by level A1–C1 with word lists and questions",
+
+  // --- свежесть тем, темп речи, чтение ---
+  "Прочитай разбор выше и проговори вслух каждый пример.": "Read the notes above and say every example out loud.",
+  "Если время есть только на один звук — бери θ. Русское «с» вместо него (синк вместо think) слышно в первую же минуту разговора и мешает сильнее любой ошибки в грамматике.": "If you only have time for one sound, make it θ. Substituting an s (sink for think) is audible in the first minute of a conversation and costs you more than any grammar mistake.",
+  "темп озвучки": "speech speed",
+  "медленно": "slow",
+  "спокойно": "easy",
+  "обычно": "normal",
+  "свежо": "fresh",
+  "пора повторить": "time to review",
+  "давно не был": "long time",
+  "дн. назад": "d ago",
+  "до чтения": "before reading",
+  "Ответь на два вопроса своими словами — дальше текст читается вдвое легче.": "Answer two questions in your own words — the text reads twice as easily afterwards.",
+  "показать ответы": "show answers",
+  "скрыть ответы": "hide answers",
+  "твой ответ на задание": "your answer to the task",
+  "осталось шагов:": "steps left:",
 };

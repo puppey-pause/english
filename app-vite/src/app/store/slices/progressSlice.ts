@@ -9,6 +9,8 @@ export const createProgressSlice: StateCreator<AppState, [], [], ProgressSlice> 
   box: {},
   notes: {},
   levels: {},
+  drills: {},
+  steps: {},
 
   toggleDone: (k) =>
     set((s) => {
@@ -34,6 +36,16 @@ export const createProgressSlice: StateCreator<AppState, [], [], ProgressSlice> 
         box: { ...s.box, [k]: box },
         rev: { ...s.rev, [k]: nextDue(box) },
       };
+    }),
+
+  finishDrill: (topic, right, total) =>
+    set((s) => ({ drills: { ...s.drills, [topic]: { at: Date.now(), right, total } } })),
+
+  toggleStep: (k) =>
+    set((s) => {
+      const steps = { ...s.steps, [k]: !s.steps[k] };
+      if (!steps[k]) delete steps[k];
+      return { steps };
     }),
 
   setNote: (k, text) => set((s) => ({ notes: { ...s.notes, [k]: text } })),

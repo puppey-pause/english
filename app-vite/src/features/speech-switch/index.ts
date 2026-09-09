@@ -1,0 +1,1 @@
+export { SpeechSwitch } from "./SpeechSwitch";

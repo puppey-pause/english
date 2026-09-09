@@ -1,14 +1,21 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppStore } from "@/app/store";
 import { useT } from "@/shared/i18n/useT";
 import { DRILLS, ORDERS, PICKS } from "@/shared/data/drills";
 import { GRAMMAR_TOPICS } from "@/shared/config";
 import { shuffle } from "@/shared/lib/random";
 import { speak } from "@/shared/lib/speech";
+import { daysAgo, freshness } from "@/shared/lib/freshness";
 import { Button, Card, Chip, Input, Label, PageHead } from "@/shared/ui";
 import styles from "./DrillsPage.module.css";
 
 type Mode = "err" | "gap" | "ord";
+
+const STATE_LABEL: Record<string, string> = {
+  fresh: "свежо",
+  soon: "пора повторить",
+  stale: "давно не был",
+};
 
 const MODES: { id: Mode; label: string; lead: string }[] = [
   { id: "err", label: "найди ошибку", lead: "Скажи, что не так, и посмотри правильный вариант." },
@@ -27,6 +34,8 @@ const COUNTS = GRAMMAR_TOPICS.map((topic) => ({
 export const DrillsPage = () => {
   const t = useT();
   const addMistake = useAppStore((s) => s.addMistake);
+  const runs = useAppStore((s) => s.drills);
+  const finishDrill = useAppStore((s) => s.finishDrill);
 
   const [topic, setTopic] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("err");
@@ -50,6 +59,10 @@ export const DrillsPage = () => {
   const ord = ordPool[step];
   const scrambled = useMemo(() => (ord ? shuffle(ord.s.split(" ")) : []), [ord]);
   const finished = topic !== null && step >= pool.length;
+
+  useEffect(() => {
+    if (finished && topic && score.total) finishDrill(topic, score.right, score.total);
+  }, [finished, topic, score.right, score.total, finishDrill]);
 
   const start = (next: string | null, nextMode?: Mode) => {
     setTopic(next);
@@ -80,12 +93,29 @@ export const DrillsPage = () => {
         />
         <Label section>{t("выбери тему")}</Label>
         <div className={styles.topics}>
-          {COUNTS.filter((x) => x.total).map((x) => (
-            <button key={x.topic} type="button" className={styles.topicCard} onClick={() => start(x.topic)}>
-              <span className={styles.topicName}>{t(x.topic)}</span>
-              <span className={styles.topicCount}>{`${x.total} ${t("заданий")}`}</span>
-            </button>
-          ))}
+          {COUNTS.filter((x) => x.total).map((x) => {
+            const run = runs[x.topic];
+            const state = freshness(x.topic, run);
+            return (
+              <button
+                key={x.topic}
+                type="button"
+                className={[styles.topicCard, styles[state]].filter(Boolean).join(" ")}
+                onClick={() => start(x.topic)}
+              >
+                <span className={styles.topicHead}>
+                  <span className={styles.topicName}>{t(x.topic)}</span>
+                  {state !== "none" ? <span className={styles.mark} aria-hidden>✓</span> : null}
+                </span>
+                <span className={styles.topicCount}>{`${x.total} ${t("заданий")}`}</span>
+                {run && state !== "none" ? (
+                  <span className={styles.topicState}>
+                    {`${t(STATE_LABEL[state])} · ${run.right}/${run.total} · ${daysAgo(run.at)} ${t("дн. назад")}`}
+                  </span>
+                ) : null}
+              </button>
+            );
+          })}
         </div>
       </div>
     );

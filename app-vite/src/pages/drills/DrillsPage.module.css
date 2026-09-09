@@ -26,8 +26,18 @@
   transition: border-color 0.16s ease, transform 0.16s ease;
 }
 .topicCard:hover { border-color: var(--green-line); transform: translateY(-1px); }
+.topicHead { display: flex; gap: 8px; align-items: baseline; justify-content: space-between; width: 100%; }
 .topicName { font-size: 17px; font-weight: 500; text-wrap: pretty; }
 .topicCount { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+.topicState { font-family: var(--mono); font-size: 11px; }
+.mark { font-size: 15px; line-height: 1; flex: 0 0 auto; }
+
+.fresh { border-color: var(--green-line); background: var(--green-bg); }
+.fresh .mark, .fresh .topicState { color: var(--green-ink); }
+.soon { border-color: var(--warn-line); background: var(--warn-bg); }
+.soon .mark, .soon .topicState { color: var(--ochre-ink); }
+.stale { border-color: var(--terra-line); background: var(--terra-bg); }
+.stale .mark, .stale .topicState { color: var(--terra); }
 
 .topBar { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
 .progress { font-family: var(--mono); font-size: 13px; color: var(--faint); }

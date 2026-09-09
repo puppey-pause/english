@@ -39,6 +39,37 @@ export const GRAMMAR_TOPICS = [
   "Похожие слова",
 ] as const;
 
+/**
+ * Через сколько дней тема тренажёра считается несвежей. Артикли и предлоги
+ * забываются быстрее всего, степени сравнения — медленнее всех.
+ */
+export const DRILL_DAYS: Record<string, number> = {
+  "Артикли": 4,
+  "Предлоги": 4,
+  "Present Perfect": 5,
+  "Условные и wish": 5,
+  "Инфинитив и -ing": 5,
+  "Вопросы и порядок слов": 5,
+  "Present Simple": 7,
+  "Past Simple": 7,
+  "Модальные глаголы": 7,
+  "Исчисляемое и неисчисляемое": 7,
+  "Косвенная речь": 7,
+  "Похожие слова": 7,
+  "Present Continuous": 10,
+  "Past Continuous": 10,
+  "Future и will": 10,
+  "Прилагательные и наречия": 10,
+  "Be и связки": 10,
+  "Степени сравнения": 14,
+};
+
+export const SPEECH_RATES = [
+  { value: 0.65, label: "медленно" },
+  { value: 0.8, label: "спокойно" },
+  { value: 0.95, label: "обычно" },
+] as const;
+
 export type ViewId =
   | "today" | "learn" | "map" | "review" | "words" | "drills"
   | "situ" | "ref" | "reading" | "progress" | "errors" | "test"

@@ -12,6 +12,9 @@ export interface UiSlice {
   query: string;
   theme: ThemeId;
   lang: Lang;
+  /** темп озвучки: 0.6 медленно … 1.0 обычно */
+  rate: number;
+  setRate: (r: number) => void;
   setView: (view: ViewId, stageIndex?: number) => void;
   setQuery: (q: string) => void;
   setOpenTopic: (k: string) => void;
@@ -30,7 +33,13 @@ export interface ProgressSlice {
   notes: Record<string, string>;
   /** stage num -> self-assessed level */
   levels: Record<string, string>;
+  /** тема тренажёра -> когда прошёл и с каким счётом */
+  drills: Record<string, { at: number; right: number; total: number }>;
+  /** "ключ темы#номер шага" -> шаг отмечен */
+  steps: Record<string, boolean>;
   toggleDone: (k: string) => void;
+  finishDrill: (topic: string, right: number, total: number) => void;
+  toggleStep: (k: string) => void;
   gradeTopic: (k: string, remembered: boolean) => void;
   setNote: (k: string, text: string) => void;
 }

@@ -43,4 +43,10 @@
   flex: 0 0 auto;
 }
 
-.q { font-size: 15px; margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.q { font-size: 15px; margin: 8px 0 0; padding-left: 20px; display: grid; gap: 10px; }
+.question { text-wrap: pretty; }
+.model { margin: 4px 0 0; font-size: 14px; color: var(--green-ink); text-wrap: pretty; }
+.pre { font-size: 15px; margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.hint { font-size: 14px; color: var(--mid); margin: 0; text-wrap: pretty; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.field { margin-top: 12px; }

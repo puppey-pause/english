@@ -15,6 +15,7 @@ export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>>
   partialize: (s) => ({
     theme: s.theme,
     lang: s.lang,
+    rate: s.rate,
     view: s.view,
     stageIndex: s.stageIndex,
     done: s.done,
@@ -22,6 +23,8 @@ export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>>
     box: s.box,
     notes: s.notes,
     levels: s.levels,
+    drills: s.drills,
+    steps: s.steps,
     words: s.words,
     mistakes: s.mistakes,
   }),

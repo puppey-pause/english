@@ -3,6 +3,7 @@ import { useT } from "@/shared/i18n/useT";
 import { Input } from "@/shared/ui";
 import { LanguageSwitch } from "@/features/language-switch";
 import { ThemeSwitch } from "@/features/theme-switch";
+import { SpeechSwitch } from "@/features/speech-switch";
 import styles from "./Header.module.css";
 
 export const Header = () => {
@@ -21,6 +22,7 @@ export const Header = () => {
           placeholder={t("поиск по темам")}
           aria-label={t("поиск по темам")}
         />
+        <SpeechSwitch />
         <LanguageSwitch />
         <ThemeSwitch />
       </div>

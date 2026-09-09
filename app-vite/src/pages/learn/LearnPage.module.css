@@ -99,7 +99,22 @@
 }
 
 .steps { margin: 16px 0; }
-.list { font-size: 15px; padding-left: 22px; margin: 8px 0 0; display: grid; gap: 7px; }
+.list { font-size: 15px; padding-left: 0; margin: 8px 0 0; display: grid; gap: 7px; }
+.step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 9px 11px;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-sm);
+  background: var(--panel2);
+  cursor: pointer;
+  text-wrap: pretty;
+}
+.step input { margin-top: 3px; accent-color: var(--green); }
+.stepOn { background: var(--green-bg); border-color: var(--green-line); color: var(--green-ink); }
+.gate { font-family: var(--mono); font-size: 12px; color: var(--ochre-ink); }
 .crit { font-size: 15px; color: var(--ink2); margin: 14px 0; text-wrap: pretty; }
 .detailActions { display: flex; gap: 12px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
 .link { font-size: 14px; }
