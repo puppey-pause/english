@@ -1,17 +1,37 @@
 import type { GlossItem, Sheet, WordPair } from "./types";
 import {
   TENSE_NOTES, TENSES, ART_NOTES, ARTICLES, PREP_NOTES, PREPS, MODAL_NOTES, MODALS,
-  PP_NOTES, PPCARDS, IF_NOTES, IFCARDS, PHR_NOTES, PHRCARDS,
+  PP_NOTES, PPCARDS, IF_NOTES, IFCARDS, PHR_NOTES, PHRCARDS, PRON_NOTES, PRONOUNS,
+  DET_NOTES, DETS, LINK_NOTES, LINKS,
 } from "./referenceCards";
 
 export const SHEETS: Sheet[] = [
   { n: "Времена: как выбрать и как сказать", t: "cards", notes: TENSE_NOTES, cards: TENSES },
+  { n: "Местоимения: одиннадцать групп и зачем каждая", t: "cards", notes: PRON_NOTES, cards: PRONOUNS },
   { n: "Артикли: a, an, the и без артикля", t: "cards", notes: ART_NOTES, cards: ARTICLES },
   { n: "Предлоги: точка, поверхность, объём", t: "cards", notes: PREP_NOTES, cards: PREPS },
   { n: "Модальные: can, must, should", t: "cards", notes: MODAL_NOTES, cards: MODALS },
   { n: "Perfect или Past Simple: как выбрать", t: "cards", notes: PP_NOTES, cards: PPCARDS },
   { n: "Условные предложения: если…", t: "cards", notes: IF_NOTES, cards: IFCARDS },
   { n: "Фразовые глаголы: шесть основных", t: "cards", notes: PHR_NOTES, cards: PHRCARDS },
+  { n: "Определители и порядок в группе существительного", t: "cards", notes: DET_NOTES, cards: DETS },
+  { n: "Связки: два слоя — речь и письмо", t: "cards", notes: LINK_NOTES, cards: LINKS },
+  { n: "Числа в речи: годы, деньги, дроби", rows: [
+    ["1984 — nineteen eighty-four", "годы читают парами цифр, а не целым числом", "2007 — two thousand seven"],
+    ["2015 — twenty fifteen", "после 2010 вернулись к парам", "оба варианта живые"],
+    ["120 — a hundred and twenty", "and перед последней частью обязательно в UK, часто опускается в US", "1500 — fifteen hundred"],
+    ["$4.50 — four fifty", "в ценах слово dollars и cents чаще всего опускают", "£19.99 — nineteen ninety-nine"],
+    ["3/4 — three quarters", "дроби через порядковое: 1/3 — a third, 2/5 — two fifths", "1/2 — a half"],
+    ["2.5 — two point five", "десятичная точка читается point, цифры после неё — поодиночке", "0.75 — zero point seven five"],
+    ["2½ — two and a half", "целое с дробью соединяет and", "без and не говорят"],
+    ["5 апреля — April fifth (US)", "в датах число порядковое, даже когда на письме цифра", "the fifth of April (UK)"],
+    ["04/07 — разные даты", "US читает месяц первым, UK — день. В переписке пиши месяц словом", "4 июля или 7 апреля"],
+    ["телефон — по цифрам", "555-0134 — five five five, oh one three four. Ноль в номере — oh", "двойная цифра — double four"],
+    ["комната и номер", "Room 305 — three oh five. Номера не читают как числа", "Flight 212 — two twelve"],
+    ["1st, 2nd, 3rd, 4th", "порядковые сокращают по последним двум буквам слова", "21st, 22nd, 23rd, 24th"],
+    ["hundred, thousand — без -s", "two hundred people, а не «two hundreds». С -s только в значении «сотни»", "hundreds of people"],
+    ["процент", "25% — twenty-five percent, всегда без -s", "не «percents»"]
+  ]},
   { n: "Неправильные глаголы: первые 60", rows: [
     ["be — was/were — been", "go — went — gone", "do — did — done"],
     ["have — had — had", "say — said — said", "get — got — got"],
@@ -52,6 +72,12 @@ export const GLOSS: GlossItem[] = [
   { t: "Reported speech", d: "Передача чужих слов без кавычек. Времена сдвигаются на шаг в прошлое." },
   { t: "Conditional", d: "Условное предложение. Нулевое и первое — реальные, второе — гипотеза, третье — о прошлом." },
   { t: "Subject / object", d: "Подлежащее (I, he) и дополнение (me, him). В английском форма местоимения зависит от роли." },
+  { t: "Pronoun", d: "Слово вместо существительного: he, mine, this, someone. Одиннадцать групп, и форма зависит от роли в предложении." },
+  { t: "Determiner", d: "Слово перед существительным, задающее его определённость: a, the, my, this, some. Два определителя рядом не ставятся — «the my car» невозможно." },
+  { t: "Dummy subject", d: "Пустое подлежащее it или there, которое держит схему предложения, когда действующего лица нет: It's cold, There is a problem." },
+  { t: "Adjective order", d: "Фиксированный порядок прилагательных: оценка → размер → возраст → форма → цвет → откуда → материал. Ошибкой не считается, но слышно сразу." },
+  { t: "Adverb of frequency", d: "always, usually, never. Место зависит от глагола: перед обычным, после be, после первого вспомогательного." },
+  { t: "Conjunction", d: "Союз, соединяющий части предложения: and, but, because, although. В отличие от связки, стоит внутри и запятой не требует." },
   { t: "Phrasal verb", d: "Глагол с предлогом или наречием, меняющий смысл: give up, look after, find out." },
   { t: "Collocation", d: "Устойчивое сочетание: make a decision, heavy rain. Ошибка в нём выдаёт неноситель сразу." },
   { t: "Idiom", d: "Выражение, смысл которого не складывается из слов: piece of cake — «легко»." },
