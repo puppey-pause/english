@@ -93,12 +93,6 @@ export const TestPage = () => {
           );
         })}
       </div>
-
-      <Card flat>
-        <p className={styles.note}>
-          {t("не гугли и не угадывай — смысл в том, чтобы найти дыры, а не набрать балл")}
-        </p>
-      </Card>
     </div>
   );
 };

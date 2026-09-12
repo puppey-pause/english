@@ -1,19 +1,18 @@
 .chip {
   font-family: var(--mono);
   font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 8px 13px;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line3);
+  letter-spacing: 0.05em;
+  padding: 7px 12px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line2);
   background: transparent;
   color: var(--mid);
   cursor: pointer;
-  min-height: 40px;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  min-height: 38px;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-.chip:hover { border-color: var(--green-line); color: var(--ink); }
+.chip:hover { border-color: var(--line3); color: var(--ink); }
 
 .active {
   background: var(--invert-bg);
@@ -21,4 +20,4 @@
   color: var(--invert-fg);
 }
 
-.active:hover { color: var(--invert-fg); }
+.active:hover { color: var(--invert-fg); border-color: var(--invert-bg); }

@@ -14,10 +14,10 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>
-        {t("Английский по шагам")}
-        {level ? <span className={styles.level} title={t("уровень по общему тесту")}>{level}</span> : null}
-      </h1>
+      <div className={styles.titleRow}>
+        <h1 className={styles.title}>{t("Английский по шагам")}</h1>
+        {level ? <span className={styles.level}>{`${t("уровень")} ${level}`}</span> : null}
+      </div>
       <div className={styles.tools}>
         <Input
           className={styles.search}

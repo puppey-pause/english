@@ -64,6 +64,20 @@
 
 .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
 
+.token {
+  font: inherit;
+  font-size: 18px;
+  padding: 8px 13px;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-sm);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+}
+.token:hover:enabled { border-color: var(--line3); }
+.token:disabled { opacity: 0.5; cursor: default; }
+.token.optionRight, .token.optionWrong { opacity: 1; }
+
 .wordChip {
   font: inherit;
   font-size: 15px;

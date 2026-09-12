@@ -2,17 +2,15 @@
   background: var(--panel);
   border: 1px solid var(--line2);
   border-radius: var(--r-lg);
-  box-shadow: var(--shadow-card);
-  padding: 18px 20px;
+  padding: 22px 24px;
 }
 
-.accent { border-color: var(--green-line); }
-.warn { border-color: var(--terra-line); }
-.flat { box-shadow: none; }
+.accent { border-top: 2px solid var(--ink); border-color: var(--line2); border-top-color: var(--ink); }
+.warn { border-top: 2px solid var(--accent); border-top-color: var(--accent); }
+.flat { background: transparent; border-style: dashed; }
 
 .clickable {
   cursor: pointer;
-  transition: transform 0.14s cubic-bezier(0.2, 1.2, 0.4, 1), box-shadow 0.2s ease;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
 }
-.clickable:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
-.clickable:active { transform: scale(0.98); }
+.clickable:hover { border-color: var(--line3); background: var(--panel2); }

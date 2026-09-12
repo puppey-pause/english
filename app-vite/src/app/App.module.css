@@ -1,10 +1,42 @@
 .root {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 40px 28px 96px;
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
   color: var(--ink);
 }
 
-@media (max-width: 640px) {
-  .root { padding: 18px 14px 64px; overflow-x: hidden; }
+.side {
+  flex: 0 0 236px;
+  align-self: stretch;
+  border-right: 1px solid var(--line2);
+  padding: 34px 22px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 900px;
+  padding: 34px 44px 110px;
+}
+
+@media (max-width: 860px) {
+  .root { flex-direction: column; }
+  .side {
+    flex: none;
+    width: 100%;
+    position: static;
+    max-height: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--line2);
+    padding: 20px 16px 22px;
+    gap: 18px;
+  }
+  .main { padding: 24px 16px 72px; max-width: none; }
 }

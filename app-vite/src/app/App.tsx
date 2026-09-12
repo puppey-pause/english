@@ -32,9 +32,11 @@ export const App = () => {
 
   return (
     <div className={styles.root}>
-      <Header />
-      <Nav />
-      {query.trim() ? <SearchResults /> : <Router />}
+      <aside className={styles.side}>
+        <Header />
+        <Nav />
+      </aside>
+      <main className={styles.main}>{query.trim() ? <SearchResults /> : <Router />}</main>
     </div>
   );
 };

@@ -1647,5 +1647,6 @@ export const en: Record<string, string> = {
   "Все блоки пройдены до конца. Выше этого теста уровней нет.":
     "Every block cleared. This test has no level above that.",
   "похожие": "confusable pairs",
+  "итоги": "results",
   "фразовые": "phrasal verbs",
 };

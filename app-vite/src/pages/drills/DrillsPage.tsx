@@ -18,10 +18,28 @@ const STATE_LABEL: Record<string, string> = {
 };
 
 const MODES: { id: Mode; label: string; lead: string }[] = [
-  { id: "err", label: "найди ошибку", lead: "Скажи, что не так, и посмотри правильный вариант." },
+  { id: "err", label: "найди ошибку", lead: "Нажми на слово, которое стоит неправильно." },
   { id: "gap", label: "вставь слово", lead: "Выбери форму, которая подходит по смыслу." },
   { id: "ord", label: "собери фразу", lead: "Собери английскую фразу по русской подсказке." },
 ];
+
+const norm = (w: string) => w.toLowerCase().replace(/[.,!?;:]/g, "");
+
+/**
+ * Какие слова неверной фразы отличаются от верной — по ним и надо нажать.
+ * Если в неверной фразе слово пропущено, засчитываем соседнее.
+ */
+const wrongSpan = (bad: string, good: string): [number, number] => {
+  const b = bad.split(" ");
+  const g = good.split(" ");
+  let i = 0;
+  while (i < b.length && i < g.length && norm(b[i]) === norm(g[i])) i++;
+  let j = 0;
+  while (j < b.length - i && j < g.length - i && norm(b[b.length - 1 - j]) === norm(g[g.length - 1 - j])) j++;
+  const end = b.length - 1 - j;
+  if (end < i) return [Math.max(0, i - 1), Math.min(b.length - 1, i)];
+  return [i, end];
+};
 
 /** сколько заданий каждого типа лежит в теме */
 const COUNTS = GRAMMAR_TOPICS.map((topic) => ({
@@ -58,6 +76,7 @@ export const DrillsPage = () => {
   const gap = gapPool[step];
   const ord = ordPool[step];
   const scrambled = useMemo(() => (ord ? shuffle(ord.s.split(" ")) : []), [ord]);
+  const span = useMemo<[number, number]>(() => (err ? wrongSpan(err.b, err.g) : [0, 0]), [err]);
   const finished = topic !== null && step >= pool.length;
 
   useEffect(() => {
@@ -167,12 +186,33 @@ export const DrillsPage = () => {
       {!finished && active === "err" && err ? (
         <Card tone="accent">
           <Label>{`${t(err.gt)} · ${t("найди ошибку")}`}</Label>
-          <div className={styles.sentence}>{err.b}</div>
-          {answer === null ? (
-            <Button variant="primary" onClick={() => setAnswer("shown")}>
-              {t("показать правильный вариант")}
-            </Button>
-          ) : (
+          <div className={styles.chips}>
+            {err.b.split(" ").map((word, i) => {
+              const picked = answer !== null;
+              const inSpan = i >= span[0] && i <= span[1];
+              return (
+                <button
+                  key={`${word}-${i}`}
+                  type="button"
+                  disabled={picked}
+                  onClick={() => {
+                    setAnswer(i);
+                    record(inSpan, err.b, err.g, err.w);
+                  }}
+                  className={[
+                    styles.token,
+                    picked && inSpan && styles.optionRight,
+                    picked && !inSpan && answer === i && styles.optionWrong,
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                  {word}
+                </button>
+              );
+            })}
+          </div>
+          {answer !== null ? (
             <>
               <div className={styles.good}>
                 {err.g}
@@ -181,28 +221,11 @@ export const DrillsPage = () => {
                 </button>
               </div>
               <p className={styles.why}>{t(err.w)}</p>
-              <div className={styles.actions}>
-                <Button
-                  variant="positive"
-                  onClick={() => {
-                    record(true, err.b, err.g, err.w);
-                    advance();
-                  }}
-                >
-                  {t("знал")}
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    record(false, err.b, err.g, err.w);
-                    advance();
-                  }}
-                >
-                  {t("не знал")}
-                </Button>
-              </div>
+              <Button variant="primary" onClick={advance}>
+                {t("дальше")}
+              </Button>
             </>
-          )}
+          ) : null}
         </Card>
       ) : null}
 

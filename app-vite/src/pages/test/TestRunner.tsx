@@ -381,7 +381,11 @@ export const TestRunner = ({ mode, onExit }: Props) => {
               {step + 1 === queue.length ? t("итог") : t("дальше")}
             </Button>
           </>
-        ) : null}
+        ) : (
+          <p className={styles.fair}>
+            {t("не гугли и не угадывай — смысл в том, чтобы найти дыры, а не набрать балл")}
+          </p>
+        )}
       </Card>
     </div>
   );
