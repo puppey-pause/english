@@ -5,6 +5,7 @@ import { createUiSlice } from "./slices/uiSlice";
 import { createProgressSlice } from "./slices/progressSlice";
 import { createDeckSlice } from "./slices/deckSlice";
 import { createMistakeSlice } from "./slices/mistakeSlice";
+import { createTestSlice } from "./slices/testSlice";
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -13,6 +14,7 @@ export const useAppStore = create<AppState>()(
       ...createProgressSlice(...a),
       ...createDeckSlice(...a),
       ...createMistakeSlice(...a),
+      ...createTestSlice(...a),
     }),
     createJSONStorage()
   )

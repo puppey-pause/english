@@ -17,6 +17,7 @@ export const TodayPage = () => {
   const rev = useAppStore((s) => s.rev);
   const words = useAppStore((s) => s.words);
   const mistakes = useAppStore((s) => s.mistakes);
+  const level = useAppStore((s) => s.level);
   const setView = useAppStore((s) => s.setView);
   const setOpenTopic = useAppStore((s) => s.setOpenTopic);
 
@@ -75,6 +76,18 @@ export const TodayPage = () => {
           <Button onClick={() => setView("map")}>{t("карта слоёв")}</Button>
         </div>
       </Card>
+
+      {level ? null : (
+        <Card tone="warn">
+          <Label>{t("Не знаешь, с чего начать?")}</Label>
+          <p className={styles.miles}>
+            {t("общий тест: шесть блоков от A1 до C2 — покажет потолок и слабые темы. Плюс отдельные тесты по грамматике, лексике и сленгу.")}
+          </p>
+          <Button variant="primary" onClick={() => setView("test")}>
+            {t("пройти тест")}
+          </Button>
+        </Card>
+      )}
 
       {milestone ? (
         <Card tone="warn">

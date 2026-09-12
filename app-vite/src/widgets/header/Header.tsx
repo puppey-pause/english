@@ -10,10 +10,14 @@ export const Header = () => {
   const t = useT();
   const query = useAppStore((s) => s.query);
   const setQuery = useAppStore((s) => s.setQuery);
+  const level = useAppStore((s) => s.level);
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>{t("Английский по шагам")}</h1>
+      <h1 className={styles.title}>
+        {t("Английский по шагам")}
+        {level ? <span className={styles.level} title={t("уровень по общему тесту")}>{level}</span> : null}
+      </h1>
       <div className={styles.tools}>
         <Input
           className={styles.search}

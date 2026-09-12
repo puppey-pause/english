@@ -11,7 +11,7 @@ export const persist = zustandPersist;
  */
 export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>> => ({
   name: STORAGE_KEY,
-  version: 3,
+  version: 4,
   partialize: (s) => ({
     theme: s.theme,
     lang: s.lang,
@@ -27,6 +27,9 @@ export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>>
     steps: s.steps,
     words: s.words,
     mistakes: s.mistakes,
+    level: s.level,
+    testMisses: s.testMisses,
+    testRuns: s.testRuns,
   }),
   /**
    * v1 stored the same data under russian-ish short keys written by the HTML build.

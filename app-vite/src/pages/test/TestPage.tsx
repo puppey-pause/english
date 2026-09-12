@@ -1,247 +1,104 @@
 import { useMemo, useState } from "react";
 import { useAppStore } from "@/app/store";
 import { useT } from "@/shared/i18n/useT";
-import { TEST } from "@/shared/data/testBank";
-import type { TestItem } from "@/shared/data/types";
-import { shuffle } from "@/shared/lib/random";
-import { speak } from "@/shared/lib/speech";
-import { Button, Card, Chip, Label, PageHead, ProgressBar } from "@/shared/ui";
+import { MODES, poolFor, type TestModeId } from "@/shared/data/testModes";
+import { TestRunner } from "./TestRunner";
+import { Button, Card, Label, PageHead, Tag } from "@/shared/ui";
 import styles from "./TestPage.module.css";
-
-const QUIZ_LENGTH = 10;
-
-const LEVELS = Array.from(new Set(TEST.map((q) => q.lvl)));
-const THEMES = Array.from(new Set(TEST.map((q) => q.t)));
-
-/** Три типа — это один и тот же выбор из вариантов, меняется только подсказка. */
-const isChoice = (q: TestItem): q is Extract<TestItem, { k: "gap" | "tr" | "nat" }> =>
-  q.k === "gap" || q.k === "tr" || q.k === "nat";
-
-const prompt = (q: TestItem, t: (s: string) => string): string => {
-  if (q.k === "gap") return q.s;
-  if (q.k === "tr") return t(q.ru);
-  if (q.k === "nat") return t("Что звучит естественнее?");
-  if (q.k === "err") return t("Нажми на слово, которое стоит неправильно.");
-  return t("Собери фразу в правильном порядке.");
-};
-
-const correctText = (q: TestItem): string => {
-  if (q.k === "gap") return q.s.replace("___", q.o[q.a]);
-  if (q.k === "tr" || q.k === "nat") return q.o[q.a];
-  if (q.k === "err") return q.s.split(" ").map((w, i) => (i === q.a ? q.fix : w)).join(" ");
-  return q.o.join(" ");
-};
-
-const givenText = (q: TestItem, answer: number | string): string => {
-  if (q.k === "gap") return q.s.replace("___", q.o[Number(answer)]);
-  if (q.k === "tr" || q.k === "nat") return q.o[Number(answer)];
-  if (q.k === "err") return q.s;
-  return String(answer);
-};
 
 export const TestPage = () => {
   const t = useT();
-  const addMistake = useAppStore((s) => s.addMistake);
+  const level = useAppStore((s) => s.level);
+  const testMisses = useAppStore((s) => s.testMisses);
+  const testRuns = useAppStore((s) => s.testRuns);
+  const setLevel = useAppStore((s) => s.setLevel);
+  const [running, setRunning] = useState<TestModeId | null>(null);
 
-  const [level, setLevel] = useState<string>("все");
-  const [theme, setTheme] = useState<string>("все");
-  const [seed, setSeed] = useState(0);
-  const [step, setStep] = useState(0);
-  const [answer, setAnswer] = useState<number | string | null>(null);
-  const [assembled, setAssembled] = useState<string[]>([]);
-  const [right, setRight] = useState(0);
+  const missCount = Object.keys(testMisses).length;
+  const mode = running ? MODES.find((m) => m.id === running) : null;
 
-  const quiz = useMemo(() => {
-    void seed;
-    const pool = TEST.filter(
-      (q) => (level === "все" || q.lvl === level) && (theme === "все" || q.t === theme)
-    );
-    return shuffle(pool).slice(0, QUIZ_LENGTH);
-  }, [level, theme, seed]);
+  const sizes = useMemo(
+    () =>
+      Object.fromEntries(
+        MODES.map((m) => [
+          m.id,
+          m.id === "errors" ? missCount : poolFor(m, m.blocks?.[0]).length,
+        ])
+      ) as Record<TestModeId, number>,
+    [missCount]
+  );
 
-  const q = quiz[step];
-  const scramble = useMemo(() => (q && q.k === "ord" ? shuffle(q.o) : []), [q]);
-  const finished = step >= quiz.length;
-
-  const restart = (next: Partial<{ level: string; theme: string }>) => {
-    if (next.level) setLevel(next.level);
-    if (next.theme) setTheme(next.theme);
-    setSeed((s) => s + 1);
-    setStep(0);
-    setAnswer(null);
-    setAssembled([]);
-    setRight(0);
-  };
-
-  const grade = (value: number | string, ok: boolean) => {
-    setAnswer(value);
-    if (ok) setRight((r) => r + 1);
-    else if (q) addMistake(givenText(q, value), correctText(q), q.w);
-  };
-
-  const next = () => {
-    setStep((s) => s + 1);
-    setAnswer(null);
-    setAssembled([]);
-  };
+  if (mode) return <TestRunner mode={mode} onExit={() => setRunning(null)} />;
 
   return (
     <div className={styles.wrap}>
       <PageHead
         title={t("тесты")}
-        lead={t("Десять вопросов за подход. Промахи уходят в журнал ошибок сами.")}
-        aside={<span className={styles.score}>{`${right} / ${quiz.length}`}</span>}
+        lead={t(
+          "общий тест: шесть блоков от A1 до C2 — покажет потолок и слабые темы. Плюс отдельные тесты по грамматике, лексике и сленгу."
+        )}
+        aside={level ? <Tag>{level}</Tag> : null}
       />
 
-      <div className={styles.filters}>
-        <Chip label={t("все уровни")} active={level === "все"} onClick={() => restart({ level: "все" })} />
-        {LEVELS.map((l) => (
-          <Chip key={l} label={l} active={level === l} onClick={() => restart({ level: l })} />
-        ))}
-      </div>
-
-      <div className={styles.filters}>
-        <Chip label={t("все темы")} active={theme === "все"} onClick={() => restart({ theme: "все" })} />
-        {THEMES.map((x) => (
-          <Chip key={x} label={t(x)} active={theme === x} onClick={() => restart({ theme: x })} />
-        ))}
-      </div>
-
-      {!quiz.length ? (
-        <Card flat>
-          <p className={styles.note}>{t("Для такой пары фильтров вопросов нет — выбери другой уровень или тему.")}</p>
-        </Card>
-      ) : finished ? (
+      {level ? (
         <Card tone="accent">
-          <Label>{t("подход закрыт")}</Label>
-          <div className={styles.result}>{`${right} ${t("из")} ${quiz.length}`}</div>
-          <ProgressBar value={(right / quiz.length) * 100} />
+          <Label>{t("Твой уровень по тесту:")}</Label>
+          <div className={styles.levelBig}>{level}</div>
           <p className={styles.note}>
-            {t(
-              right >= quiz.length - 1
-                ? "Уровень взят. Поднимай планку — выбери уровень выше."
-                : "Разбор промахов уже в журнале ошибок: там же они вернутся на повторение."
-            )}
+            {t("Уровень стоит в заголовке сайта. Пройди общий тест заново, когда почувствуешь, что вырос.")}
           </p>
-          <Button variant="primary" onClick={() => restart({})}>
-            {t("ещё подход")}
+          <div className={styles.actions}>
+            <Button variant="primary" onClick={() => setRunning("general")}>
+              {t("пройти заново")}
+            </Button>
+            <Button onClick={() => setLevel("")}>{t("сбросить уровень")}</Button>
+          </div>
+        </Card>
+      ) : (
+        <Card tone="warn">
+          <Label>{t("Не знаешь, с чего начать?")}</Label>
+          <p className={styles.note}>
+            {t("Правило жёсткое: чтобы открыть следующий уровень, нужно набрать три четверти блока. Не набрал — тест останавливается, и этот уровень становится твоим.")}
+          </p>
+          <Button variant="primary" onClick={() => setRunning("general")}>
+            {t("пройти тест")}
           </Button>
         </Card>
-      ) : q ? (
-        <Card tone="accent">
-          <Label>{`${q.lvl} · ${t(q.t)} · ${step + 1}/${quiz.length}`}</Label>
+      )}
 
-          {isChoice(q) ? (
-            <>
-              <div className={q.k === "nat" ? styles.note : styles.sentence}>{prompt(q, t)}</div>
-              <div className={styles.options}>
-                {q.o.map((option, i) => {
-                  const picked = answer !== null;
-                  const isRight = i === q.a;
-                  return (
-                    <button
-                      key={option}
-                      type="button"
-                      disabled={picked}
-                      onClick={() => grade(i, isRight)}
-                      className={[
-                        styles.option,
-                        picked && isRight && styles.optionRight,
-                        picked && !isRight && answer === i && styles.optionWrong,
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      {option}
-                    </button>
-                  );
-                })}
+      <div className={styles.modes}>
+        {MODES.map((m) => {
+          const run = testRuns[m.id];
+          const empty = m.id === "errors" && !missCount;
+          return (
+            <Card key={m.id} onPress={empty ? undefined : () => setRunning(m.id)}>
+              <Label>{t(m.n)}</Label>
+              <p className={styles.modeLead}>{t(m.lead)}</p>
+              <div className={styles.modeMeta}>
+                <span>
+                  {m.blocks
+                    ? `${m.blocks.length} ${t("блоков")} · ${m.len} ${t("вопросов в блоке")}`
+                    : `${m.len} ${t("вопросов")}`}
+                </span>
+                <span className={styles.small}>
+                  {empty
+                    ? t("промахов пока нет")
+                    : `${sizes[m.id]} ${t(m.id === "errors" ? "в списке" : "в банке")}`}
+                </span>
+                {run ? (
+                  <span className={styles.small}>{`${t("прошлый раз")} ${run.right}/${run.total}`}</span>
+                ) : null}
               </div>
-            </>
-          ) : null}
+            </Card>
+          );
+        })}
+      </div>
 
-          {q.k === "err" ? (
-            <>
-              <p className={styles.note}>{prompt(q, t)}</p>
-              <div className={styles.tokens}>
-                {q.s.split(" ").map((word, i) => {
-                  const picked = answer !== null;
-                  const isRight = i === q.a;
-                  return (
-                    <button
-                      key={`${word}-${i}`}
-                      type="button"
-                      disabled={picked}
-                      onClick={() => grade(i, isRight)}
-                      className={[
-                        styles.token,
-                        picked && isRight && styles.optionRight,
-                        picked && !isRight && answer === i && styles.optionWrong,
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      {word}
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          ) : null}
-
-          {q.k === "ord" ? (
-            <>
-              <p className={styles.note}>{prompt(q, t)}</p>
-              <div className={styles.tokens}>
-                {scramble.map((word, i) => (
-                  <button
-                    key={`${word}-${i}`}
-                    type="button"
-                    disabled={answer !== null || assembled.includes(`${word}-${i}`)}
-                    className={styles.token}
-                    onClick={() => setAssembled((prev) => [...prev, `${word}-${i}`])}
-                  >
-                    {word}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.assembled}>
-                {assembled.map((k) => k.replace(/-\d+$/, "")).join(" ") || t("пока пусто")}
-              </div>
-              {answer === null ? (
-                <div className={styles.actions}>
-                  <Button
-                    variant="primary"
-                    disabled={!assembled.length}
-                    onClick={() => {
-                      const said = assembled.map((k) => k.replace(/-\d+$/, "")).join(" ");
-                      grade(said, said.toLowerCase() === q.o.join(" ").toLowerCase());
-                    }}
-                  >
-                    {t("проверить")}
-                  </Button>
-                  <Button onClick={() => setAssembled([])}>{t("очистить")}</Button>
-                </div>
-              ) : null}
-            </>
-          ) : null}
-
-          {answer !== null ? (
-            <>
-              <div className={styles.answer}>
-                {correctText(q)}
-                <button type="button" className={styles.speak} onClick={() => speak(correctText(q))}>
-                  {t("звук")}
-                </button>
-              </div>
-              <p className={styles.why}>{t(q.w)}</p>
-              <Button variant="primary" onClick={next}>
-                {step + 1 === quiz.length ? t("итог") : t("дальше")}
-              </Button>
-            </>
-          ) : null}
-        </Card>
-      ) : null}
+      <Card flat>
+        <p className={styles.note}>
+          {t("не гугли и не угадывай — смысл в том, чтобы найти дыры, а не набрать балл")}
+        </p>
+      </Card>
     </div>
   );
 };

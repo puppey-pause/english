@@ -62,7 +62,7 @@ export interface Sheet {
   rows?: string[][];
 }
 
-/** Банк вопросов: пять типов, каждый со своей формой. */
+/** Банк вопросов: шесть типов, каждый со своей формой. */
 export type TestItem =
   /** вставить слово в пропуск */
   | { lvl: string; t: string; k: "gap"; s: string; o: string[]; a: number; w: string }
@@ -73,7 +73,9 @@ export type TestItem =
   /** найти неправильное слово в предложении */
   | { lvl: string; t: string; k: "err"; s: string; a: number; fix: string; w: string }
   /** собрать фразу в правильном порядке */
-  | { lvl: string; t: string; k: "ord"; o: string[]; a: number; w: string };
+  | { lvl: string; t: string; k: "ord"; o: string[]; a: number; w: string }
+  /** что значит выражение — показывают английское, выбираешь смысл */
+  | { lvl: string; t: string; k: "mean"; s: string; o: string[]; a: number; w: string };
 
 /** "найди ошибку": b — wrong sentence, g — good one, w — why */
 export interface DrillMistake { t: string; gt: string; b: string; g: string; w: string }

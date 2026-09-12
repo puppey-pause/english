@@ -6,6 +6,21 @@
   text-wrap: balance;
 }
 
+.level {
+  display: inline-block;
+  vertical-align: 0.32em;
+  margin-left: 12px;
+  font-family: var(--mono);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-pill);
+  background: var(--panel2);
+  color: var(--mid);
+}
+
 .tools {
   display: flex;
   flex-wrap: wrap;
@@ -18,5 +33,6 @@
 
 @media (max-width: 640px) {
   .title { font-size: 31px; }
+  .level { font-size: 14px; margin-left: 8px; padding: 3px 8px; }
   .search { max-width: none; flex-basis: 100%; }
 }

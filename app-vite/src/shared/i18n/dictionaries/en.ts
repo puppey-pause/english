@@ -1610,4 +1610,42 @@ export const en: Record<string, string> = {
     "A text of your own on the same pattern, five to seven sentences.",
   "Через день перечитай и поправь сам — свежим взглядом ошибки видно. Потом напиши второй текст на другую тему, уже без образца.":
     "Reread it a day later and fix it yourself — mistakes show to a fresh eye. Then write a second text on another subject, this time with no model.",
+
+  "тест грамматики": "grammar test",
+  "тест лексики": "vocabulary test",
+  "тест сленга и идиом": "slang & idioms test",
+  "тест по своим ошибкам": "my mistakes test",
+  "выбор слова, коллокации, фразовые и похожие слова": "word choice, collocations, phrasals and confusable pairs",
+  "разговорные формулы и идиомы: показывают выражение — выбираешь смысл":
+    "spoken formulas and idioms: you get the expression and pick the meaning",
+  "вопросы, на которых ты уже промахнулся, начиная с самых частых":
+    "the questions you already missed, most frequent first",
+  "Шесть блоков по вопросам от A1 до C2. Правило жёсткое: чтобы открыть следующий уровень, нужно набрать три четверти блока. Не набрал — тест останавливается, и этот уровень становится твоим.":
+    "Six blocks of questions from A1 to C2. The rule is strict: to unlock the next level you need three quarters of a block. Fall short and the test stops — that level becomes yours.",
+  "Только грамматика: времена, формы глагола, артикли, предлоги. Уровни идут вперемешку, поэтому лёгкий и сложный вопрос могут стоять рядом.":
+    "Grammar only: tenses, verb forms, articles, prepositions. Levels are mixed, so an easy and a hard question can sit side by side.",
+  "Слова и точность выбора: базовый словарь, устойчивые сочетания вроде make a decision, фразовые глаголы и пары, которые путают.":
+    "Words and precision: core vocabulary, fixed collocations like make a decision, phrasal verbs and the pairs people mix up.",
+  "Разговорные формулы, идиомы и фразовые глаголы. Показывают выражение — выбираешь, что оно значит.":
+    "Spoken formulas, idioms and phrasal verbs. You get the expression and pick what it means.",
+  "Вопросы, на которых ты уже промахнулся в любом из тестов, начиная с самых частых. Ответишь верно — вопрос уходит из списка.":
+    "The questions you already missed in any test, most frequent first. Answer right and it leaves the list.",
+  "Для этого теста вопросов пока нет.": "There are no questions for this test yet.",
+  "блок": "block",
+  "блоков": "blocks",
+  "закрыт": "done",
+  "нужно для следующего блока:": "needed for the next block:",
+  "слов собрано": "words placed",
+  "Нажми на слово в строке, чтобы вернуть его назад.": "Tap a word in the line to send it back.",
+  "сбросить уровень": "reset the level",
+  "прошлый раз": "last run",
+  "уровень по общему тесту": "level from the general test",
+  "Уровень стоит в заголовке сайта. Пройди общий тест заново, когда почувствуешь, что вырос.":
+    "The level sits in the site title. Take the general test again when you feel you've outgrown it.",
+  "Блок этого уровня взят не полностью — дальше тест не пошёл. Разбери промахи в журнале и вернись.":
+    "You didn't fully clear this level's block, so the test stopped there. Work through the misses in the journal and come back.",
+  "Все блоки пройдены до конца. Выше этого теста уровней нет.":
+    "Every block cleared. This test has no level above that.",
+  "похожие": "confusable pairs",
+  "фразовые": "phrasal verbs",
 };

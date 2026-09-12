@@ -58,4 +58,17 @@ export interface MistakeSlice {
   gradeMistake: (said: string, remembered: boolean) => void;
 }
 
-export type AppState = UiSlice & ProgressSlice & DeckSlice & MistakeSlice;
+export interface TestSlice {
+  /** уровень, выставленный общим тестом: "" — тест ещё не пройден */
+  level: string;
+  /** ключ вопроса -> сколько раз промазал */
+  testMisses: Record<string, number>;
+  /** режим теста -> когда и с каким счётом */
+  testRuns: Record<string, { at: number; right: number; total: number }>;
+  setLevel: (l: string) => void;
+  noteTestMiss: (id: string) => void;
+  clearTestMiss: (id: string) => void;
+  finishTest: (mode: string, right: number, total: number) => void;
+}
+
+export type AppState = UiSlice & ProgressSlice & DeckSlice & MistakeSlice & TestSlice;
