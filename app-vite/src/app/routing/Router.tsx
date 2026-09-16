@@ -9,6 +9,7 @@ import { ReviewPage } from "@/pages/review";
 import { WordsPage } from "@/pages/words";
 import { DrillsPage } from "@/pages/drills";
 import { TestPage } from "@/pages/test";
+import { TypingPage } from "@/pages/typing";
 import { ProgressPage } from "@/pages/progress";
 import { MistakesPage } from "@/pages/mistakes";
 
@@ -32,6 +33,8 @@ export const Router = () => {
       return <WordsPage />;
     case "drills":
       return <DrillsPage />;
+    case "typing":
+      return <TypingPage />;
     case "test":
       return <TestPage />;
     case "progress":

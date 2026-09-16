@@ -72,7 +72,7 @@ export const SPEECH_RATES = [
 
 export type ViewId =
   | "today" | "learn" | "map" | "review" | "words" | "drills"
-  | "situ" | "ref" | "reading" | "progress" | "errors" | "test"
+  | "situ" | "ref" | "reading" | "progress" | "errors" | "test" | "typing"
   | "journal" | "data";
 
 export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "practice" | "track" }[] = [
@@ -85,6 +85,7 @@ export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "pract
   { id: "review", label: "повторение", group: "practice" },
   { id: "words", label: "слова", group: "practice" },
   { id: "drills", label: "тренажёр", group: "practice" },
+  { id: "typing", label: "печать текста", group: "practice" },
   { id: "test", label: "тесты", group: "practice" },
   { id: "progress", label: "прогресс", group: "track" },
   { id: "errors", label: "журнал ошибок", group: "track" },
@@ -93,4 +94,5 @@ export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "pract
 export const HOTKEYS: Record<string, ViewId> = {
   t: "today", l: "learn", m: "map", r: "review", w: "words",
   d: "drills", i: "situ", g: "ref", c: "reading", p: "progress", e: "errors",
+  y: "typing",
 };
