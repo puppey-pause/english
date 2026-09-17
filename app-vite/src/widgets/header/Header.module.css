@@ -23,8 +23,9 @@
 .search { flex: 1 1 100%; }
 
 @media (max-width: 860px) {
-  .header { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
-  .titleRow { flex: 0 0 auto; }
-  .title { font-size: 21px; }
-  .search { flex: 1 1 180px; max-width: 260px; }
+  /* шапка на телефоне — только название; поиск и настройки живут в листе «ещё» */
+  .header { flex-direction: row; align-items: baseline; gap: 10px; }
+  .titleRow { flex: 1 1 auto; flex-direction: row; align-items: baseline; gap: 8px; }
+  .title { font-size: 17px; font-weight: 600; }
+  .tools { display: none; }
 }

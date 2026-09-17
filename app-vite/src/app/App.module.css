@@ -43,8 +43,8 @@
     max-height: none;
     border-right: 0;
     border-bottom: 1px solid var(--line2);
-    padding: 20px 16px 22px;
-    gap: 18px;
+    padding: 10px 16px 9px;
+    gap: 0;
   }
-  .main { padding: 20px 16px 96px; max-width: none; }
+  .main { padding: 16px 16px 84px; max-width: none; }
 }

@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useAppStore } from "@/app/store";
 import { useT } from "@/shared/i18n/useT";
 import { PHONE_TABS, TABS, type ViewId } from "@/shared/config";
+import { Input } from "@/shared/ui";
+import { LanguageSwitch } from "@/features/language-switch";
+import { ThemeSwitch } from "@/features/theme-switch";
+import { SpeechSwitch } from "@/features/speech-switch";
 import styles from "./TabBar.module.css";
 
 const GROUPS: { id: "learn" | "practice" | "ref" | "track"; label: string }[] = [
@@ -16,7 +20,11 @@ export const TabBar = () => {
   const t = useT();
   const view = useAppStore((s) => s.view);
   const setView = useAppStore((s) => s.setView);
+  const query = useAppStore((s) => s.query);
+  const setQuery = useAppStore((s) => s.setQuery);
   const [open, setOpen] = useState(false);
+  /** панель прячется, пока листаешь вниз, и возвращается при движении вверх */
+  const [hidden, setHidden] = useState(false);
 
   // закрываем лист по Escape — на телефоне это кнопка «назад» в браузере
   useEffect(() => {
@@ -26,8 +34,30 @@ export const TabBar = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (Math.abs(y - last) > 8) {
+        setHidden(y > last && y > 90);
+        last = y;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const go = (id: ViewId) => {
     setView(id);
+    setOpen(false);
+    setHidden(false);
+  };
+
+  /** во весь экран: браузерная строка уезжает и экрана становится больше */
+  const fullscreen = () => {
+    const el = document.documentElement;
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else if (el.requestFullscreen) void el.requestFullscreen().catch(() => undefined);
     setOpen(false);
   };
 
@@ -46,6 +76,23 @@ export const TabBar = () => {
                 {t("закрыть")}
               </button>
             </div>
+            <div className={styles.tools}>
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t("поиск по темам")}
+                aria-label={t("поиск по темам")}
+              />
+              <div className={styles.toolRow}>
+                <SpeechSwitch />
+                <LanguageSwitch />
+                <button type="button" className={styles.close} onClick={fullscreen}>
+                  {t("во весь экран")}
+                </button>
+              </div>
+              <ThemeSwitch />
+            </div>
+
             {GROUPS.map((group) => (
               <div key={group.id} className={styles.group}>
                 <span className={styles.groupLabel}>{t(group.label)}</span>
@@ -67,7 +114,7 @@ export const TabBar = () => {
         </div>
       ) : null}
 
-      <nav className={styles.bar} aria-label={t("разделы")}>
+      <nav className={hidden && !open ? styles.barHidden : styles.bar} aria-label={t("разделы")}>
         {PHONE_TABS.map((id) => (
           <button
             key={id}

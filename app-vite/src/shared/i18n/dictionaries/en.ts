@@ -1699,6 +1699,7 @@ export const en: Record<string, string> = {
   "звуки: тир": "sounds: shooting range",
   "ещё": "more",
   "все разделы": "all sections",
+  "во весь экран": "full screen",
   "закрыть": "close",
   "разделы": "sections",
   "заняться сейчас": "start now",

@@ -12,6 +12,7 @@ export type SoundPack = "keys" | "range";
 
 let ctx: AudioContext | null = null;
 let noise: AudioBuffer | null = null;
+let longNoise: AudioBuffer | null = null;
 let enabled = read();
 let pack: SoundPack = readPack();
 
@@ -72,6 +73,17 @@ function noiseBuffer(c: AudioContext): AudioBuffer {
   return buf;
 }
 
+/** полсекунды шума — на хвост выстрела короткого буфера не хватает */
+function longNoiseBuffer(c: AudioContext): AudioBuffer {
+  if (longNoise) return longNoise;
+  const len = Math.floor(c.sampleRate * 0.6);
+  const buf = c.createBuffer(1, len, c.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < len; i += 1) data[i] = Math.random() * 2 - 1;
+  longNoise = buf;
+  return buf;
+}
+
 interface ToneOpts {
   freq: number;
   to?: number;
@@ -112,22 +124,44 @@ function burst(c: AudioContext, freq: number, dur: number, gain: number): void {
   src.stop(t + dur + 0.02);
 }
 
-/** выстрел: хлопок + тело + короткий хвост */
+/**
+ * Выстрел в три слоя: щелчок бойка, резкий треск дульного хлопка и низкий
+ * «бум» с хвостом. Без слоёв получается сухой клик, а не оружие.
+ */
 function shot(c: AudioContext, big: boolean): void {
   const t = c.currentTime;
-  const src = c.createBufferSource();
-  src.buffer = noiseBuffer(c);
+  const vol = big ? 1 : 0.72;
+
+  // треск: высокий шум с очень резкой атакой
+  const crack = c.createBufferSource();
+  crack.buffer = longNoiseBuffer(c);
+  const hp = c.createBiquadFilter();
+  hp.type = "highpass";
+  hp.frequency.value = 1400;
+  const crackGain = c.createGain();
+  crackGain.gain.setValueAtTime(0.85 * vol, t);
+  crackGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
+  crack.connect(hp).connect(crackGain).connect(c.destination);
+  crack.start(t);
+  crack.stop(t + 0.1);
+
+  // тело: широкий шум, фильтр валится вниз — это и даёт «бум» с хвостом
+  const body = c.createBufferSource();
+  body.buffer = longNoiseBuffer(c);
   const lp = c.createBiquadFilter();
   lp.type = "lowpass";
-  lp.frequency.setValueAtTime(big ? 3200 : 2600, t);
-  lp.frequency.exponentialRampToValueAtTime(420, t + (big ? 0.16 : 0.1));
-  const g = c.createGain();
-  g.gain.setValueAtTime(big ? 0.32 : 0.2, t);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + (big ? 0.19 : 0.11));
-  src.connect(lp).connect(g).connect(c.destination);
-  src.start(t);
-  src.stop(t + 0.24);
-  tone(c, { freq: big ? 92 : 124, to: big ? 44 : 58, dur: big ? 0.11 : 0.07, gain: 0.16, type: "square" });
+  lp.frequency.setValueAtTime(1800, t);
+  lp.frequency.exponentialRampToValueAtTime(170, t + (big ? 0.34 : 0.24));
+  lp.Q.value = 1.4;
+  const bodyGain = c.createGain();
+  bodyGain.gain.setValueAtTime(0.9 * vol, t + 0.004);
+  bodyGain.gain.exponentialRampToValueAtTime(0.0001, t + (big ? 0.38 : 0.26));
+  body.connect(lp).connect(bodyGain).connect(c.destination);
+  body.start(t);
+  body.stop(t + 0.45);
+
+  // отдача: короткий низкий удар
+  tone(c, { freq: big ? 74 : 96, to: big ? 34 : 46, dur: big ? 0.16 : 0.11, gain: 0.5 * vol, type: "sine" });
 }
 
 /** затвор: два металлических щелчка со скользящим шумом между ними */
