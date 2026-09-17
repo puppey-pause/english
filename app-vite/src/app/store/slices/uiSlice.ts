@@ -2,8 +2,13 @@ import type { StateCreator } from "zustand";
 import type { AppState, UiSlice } from "../types";
 import { setActiveLang } from "@/shared/i18n";
 import { setSpeechRate } from "@/shared/lib/speech";
+import { navigateTo } from "@/shared/lib/nav";
+import { pathOf } from "@/shared/config";
+import { STAGES } from "@/entities/stage";
 
-export const createUiSlice: StateCreator<AppState, [], [], UiSlice> = (set) => ({
+const clampStage = (n: number): number => Math.min(STAGES.length - 1, Math.max(0, Number.isFinite(n) ? n : 0));
+
+export const createUiSlice: StateCreator<AppState, [], [], UiSlice> = (set, get) => ({
   view: "today",
   stageIndex: 0,
   openTopic: "",
@@ -12,8 +17,16 @@ export const createUiSlice: StateCreator<AppState, [], [], UiSlice> = (set) => (
   lang: "ru",
   rate: 0.95,
 
-  setView: (view, stageIndex) =>
-    set((s) => ({ view, query: "", stageIndex: stageIndex ?? s.stageIndex })),
+  /** Переход по приложению: меняем адрес, состояние подтянет роутер. */
+  setView: (view, stageIndex) => {
+    const stage = stageIndex === undefined ? get().stageIndex : clampStage(stageIndex);
+    set({ query: "" });
+    navigateTo(pathOf(view, stage));
+  },
+
+  /** Обратная сторона: адрес уже сменился — приводим состояние к нему. */
+  applyRoute: (view, stageIndex) =>
+    set((s) => ({ view, stageIndex: stageIndex === undefined ? s.stageIndex : clampStage(stageIndex) })),
 
   setQuery: (query) => set({ query }),
   setOpenTopic: (openTopic) => set((s) => ({ openTopic: s.openTopic === openTopic ? "" : openTopic })),

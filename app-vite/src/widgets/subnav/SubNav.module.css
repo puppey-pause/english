@@ -1,0 +1,29 @@
+.row { display: none; }
+
+.chip, .chipOn {
+  font: inherit;
+  font-size: 15px;
+  min-height: 34px;
+  padding: 5px 13px;
+  border: 1px solid var(--line2);
+  border-radius: var(--r-pill);
+  background: var(--panel);
+  color: var(--ink2);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chipOn { border-color: var(--accent); background: var(--terra-bg); color: var(--accent-ink); font-weight: 600; }
+
+@media (max-width: 860px) {
+  .row {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--line2);
+  }
+  .row::-webkit-scrollbar { display: none; }
+}

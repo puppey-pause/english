@@ -16,6 +16,8 @@ export interface UiSlice {
   rate: number;
   setRate: (r: number) => void;
   setView: (view: ViewId, stageIndex?: number) => void;
+  /** состояние по уже сменившемуся адресу — вызывает роутер, не экраны */
+  applyRoute: (view: ViewId, stageIndex?: number) => void;
   setQuery: (q: string) => void;
   setOpenTopic: (k: string) => void;
   setTheme: (t: ThemeId) => void;

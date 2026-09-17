@@ -1,6 +1,9 @@
-import { Suspense, lazy } from "react";
+import { Fragment, Suspense, lazy, useEffect, type ReactNode } from "react";
+import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { useAppStore } from "@/app/store";
+import { SECTION_TREE, pathOf, type ViewId } from "@/shared/config";
 import { TodayPage } from "@/pages/today";
+import { SectionPage } from "@/pages/section";
 import styles from "./Router.module.css";
 
 /**
@@ -20,38 +23,89 @@ const TestPage = lazy(() => import("@/pages/test").then((m) => ({ default: m.Tes
 const ProgressPage = lazy(() => import("@/pages/progress").then((m) => ({ default: m.ProgressPage })));
 const MistakesPage = lazy(() => import("@/pages/mistakes").then((m) => ({ default: m.MistakesPage })));
 
-const page = (view: string) => {
-  switch (view) {
-    case "learn":
-      return <LearnPage />;
-    case "map":
-      return <MapPage />;
-    case "ref":
-      return <ReferencePage />;
-    case "situ":
-      return <SituationsPage />;
-    case "reading":
-      return <ReadingPage />;
-    case "review":
-      return <ReviewPage />;
-    case "words":
-      return <WordsPage />;
-    case "drills":
-      return <DrillsPage />;
-    case "typing":
-      return <TypingPage />;
-    case "test":
-      return <TestPage />;
-    case "progress":
-      return <ProgressPage />;
-    case "errors":
-      return <MistakesPage />;
-    default:
-      return <TodayPage />;
-  }
+const PAGES: Record<string, ReactNode> = {
+  learn: <LearnPage />,
+  map: <MapPage />,
+  review: <ReviewPage />,
+  words: <WordsPage />,
+  drills: <DrillsPage />,
+  typing: <TypingPage />,
+  test: <TestPage />,
+  ref: <ReferencePage />,
+  situ: <SituationsPage />,
+  reading: <ReadingPage />,
+  progress: <ProgressPage />,
+  errors: <MistakesPage />,
 };
 
-export const Router = () => {
-  const view = useAppStore((s) => s.view);
-  return <Suspense fallback={<div className={styles.loading} aria-busy="true" />}>{page(view)}</Suspense>;
+/**
+ * Обёртка экрана: адрес — источник правды, здесь он переносится в store,
+ * чтобы подсветка меню и старый код с `view` продолжали работать.
+ */
+const Screen = ({ view, children }: { view: ViewId; children: ReactNode }) => {
+  const applyRoute = useAppStore((s) => s.applyRoute);
+  const { stage } = useParams();
+
+  useEffect(() => {
+    applyRoute(view, stage === undefined ? undefined : Number(stage));
+  }, [view, stage, applyRoute]);
+
+  return <Suspense fallback={<div className={styles.loading} aria-busy="true" />}>{children}</Suspense>;
 };
+
+/** Старый адрес с номером этапа: #learn/3 -> #/study/course/3. */
+const LegacyStage = ({ view }: { view: ViewId }) => {
+  const { stage } = useParams();
+  return <Navigate to={pathOf(view, stage === undefined ? undefined : Number(stage))} replace />;
+};
+
+export const Router = () => (
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <Screen view="today">
+          <TodayPage />
+        </Screen>
+      }
+    />
+    {SECTION_TREE.map((section) => (
+      <Fragment key={section.id}>
+        <Route
+          path={`/${section.id}`}
+          element={
+            <Screen view={section.id}>
+              <SectionPage id={section.id} />
+            </Screen>
+          }
+        />
+        {section.items.map((item) => (
+          <Fragment key={item.view}>
+            <Route
+              path={`/${section.id}/${item.slug}`}
+              element={<Screen view={item.view}>{PAGES[item.view]}</Screen>}
+            />
+            {item.param ? (
+              <Route
+                path={`/${section.id}/${item.slug}/:${item.param}`}
+                element={<Screen view={item.view}>{PAGES[item.view]}</Screen>}
+              />
+            ) : null}
+          </Fragment>
+        ))}
+      </Fragment>
+    ))}
+    {/* старые адреса первой версии: #typing, #learn/3 — уводим на новые */}
+    {SECTION_TREE.flatMap((section) =>
+      section.items.map((item) => (
+        <Fragment key={`legacy-${item.view}`}>
+          <Route path={`/${item.view}`} element={<Navigate to={pathOf(item.view)} replace />} />
+          {item.param ? (
+            <Route path={`/${item.view}/:${item.param}`} element={<LegacyStage view={item.view} />} />
+          ) : null}
+        </Fragment>
+      ))
+    )}
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes>
+);

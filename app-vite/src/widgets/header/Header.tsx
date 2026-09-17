@@ -4,6 +4,7 @@ import { Input } from "@/shared/ui";
 import { LanguageSwitch } from "@/features/language-switch";
 import { ThemeSwitch } from "@/features/theme-switch";
 import { SpeechSwitch } from "@/features/speech-switch";
+import { ToolsSheet } from "@/widgets/tools/ToolsSheet";
 import styles from "./Header.module.css";
 
 export const Header = () => {
@@ -18,6 +19,7 @@ export const Header = () => {
         <h1 className={styles.title}>{t("Английский по шагам")}</h1>
         {level ? <span className={styles.level}>{`${t("уровень")} ${level}`}</span> : null}
       </div>
+      <ToolsSheet />
       <div className={styles.tools}>
         <Input
           className={styles.search}

@@ -1,0 +1,18 @@
+.wrap { display: flex; flex-direction: column; gap: 18px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.card { display: flex; flex-direction: column; gap: 6px; }
+
+.num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.desc { font-size: 15px; margin: 0; color: var(--ink2); text-wrap: pretty; }

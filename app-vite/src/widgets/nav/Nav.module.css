@@ -1,16 +1,24 @@
-.nav { display: flex; flex-direction: column; gap: 22px; }
+.nav { display: flex; flex-direction: column; gap: 18px; }
 
 .group { display: flex; flex-direction: column; gap: 2px; }
 
-.groupLabel {
+.sectionBtn {
+  font: inherit;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  text-align: left;
   color: var(--faint);
-  padding-left: 13px;
-  margin-bottom: 4px;
+  padding: 4px 12px;
+  margin-bottom: 2px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
+
+.sectionBtn:hover { color: var(--ink2); }
+.sectionOn { color: var(--accent); }
 
 .item {
   font: inherit;
@@ -29,6 +37,8 @@
 
 .item:hover { color: var(--ink); border-left-color: var(--line3); }
 
+.home { font-weight: 600; }
+
 .active {
   color: var(--ink);
   font-weight: 600;
@@ -36,12 +46,6 @@
 }
 
 @media (max-width: 860px) {
-  /* разделы переезжают в нижнюю панель */
+  /* разделы переезжают в нижнюю панель, подразделы — в строку чипов */
   .nav { display: none; }
-  .navOld { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; width: 100%; }
-  .group { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
-  .groupLabel { padding-left: 0; margin-bottom: 0; }
-  .item { font-size: 16px; padding: 4px 6px; border-left: 0; border-bottom: 2px solid transparent; min-height: 30px; }
-  .item:hover { border-left-color: transparent; border-bottom-color: var(--line3); }
-  .active { border-left-color: transparent; border-bottom-color: var(--accent); }
 }

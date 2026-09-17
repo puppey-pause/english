@@ -7,16 +7,16 @@ export const persist = zustandPersist;
 
 /**
  * Only learner-owned data is persisted; transient UI (query, open topic) is not,
- * so a reload never restores a half-typed search.
+ * so a reload never restores a half-typed search. Текущий экран тоже не пишем —
+ * он живёт в адресе (#/practice/typing), и адрес всегда главнее сохранённого.
  */
 export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>> => ({
   name: STORAGE_KEY,
-  version: 4,
+  version: 5,
   partialize: (s) => ({
     theme: s.theme,
     lang: s.lang,
     rate: s.rate,
-    view: s.view,
     stageIndex: s.stageIndex,
     done: s.done,
     rev: s.rev,
