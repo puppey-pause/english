@@ -90,9 +90,3 @@ export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "pract
   { id: "progress", label: "прогресс", group: "track" },
   { id: "errors", label: "журнал ошибок", group: "track" },
 ];
-
-export const HOTKEYS: Record<string, ViewId> = {
-  t: "today", l: "learn", m: "map", r: "review", w: "words",
-  d: "drills", i: "situ", g: "ref", c: "reading", p: "progress", e: "errors",
-  y: "typing",
-};

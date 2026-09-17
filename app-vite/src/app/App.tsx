@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAppStore } from "@/app/store";
 import { useHashRoute } from "@/app/routing/useHashRoute";
-import { useHotkeys } from "@/app/routing/useHotkeys";
 import { Router } from "@/app/routing/Router";
 import { Header } from "@/widgets/header/Header";
 import { Nav } from "@/widgets/nav/Nav";
@@ -17,7 +16,6 @@ export const App = () => {
   const rate = useAppStore((s) => s.rate);
 
   useHashRoute();
-  useHotkeys();
 
   // the dictionary lives at module level, so it must be primed after a rehydrate
   useEffect(() => setActiveLang(lang), [lang]);

@@ -27,11 +27,11 @@ import styles from "./TypingPage.module.css";
 type Mode = "recall" | "bank" | "copy" | "dict" | "gap";
 
 const MODES: { id: Mode; label: string; desc: string }[] = [
-  { id: "recall", label: "по памяти", desc: "виден перевод и подсказка по словам — английскую фразу печатаешь сам" },
-  { id: "bank", label: "из слов", desc: "слова фразы даны вразбивку — набираешь их в правильном порядке" },
   { id: "copy", label: "копия", desc: "фраза перед глазами — набираешь её буква в букву" },
   { id: "dict", label: "диктант", desc: "только звук — печатаешь то, что услышал" },
+  { id: "bank", label: "из слов", desc: "слова фразы даны вразбивку — набираешь их в правильном порядке" },
   { id: "gap", label: "пропуск", desc: "фраза целиком, печатаешь одно пропущенное слово" },
+  { id: "recall", label: "по памяти", desc: "виден перевод и подсказка по словам — английскую фразу печатаешь сам" },
 ];
 
 /** мягкая сверка: регистр, апострофы и знаки в конце не считаются ошибкой */
@@ -85,7 +85,7 @@ export const TypingPage = () => {
   const runs = useAppStore((s) => s.testRuns);
   const mistakes = useAppStore((s) => s.mistakes);
 
-  const [mode, setMode] = useState<Mode>("recall");
+  const [mode, setMode] = useState<Mode>("copy");
   const [packId, setPackId] = useState<string>(TYPING_PACKS[0].id);
   const [custom, setCustom] = useState("");
   const [sound, setSound] = useState(soundOn());
@@ -110,6 +110,8 @@ export const TypingPage = () => {
 
   const field = useRef<HTMLInputElement>(null);
   const lastWrong = useRef(-1);
+  /** фраза уже засчитана и ждёт перехода — повторный Enter не должен её удваивать */
+  const locked = useRef(false);
 
   const mineLines = useMemo(() => linesFromMistakes(mistakes), [mistakes]);
   const customLines = useMemo(() => linesFromText(custom), [custom]);
@@ -152,6 +154,7 @@ export const TypingPage = () => {
     setElapsed(0);
     setOver(false);
     lastWrong.current = -1;
+    locked.current = false;
     requestAnimationFrame(() => field.current?.focus());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [packId, mode, pool.length]);
@@ -175,14 +178,14 @@ export const TypingPage = () => {
   const cpm = minutes > 0.05 ? Math.round(chars / minutes) : 0;
   const accuracy = chars + errors > 0 ? Math.round((chars / (chars + errors)) * 100) : 100;
 
-  const next = (scored: boolean, wasPerfect: boolean) => {
+  const next = (scored: boolean) => {
     if (idx + 1 >= queue.length) {
       setOver(true);
       soundRunEnd();
       finishTest("печать", right + (scored ? 1 : 0), queue.length);
-      if (wasPerfect) setPerfect((n) => n + 1);
       return;
     }
+    locked.current = false;
     setIdx(idx + 1);
     setTyped("");
     setRevealed(false);
@@ -194,8 +197,9 @@ export const TypingPage = () => {
   };
 
   const submit = () => {
-    if (!line) return;
+    if (!line || locked.current) return;
     if (complete) {
+      locked.current = true;
       soundDone();
       const g = gradeOf(phraseErr, revealed);
       setGrade(g);
@@ -206,7 +210,7 @@ export const TypingPage = () => {
       setRight(right + 1);
       // голосом — фразу целиком, даже если печатали только пропуск
       if (sound) window.setTimeout(() => speak(line.en), 260);
-      window.setTimeout(() => next(true, g === "Perfect"), 620);
+      window.setTimeout(() => next(true), 620);
       return;
     }
     soundWrong();
@@ -217,7 +221,7 @@ export const TypingPage = () => {
       addMistake(typed.trim() || "\u2014", target, t("Набрано неверно при печати"), "печать");
       return;
     }
-    next(false, false);
+    next(false);
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -237,6 +241,7 @@ export const TypingPage = () => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    if (locked.current) return;
     if (!startedAt) setStartedAt(Date.now());
     if (value.length > typed.length) {
       const at = firstWrong(value, target);
