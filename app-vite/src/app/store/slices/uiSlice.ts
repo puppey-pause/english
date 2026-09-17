@@ -2,7 +2,6 @@ import type { StateCreator } from "zustand";
 import type { AppState, UiSlice } from "../types";
 import { setActiveLang } from "@/shared/i18n";
 import { setSpeechRate } from "@/shared/lib/speech";
-import { navigateTo } from "@/shared/lib/nav";
 import { pathOf } from "@/shared/config";
 import { STAGES } from "@/entities/stage";
 
@@ -17,11 +16,15 @@ export const createUiSlice: StateCreator<AppState, [], [], UiSlice> = (set, get)
   lang: "ru",
   rate: 0.95,
 
-  /** Переход по приложению: меняем адрес, состояние подтянет роутер. */
+  /**
+   * Переход по приложению: меняем адрес, состояние подтянет роутер.
+   * Пишем хэш напрямую — HashRouter слушает его сам, посредники не нужны.
+   */
   setView: (view, stageIndex) => {
     const stage = stageIndex === undefined ? get().stageIndex : clampStage(stageIndex);
     set({ query: "" });
-    navigateTo(pathOf(view, stage));
+    const target = `#${pathOf(view, stage)}`;
+    if (window.location.hash !== target) window.location.hash = target;
   },
 
   /** Обратная сторона: адрес уже сменился — приводим состояние к нему. */
