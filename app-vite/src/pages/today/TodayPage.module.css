@@ -16,6 +16,8 @@
 .nextName { font-size: 19px; font-weight: 500; }
 .nextDesc { font-size: 15px; color: var(--mid); margin: 6px 0 0; text-wrap: pretty; }
 
+.why { margin: 14px 0 0; font-size: 16px; color: var(--ink2); text-wrap: pretty; }
+
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }

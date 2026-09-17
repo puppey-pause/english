@@ -4,6 +4,7 @@ import type { AppState } from "./types";
 import { createUiSlice } from "./slices/uiSlice";
 import { createProgressSlice } from "./slices/progressSlice";
 import { createDeckSlice } from "./slices/deckSlice";
+import { createCardSlice } from "./slices/cardSlice";
 import { createMistakeSlice } from "./slices/mistakeSlice";
 import { createTestSlice } from "./slices/testSlice";
 
@@ -13,6 +14,7 @@ export const useAppStore = create<AppState>()(
       ...createUiSlice(...a),
       ...createProgressSlice(...a),
       ...createDeckSlice(...a),
+      ...createCardSlice(...a),
       ...createMistakeSlice(...a),
       ...createTestSlice(...a),
     }),

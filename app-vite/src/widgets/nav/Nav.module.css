@@ -36,7 +36,9 @@
 }
 
 @media (max-width: 860px) {
-  .nav { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; width: 100%; }
+  /* разделы переезжают в нижнюю панель */
+  .nav { display: none; }
+  .navOld { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; width: 100%; }
   .group { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
   .groupLabel { padding-left: 0; margin-bottom: 0; }
   .item { font-size: 16px; padding: 4px 6px; border-left: 0; border-bottom: 2px solid transparent; min-height: 30px; }

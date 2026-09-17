@@ -16,12 +16,15 @@ import {
   clickKey,
   clickSpace,
   setSoundOn,
+  setSoundPack,
   soundDone,
   soundOn,
+  soundPack,
   soundRunEnd,
   soundWrong,
+  type SoundPack,
 } from "@/shared/lib/keySound";
-import { Button, Card, Chip, Label, PageHead, ProgressBar, Tag, Textarea } from "@/shared/ui";
+import { Button, Card, Label, PageHead, Tag, Textarea } from "@/shared/ui";
 import styles from "./TypingPage.module.css";
 
 type Mode = "recall" | "bank" | "copy" | "dict" | "gap";
@@ -31,7 +34,7 @@ const MODES: { id: Mode; label: string; desc: string }[] = [
   { id: "dict", label: "диктант", desc: "только звук — печатаешь то, что услышал" },
   { id: "bank", label: "из слов", desc: "слова фразы даны вразбивку — набираешь их в правильном порядке" },
   { id: "gap", label: "пропуск", desc: "фраза целиком, печатаешь одно пропущенное слово" },
-  { id: "recall", label: "по памяти", desc: "виден перевод и подсказка по словам — английскую фразу печатаешь сам" },
+  { id: "recall", label: "по памяти", desc: "виден перевод — английскую фразу печатаешь сам" },
 ];
 
 /** мягкая сверка: регистр, апострофы и знаки в конце не считаются ошибкой */
@@ -58,6 +61,17 @@ const isDone = (typed: string, target: string): boolean => {
   // прощаем недобитый знак в конце
   return b.length - a.length === 1 && /[.!?,]$/.test(b) && a.length > 0;
 };
+
+/** Скелет фразы: первая буква слова + точка на каждую скрытую букву. */
+const skeletonOf = (en: string): string =>
+  en
+    .split(" ")
+    .map((w) => {
+      const letters = w.replace(/[^A-Za-z']/g, "");
+      if (letters.length === 0) return w;
+      return letters[0] + "\u00b7".repeat(letters.length - 1);
+    })
+    .join(" ");
 
 /** Для режима «пропуск»: самое длинное значимое слово — его и печатаем. */
 const gapOf = (en: string): { word: string; shown: string } => {
@@ -89,7 +103,8 @@ export const TypingPage = () => {
   const [packId, setPackId] = useState<string>(TYPING_PACKS[0].id);
   const [custom, setCustom] = useState("");
   const [sound, setSound] = useState(soundOn());
-  /** скелет фразы (сколько слов и первые буквы) — включается до начала, не кнопкой по ходу */
+  const [pack, setPack] = useState<SoundPack>(soundPack());
+  /** скелет фразы — включается до начала, не кнопкой по ходу */
   const [hints, setHints] = useState(true);
   const [queue, setQueue] = useState<TypingLine[]>([]);
   const [idx, setIdx] = useState(0);
@@ -107,6 +122,8 @@ export const TypingPage = () => {
   const [startedAt, setStartedAt] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [over, setOver] = useState(false);
+  /** курсор в поле — обвязка гаснет, чтобы не мешала набору */
+  const [focused, setFocused] = useState(false);
 
   const field = useRef<HTMLInputElement>(null);
   const lastWrong = useRef(-1);
@@ -117,10 +134,18 @@ export const TypingPage = () => {
   const customLines = useMemo(() => linesFromText(custom), [custom]);
 
   const pool: TypingLine[] =
-    packId === "mine" ? mineLines : packId === "custom" ? customLines : (TYPING_PACKS.find((p) => p.id === packId) ?? TYPING_PACKS[0]).lines;
+    packId === "mine"
+      ? mineLines
+      : packId === "custom"
+        ? customLines
+        : (TYPING_PACKS.find((p) => p.id === packId) ?? TYPING_PACKS[0]).lines;
 
   const packLabel =
-    packId === "mine" ? "мои ошибки" : packId === "custom" ? "свой текст" : (TYPING_PACKS.find((p) => p.id === packId) ?? TYPING_PACKS[0]).label;
+    packId === "mine"
+      ? "мои ошибки"
+      : packId === "custom"
+        ? "свой текст"
+        : (TYPING_PACKS.find((p) => p.id === packId) ?? TYPING_PACKS[0]).label;
 
   const line = queue[idx];
   const gap = useMemo(() => (line && mode === "gap" ? gapOf(line.en) : null), [line, mode]);
@@ -260,6 +285,13 @@ export const TypingPage = () => {
     setTyped(value);
   };
 
+  const togglePack = () => {
+    const v: SoundPack = pack === "keys" ? "range" : "keys";
+    setPack(v);
+    setSoundPack(v);
+    field.current?.focus();
+  };
+
   const toggleSound = () => {
     const v = !sound;
     setSound(v);
@@ -288,58 +320,86 @@ export const TypingPage = () => {
   };
 
   const empty = pool.length === 0;
+  // обвязка гаснет только когда идёт набор — до первой буквы она нужна
+  const dim = focused && typed.length > 0 && !over;
 
   return (
     <div className={styles.wrap}>
-      <PageHead
-        title={t("печать текста")}
-        lead={t("Печатаешь фразу целиком — проверка идёт по буквам, со звуком клавиш. Медленнее, чем выбрать вариант, зато остаётся в пальцах.")}
-        aside={<Tag>{record ? `${t("лучший подход")}: ${record.right}/${record.total}` : `${pool.length} ${t("фраз")}`}</Tag>}
-      />
-
-      <div className={styles.tabs}>
-        {MODES.map((m) => (
-          <Chip key={m.id} label={t(m.label)} active={m.id === mode} onClick={() => setMode(m.id)} />
-        ))}
-      </div>
-      <p className={styles.modeDesc}>{t(MODES.find((m) => m.id === mode)?.desc ?? "")}</p>
-
-      <div className={styles.tabs}>
-        {TYPING_PACKS.map((p) => (
-          <Chip key={p.id} label={t(p.label)} active={p.id === packId} onClick={() => setPackId(p.id)} />
-        ))}
-        <Chip
-          label={`${t("мои ошибки")} · ${mineLines.length}`}
-          active={packId === "mine"}
-          onClick={() => setPackId("mine")}
+      <div className={dim ? styles.chromeDim : styles.chrome}>
+        <PageHead
+          title={t("печать текста")}
+          lead={t("Печатаешь фразу целиком — проверка идёт по буквам, со звуком клавиш. Медленнее, чем выбрать вариант, зато остаётся в пальцах.")}
+          aside={<Tag>{record ? `${t("лучший подход")}: ${record.right}/${record.total}` : `${pool.length} ${t("фраз")}`}</Tag>}
         />
-        <Chip label={t("свой текст")} active={packId === "custom"} onClick={() => setPackId("custom")} />
-      </div>
 
-      <div className={styles.switches}>
-        <button type="button" className={styles.switch} onClick={toggleSound} aria-pressed={sound}>
-          {t(sound ? "звук: вкл" : "звук: выкл")}
-        </button>
-        <button type="button" className={styles.switch} onClick={() => setHints((v) => !v)} aria-pressed={hints}>
-          {t(hints ? "скелет фразы: вкл" : "скелет фразы: выкл")}
-        </button>
-        <span className={styles.note}>{t("регистр и знаки в конце не считаются ошибкой")}</span>
-      </div>
+        <div className={styles.pills}>
+          {MODES.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              className={m.id === mode ? styles.pillOn : styles.pill}
+              onClick={() => setMode(m.id)}
+            >
+              {t(m.label)}
+            </button>
+          ))}
+        </div>
+        <p className={styles.modeDesc}>{t(MODES.find((m) => m.id === mode)?.desc ?? "")}</p>
 
-      {packId === "custom" ? (
-        <Card flat>
-          <Label>{t("свой текст")}</Label>
-          <p className={styles.note}>{t("Вставь любой английский текст — он разойдётся на фразы по предложениям.")}</p>
-          <div className={styles.field}>
-            <Textarea
-              rows={4}
-              value={custom}
-              placeholder={t("English text to type…")}
-              onChange={(e) => setCustom(e.target.value)}
-            />
-          </div>
-        </Card>
-      ) : null}
+        <div className={styles.pills}>
+          {TYPING_PACKS.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              className={p.id === packId ? styles.packOn : styles.pack}
+              onClick={() => setPackId(p.id)}
+            >
+              {t(p.label)}
+            </button>
+          ))}
+          <button
+            type="button"
+            className={packId === "mine" ? styles.packOn : styles.pack}
+            onClick={() => setPackId("mine")}
+          >
+            {`${t("мои ошибки")} · ${mineLines.length}`}
+          </button>
+          <button
+            type="button"
+            className={packId === "custom" ? styles.packOn : styles.pack}
+            onClick={() => setPackId("custom")}
+          >
+            {t("свой текст")}
+          </button>
+        </div>
+
+        <div className={styles.switches}>
+          <button type="button" className={styles.switch} onClick={toggleSound} aria-pressed={sound}>
+            {t(sound ? "звук: вкл" : "звук: выкл")}
+          </button>
+          <button type="button" className={styles.switch} onClick={togglePack} aria-pressed={pack === "range"}>
+            {t(pack === "range" ? "звуки: тир" : "звуки: клавиши")}
+          </button>
+          <button type="button" className={styles.switch} onClick={() => setHints((v) => !v)} aria-pressed={hints}>
+            {t(hints ? "скелет фразы: вкл" : "скелет фразы: выкл")}
+          </button>
+        </div>
+
+        {packId === "custom" ? (
+          <Card flat>
+            <Label>{t("свой текст")}</Label>
+            <p className={styles.note}>{t("Вставь любой английский текст — он разойдётся на фразы по предложениям.")}</p>
+            <div className={styles.field}>
+              <Textarea
+                rows={4}
+                value={custom}
+                placeholder={t("English text to type…")}
+                onChange={(e) => setCustom(e.target.value)}
+              />
+            </div>
+          </Card>
+        ) : null}
+      </div>
 
       {empty ? (
         <Card tone="warn">
@@ -380,36 +440,25 @@ export const TypingPage = () => {
           </div>
         </Card>
       ) : line ? (
-        <>
+        <Card flat className={styles.stage} onPress={() => field.current?.focus()}>
           <div className={styles.meters}>
-            <span className={styles.meter}>{`${t("фраза")} ${idx + 1}/${queue.length}`}</span>
-            <span className={combo > 1 ? styles.comboHot : styles.meter}>{`${t("комбо")} ${combo}`}</span>
-            <span className={styles.meter}>{`${t("точность ввода")} ${accuracy}%`}</span>
-            <span className={styles.meter}>{`${cpm} ${t("зн/мин")}`}</span>
-            <span className={styles.tagline}>{`${t(packLabel)} · ${t(line.tag)}`}</span>
+            <span>{`${t(packLabel)} · ${t(line.tag)}`}</span>
+            <span>{`${idx + 1}/${queue.length}`}</span>
+            <span className={combo > 1 ? styles.comboHot : undefined}>{`${t("комбо")} ${combo}`}</span>
+            <span>{`${accuracy}%`}</span>
+            <span>{`${cpm} ${t("зн/мин")}`}</span>
           </div>
-          <ProgressBar value={(idx / queue.length) * 100} />
 
-          <Card flat className={styles.stage} onPress={() => field.current?.focus()}>
+          <div className={styles.center}>
             {mode === "dict" ? (
-              <div className={styles.taskRow}>
-                <button type="button" className={styles.speak} onClick={() => speak(line.en)}>
-                  {t("повторить звук")}
-                </button>
-                {revealed && line.ru ? <p className={styles.ru}>{line.ru}</p> : null}
-              </div>
-            ) : mode === "gap" && gap ? (
-              <p className={styles.ru}>{gap.shown}</p>
-            ) : line.ru ? (
-              <p className={styles.ru}>{line.ru}</p>
+              <button type="button" className={styles.speak} onClick={() => speak(line.en)}>
+                {t("повторить звук")}
+              </button>
             ) : null}
 
-            {hints && mode === "recall" && line.ru ? (
-              <p className={styles.words}>{`${line.en.split(" ").length} ${t("слов")} · ${line.en
-                .split(" ")
-                .map((w) => w[0])
-                .join(" ")}`}</p>
-            ) : null}
+            {mode === "gap" && gap ? <p className={styles.ru}>{gap.shown}</p> : null}
+            {mode !== "gap" && mode !== "dict" && line.ru ? <p className={styles.ru}>{line.ru}</p> : null}
+            {mode === "dict" && revealed && line.ru ? <p className={styles.ru}>{line.ru}</p> : null}
 
             {mode === "bank" ? (
               <div className={styles.bank}>
@@ -425,29 +474,11 @@ export const TypingPage = () => {
               {glyphs()}
               {grade ? <span className={grade === "Perfect" ? styles.gradeTop : styles.grade}>{t(grade)}</span> : null}
             </div>
+            <div className={styles.rule} />
 
-            <input
-              ref={field}
-              className={styles.input}
-              value={typed}
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              aria-label={t("поле набора")}
-            />
-
-            <div className={styles.actions}>
-              <Button onClick={submit}>{t(complete ? "дальше" : failed ? "следующая фраза" : "проверить")}</Button>
-              {mode !== "copy" && mode !== "gap" && !revealed ? (
-                <button type="button" className={styles.ghost} onClick={() => setRevealed(true)}>
-                  {t("показать фразу")}
-                </button>
-              ) : null}
-              <span className={styles.kbd}>{t("Enter — проверить")}</span>
-            </div>
+            {hints && !revealed && mode !== "copy" && mode !== "gap" ? (
+              <span className={styles.skeleton}>{skeletonOf(line.en)}</span>
+            ) : null}
 
             {failed ? (
               <p className={styles.why}>
@@ -456,8 +487,39 @@ export const TypingPage = () => {
                 {` · ${t("фраза ушла в журнал ошибок")}`}
               </p>
             ) : null}
-          </Card>
-        </>
+          </div>
+
+          <input
+            ref={field}
+            className={styles.input}
+            value={typed}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck={false}
+            aria-label={t("поле набора")}
+          />
+
+          <div className={styles.dots}>
+            {queue.map((_, i) => (
+              <span key={i} className={i < idx ? styles.dotDone : i === idx ? styles.dotNow : styles.dot} />
+            ))}
+          </div>
+
+          <div className={dim ? styles.footDim : styles.foot}>
+            <Button onClick={submit}>{t(complete ? "дальше" : failed ? "следующая фраза" : "проверить")}</Button>
+            {mode !== "copy" && mode !== "gap" && !revealed ? (
+              <button type="button" className={styles.ghost} onClick={() => setRevealed(true)}>
+                {t("показать фразу")}
+              </button>
+            ) : null}
+          </div>
+          <p className={styles.kbd}>{t("Enter — проверить")}</p>
+        </Card>
       ) : null}
     </div>
   );

@@ -26,6 +26,8 @@ export const createJSONStorage = (): PersistOptions<AppState, Partial<AppState>>
     drills: s.drills,
     steps: s.steps,
     words: s.words,
+    cardBox: s.cardBox,
+    cardDue: s.cardDue,
     mistakes: s.mistakes,
     level: s.level,
     testMisses: s.testMisses,

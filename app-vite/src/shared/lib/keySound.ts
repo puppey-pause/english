@@ -1,14 +1,19 @@
 /**
- * Звук набора без файлов: короткий шумовой щелчок + телесный тук на каждую
- * букву, низкий рык на ошибку, два тона на завершённую фразу.
+ * Звук набора без файлов. Два набора: «клавиши» (щелчок + тук на букву) и
+ * «тир» (выстрел на букву, рикошет на ошибку, перезарядка на конец фразы).
  * AudioContext создаётся лениво — первое касание клавиши уже жест пользователя.
  */
 
 const KEY = "en-typing-sound";
+const PACK = "en-typing-pack";
+
+/** чем озвучен набор: печатная машинка или тир */
+export type SoundPack = "keys" | "range";
 
 let ctx: AudioContext | null = null;
 let noise: AudioBuffer | null = null;
 let enabled = read();
+let pack: SoundPack = readPack();
 
 function read(): boolean {
   try {
@@ -17,6 +22,25 @@ function read(): boolean {
     return true;
   }
 }
+
+function readPack(): SoundPack {
+  try {
+    return localStorage.getItem(PACK) === "range" ? "range" : "keys";
+  } catch {
+    return "keys";
+  }
+}
+
+export const soundPack = (): SoundPack => pack;
+
+export const setSoundPack = (p: SoundPack): void => {
+  pack = p;
+  try {
+    localStorage.setItem(PACK, p);
+  } catch {
+    /* приватный режим — просто не запоминаем */
+  }
+};
 
 export const soundOn = (): boolean => enabled;
 
@@ -88,11 +112,54 @@ function burst(c: AudioContext, freq: number, dur: number, gain: number): void {
   src.stop(t + dur + 0.02);
 }
 
+/** выстрел: хлопок + тело + короткий хвост */
+function shot(c: AudioContext, big: boolean): void {
+  const t = c.currentTime;
+  const src = c.createBufferSource();
+  src.buffer = noiseBuffer(c);
+  const lp = c.createBiquadFilter();
+  lp.type = "lowpass";
+  lp.frequency.setValueAtTime(big ? 3200 : 2600, t);
+  lp.frequency.exponentialRampToValueAtTime(420, t + (big ? 0.16 : 0.1));
+  const g = c.createGain();
+  g.gain.setValueAtTime(big ? 0.32 : 0.2, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + (big ? 0.19 : 0.11));
+  src.connect(lp).connect(g).connect(c.destination);
+  src.start(t);
+  src.stop(t + 0.24);
+  tone(c, { freq: big ? 92 : 124, to: big ? 44 : 58, dur: big ? 0.11 : 0.07, gain: 0.16, type: "square" });
+}
+
+/** затвор: два металлических щелчка со скользящим шумом между ними */
+function reload(c: AudioContext): void {
+  burst(c, 2600, 0.03, 0.12);
+  const t = c.currentTime + 0.1;
+  const src = c.createBufferSource();
+  src.buffer = noiseBuffer(c);
+  const bp = c.createBiquadFilter();
+  bp.type = "bandpass";
+  bp.frequency.setValueAtTime(900, t);
+  bp.frequency.exponentialRampToValueAtTime(2200, t + 0.12);
+  bp.Q.value = 3;
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.09, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+  src.connect(bp).connect(g).connect(c.destination);
+  src.start(t);
+  src.stop(t + 0.16);
+  tone(c, { freq: 1500, dur: 0.035, gain: 0.1, type: "square", delay: 0.25 });
+  tone(c, { freq: 780, dur: 0.05, gain: 0.09, type: "square", delay: 0.3 });
+}
+
 /** обычная буква */
 export const clickKey = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    shot(c, false);
+    return;
+  }
   burst(c, 1850 + Math.random() * 350, 0.028, 0.075);
   tone(c, { freq: 196, dur: 0.03, gain: 0.05, type: "triangle" });
 };
@@ -102,6 +169,10 @@ export const clickSpace = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    shot(c, true);
+    return;
+  }
   burst(c, 1050, 0.04, 0.07);
   tone(c, { freq: 138, dur: 0.045, gain: 0.055, type: "triangle" });
 };
@@ -111,6 +182,11 @@ export const clickBack = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    // осечка: сухой щелчок бойка без выстрела
+    tone(c, { freq: 1200, dur: 0.02, gain: 0.07, type: "square" });
+    return;
+  }
   burst(c, 1400, 0.03, 0.05);
 };
 
@@ -119,6 +195,11 @@ export const soundWrong = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    // мимо: рикошет вниз
+    tone(c, { freq: 1700, to: 240, dur: 0.22, gain: 0.08, type: "sawtooth" });
+    return;
+  }
   tone(c, { freq: 150, to: 92, dur: 0.16, gain: 0.075, type: "sawtooth" });
 };
 
@@ -127,6 +208,11 @@ export const soundDone = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    // строка добита — перезарядка
+    reload(c);
+    return;
+  }
   tone(c, { freq: 620, dur: 0.1, gain: 0.07 });
   tone(c, { freq: 930, dur: 0.14, gain: 0.06, delay: 0.085 });
 };
@@ -136,6 +222,12 @@ export const soundRunEnd = (): void => {
   if (!enabled) return;
   const c = ac();
   if (!c) return;
+  if (pack === "range") {
+    // конец подхода: короткая очередь и затвор
+    [0, 0.09, 0.18].forEach((d) => window.setTimeout(() => shot(c, false), d * 1000));
+    window.setTimeout(() => reload(c), 420);
+    return;
+  }
   [523, 659, 784, 1046].forEach((f, i) =>
     tone(c, { freq: f, dur: 0.16, gain: 0.055, delay: i * 0.09 })
   );

@@ -3,11 +3,12 @@ import { useT } from "@/shared/i18n/useT";
 import { TABS, type ViewId } from "@/shared/config";
 import styles from "./Nav.module.css";
 
-const GROUPS: { id: "main" | "learn" | "practice" | "track"; label: string }[] = [
+const GROUPS: { id: "main" | "learn" | "practice" | "ref" | "track"; label: string }[] = [
   { id: "main", label: "сегодня" },
   { id: "learn", label: "учёба" },
   { id: "practice", label: "практика" },
-  { id: "track", label: "итоги" },
+  { id: "ref", label: "справочник" },
+  { id: "track", label: "прогресс" },
 ];
 
 export const Nav = () => {

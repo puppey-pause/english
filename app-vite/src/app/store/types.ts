@@ -51,6 +51,15 @@ export interface DeckSlice {
   gradeWord: (w: string, remembered: boolean) => void;
 }
 
+export interface CardSlice {
+  /** "набор:лицо" -> шаг повторения */
+  cardBox: Record<string, number>;
+  /** "набор:лицо" -> когда показать снова */
+  cardDue: Record<string, number>;
+  gradeCard: (key: string, remembered: boolean) => void;
+  resetDeck: (deckId: string) => void;
+}
+
 export interface MistakeSlice {
   mistakes: Mistake[];
   addMistake: (said: string, right: string, why: string, category?: string) => void;
@@ -71,4 +80,4 @@ export interface TestSlice {
   finishTest: (mode: string, right: number, total: number) => void;
 }
 
-export type AppState = UiSlice & ProgressSlice & DeckSlice & MistakeSlice & TestSlice;
+export type AppState = UiSlice & ProgressSlice & DeckSlice & CardSlice & MistakeSlice & TestSlice;

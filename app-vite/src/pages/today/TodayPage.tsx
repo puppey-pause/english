@@ -36,6 +36,15 @@ export const TodayPage = () => {
   const dueWords = words.filter((w) => isDue(w.due)).length;
   const dueMistakes = mistakes.filter((m) => isDue(m.due)).length;
   const phrase = useMemo(() => pick(SLANG), []);
+
+  /** Что делать прямо сейчас: сначала долги по повторению, потом новая тема. */
+  const nowTask = dueTopics
+    ? { view: "review" as const, why: "повторить темы, у которых подошёл срок" }
+    : dueWords
+      ? { view: "words" as const, why: "прогнать карточки, которые пора вспомнить" }
+      : dueMistakes
+        ? { view: "errors" as const, why: "разобрать свои ошибки из журнала" }
+        : { view: "learn" as const, why: "взять новую тему этапа" };
   const milestone = MILES[stage.num];
 
   return (
@@ -63,17 +72,22 @@ export const TodayPage = () => {
           </div>
         </div>
 
+        <p className={styles.why}>{`${t("сейчас лучше всего")} — ${t(nowTask.why)}.`}</p>
+
         <div className={styles.actions}>
           <Button
             variant="primary"
             onClick={() => {
-              setOpenTopic(next.k);
-              setView("learn", Number(stage.num) - 1);
+              if (nowTask.view === "learn") {
+                setOpenTopic(next.k);
+                setView("learn", Number(stage.num) - 1);
+                return;
+              }
+              setView(nowTask.view);
             }}
           >
-            {t("продолжить учёбу")}
+            {t("заняться сейчас")}
           </Button>
-          <Button onClick={() => setView("map")}>{t("карта слоёв")}</Button>
         </div>
       </Card>
 
@@ -96,6 +110,7 @@ export const TodayPage = () => {
         </Card>
       ) : null}
 
+      <Label section>{t("остальное, когда захочешь")}</Label>
       <div className={styles.grid}>
         <Card onPress={() => setView("review")}>
           <Label>{t("повторение")}</Label>
@@ -116,6 +131,11 @@ export const TodayPage = () => {
           <Label>{t("тренажёр")}</Label>
           <div className={styles.big}>5</div>
           <p className={styles.small}>{t("минут на разминку")}</p>
+        </Card>
+        <Card onPress={() => setView("map")}>
+          <Label>{t("карта слоёв")}</Label>
+          <div className={styles.big}>{`${percent}%`}</div>
+          <p className={styles.small}>{t("весь путь целиком")}</p>
         </Card>
       </div>
 

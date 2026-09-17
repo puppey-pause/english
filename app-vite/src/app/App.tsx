@@ -4,6 +4,7 @@ import { useHashRoute } from "@/app/routing/useHashRoute";
 import { Router } from "@/app/routing/Router";
 import { Header } from "@/widgets/header/Header";
 import { Nav } from "@/widgets/nav/Nav";
+import { TabBar } from "@/widgets/tabbar/TabBar";
 import { SearchResults } from "@/features/search";
 import { setActiveLang } from "@/shared/i18n";
 import { setSpeechRate } from "@/shared/lib/speech";
@@ -35,6 +36,7 @@ export const App = () => {
         <Nav />
       </aside>
       <main className={styles.main}>{query.trim() ? <SearchResults /> : <Router />}</main>
+      <TabBar />
     </div>
   );
 };

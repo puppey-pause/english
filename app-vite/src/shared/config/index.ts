@@ -75,18 +75,21 @@ export type ViewId =
   | "situ" | "ref" | "reading" | "progress" | "errors" | "test" | "typing"
   | "journal" | "data";
 
-export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "practice" | "track" }[] = [
+export const TABS: { id: ViewId; label: string; group: "main" | "learn" | "practice" | "ref" | "track" }[] = [
   { id: "today", label: "на сегодня", group: "main" },
   { id: "learn", label: "учёба", group: "learn" },
   { id: "map", label: "карта слоёв", group: "learn" },
-  { id: "ref", label: "справочник", group: "learn" },
-  { id: "situ", label: "ситуации", group: "learn" },
-  { id: "reading", label: "чтение", group: "learn" },
-  { id: "review", label: "повторение", group: "practice" },
+  { id: "review", label: "повторение", group: "learn" },
   { id: "words", label: "слова", group: "practice" },
   { id: "drills", label: "тренажёр", group: "practice" },
   { id: "typing", label: "печать текста", group: "practice" },
   { id: "test", label: "тесты", group: "practice" },
+  { id: "ref", label: "справочник", group: "ref" },
+  { id: "situ", label: "ситуации", group: "ref" },
+  { id: "reading", label: "чтение", group: "ref" },
   { id: "progress", label: "прогресс", group: "track" },
   { id: "errors", label: "журнал ошибок", group: "track" },
 ];
+
+/** Что висит в нижней панели на телефоне; остальное — под кнопкой «ещё». */
+export const PHONE_TABS: ViewId[] = ["today", "learn", "words", "drills"];
