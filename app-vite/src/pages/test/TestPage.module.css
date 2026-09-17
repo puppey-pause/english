@@ -1,4 +1,4 @@
-.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 780px; }
+.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 900px;  margin-inline: auto; }
 
 .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
 .modeLead { font-size: 14px; color: var(--mid); margin: 6px 0 10px; text-wrap: pretty; }

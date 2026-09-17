@@ -1,4 +1,4 @@
-.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 780px; }
+.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 980px;  margin-inline: auto; }
 
 .filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .score { font-family: var(--mono); font-size: 14px; color: var(--faint); }

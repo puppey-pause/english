@@ -1,4 +1,4 @@
-.wrap { display: flex; flex-direction: column; gap: 14px; max-width: 900px; }
+.wrap { display: flex; flex-direction: column; gap: 14px; max-width: 900px;  margin-inline: auto; }
 
 .stageTitle { font-family: var(--sans); font-size: 24px; font-weight: 600; margin: 4px 0 14px; }
 .meta { font-size: 14px; color: var(--faint); margin: 8px 0 0; font-family: var(--mono); }

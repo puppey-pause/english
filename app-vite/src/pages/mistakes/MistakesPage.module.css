@@ -1,4 +1,4 @@
-.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 860px; }
+.wrap { display: flex; flex-direction: column; gap: 12px; max-width: 860px;  margin-inline: auto; }
 
 .form {
   display: grid;

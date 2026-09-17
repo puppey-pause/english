@@ -232,7 +232,33 @@ export const WordsPage = () => {
             <Card flat>
               <p className={styles.empty}>{t("Колода повторена. Следующие слова вернутся по расписанию.")}</p>
             </Card>
-          ) : null}
+          ) : (
+            <Card tone="accent">
+              <Label>{t("колода пока пуста")}</Label>
+              <p className={styles.empty}>
+                {t("Добавляй сюда слова, которые встретил сам — с переводом и своим примером. А пока можно взять готовый набор карточек.")}
+              </p>
+              <div className={styles.actions}>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setDeckId("verbs");
+                    setFlipped(false);
+                  }}
+                >
+                  {t("неправильные глаголы")}
+                </Button>
+                <Button
+                  onClick={() => {
+                    setDeckId("words");
+                    setFlipped(false);
+                  }}
+                >
+                  {t("слово → перевод")}
+                </Button>
+              </div>
+            </Card>
+          )}
 
           {rest.length ? (
             <>

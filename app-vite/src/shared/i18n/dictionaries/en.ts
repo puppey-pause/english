@@ -1710,6 +1710,9 @@ export const en: Record<string, string> = {
   "остальное, когда захочешь": "the rest, whenever you feel like it",
   "весь путь целиком": "the whole path at once",
   "мои слова": "my words",
+  "колода пока пуста": "your deck is still empty",
+  "Добавляй сюда слова, которые встретил сам — с переводом и своим примером. А пока можно взять готовый набор карточек.":
+    "Add the words you run into yourself, with a translation and your own example. In the meantime, take one of the ready-made card sets.",
   "неправильные глаголы": "irregular verbs",
   "на лице — 1 форма, на обороте 2 и 3": "first form on the face, second and third on the back",
   "слово → перевод": "word to translation",
